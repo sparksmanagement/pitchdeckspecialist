@@ -1,0 +1,27 @@
+# Case studies pulled from sparkscann.com. Reference by key in a prospect file.
+purple_lotus:
+  name: Purple Lotus
+  location: San Jose, CA
+  type: Dispensary
+  situation: 10+ years on Weedmaps, Leafly and Yelp; hundreds of thousands spent on ads with weak returns.
+  actions: Reorganized ad positions, adjusted pricing and ranks, rebuilt deal strategy, added display ads, verified every product.
+  results:
+    - stat: "+63%"
+      label: "conversion rate"
+    - stat: "2x"
+      label: "on-platform ROAS in 3 months"
+    - stat: "2x"
+      label: "total return in 6 months"
+nuna_harvest:
+  name: Nuna Harvest
+  location: New York
+  type: Dispensary + Delivery
+  situation: New York retail and delivery operation competing in a fast-growing market.
+  actions: Full listing management across Weedmaps, Leafly and Yelp with deal activations and review management.
+  results:
+    - stat: "+638%"
+      label: "Weedmaps ROAS in 6 months"
+    - stat: "+44%"
+      label: "Leafly ROAS"
+    - stat: "+109%"
+      label: "Yelp leads"

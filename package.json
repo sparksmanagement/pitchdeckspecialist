@@ -1,0 +1,30 @@
+{
+  "name": "sparks-pitchdeck-specialist",
+  "version": "1.0.0",
+  "description": "Generates Sparks agency pitch decks (.pptx) for prospective dispensaries, deliveries and brands",
+  "scripts": {
+    "build": "node src/build_deck.js",
+    "build:all": "for f in prospects/*.yml; do case $f in *_template.yml) ;; *) node src/build_deck.js $f;; esac; done",
+    "preview": "node src/preview.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sparksmanagement/pitchdeckspecialist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sparksmanagement/pitchdeckspecialist/issues"
+  },
+  "homepage": "https://github.com/sparksmanagement/pitchdeckspecialist#readme",
+  "dependencies": {
+    "js-yaml": "^5.4.2",
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-icons": "^5.7.0",
+    "sharp": "^0.35.4"
+  },
+  "private": true
+}

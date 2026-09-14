@@ -1,0 +1,5 @@
+node_modules/
+*.pdf
+decks/*.pptx
+!decks/Sparks-x-example-green-valley.pptx
+.DS_Store

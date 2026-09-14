@@ -1,0 +1,89 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Prospect intake — copy this file to prospects/<slug>.yml and fill it in.
+# Anything left blank is either hidden or replaced with a sensible default.
+# Build: npm run build -- prospects/<slug>.yml
+# ─────────────────────────────────────────────────────────────────────────────
+
+prospect:
+  name: "Business Name"
+  type: dispensary            # dispensary | delivery | brand
+  city: "City"
+  state: "ST"
+  locations: 1
+  website: ""
+  contact_name: ""            # who we're pitching (owner / GM / marketing lead)
+  contact_title: ""
+  date: ""                    # leave blank for today's date
+
+# What we found when we looked at their listings. Drives the Problem and
+# Opportunity slides. Delete rows you don't have data for.
+audit:
+  - platform: Weedmaps
+    finding: "Listing live but no paid placement; 40% of menu unverified"
+    impact: "Buried below 6 competitors in the service zone"
+  - platform: Leafly
+    finding: "Menu last synced 3 weeks ago; no deals running"
+    impact: "Out-of-stock items still showing; lost orders"
+  - platform: Yelp
+    finding: "4 unanswered 1-star reviews; no Yelp Ads"
+    impact: "3.4 rating vs 4.5 market average"
+  - platform: Google
+    finding: "GBP not claimed / wrong hours; 0 posts in 6 months"
+    impact: "Not in the Maps 3-pack for 'dispensary near me'"
+
+# Local context for the "Where Your Customers Are" slide.
+market:
+  competitors_in_zone: 8
+  notes: "High-density market; Weedmaps and Google Maps drive most discovery."
+
+# ── SERVICES ── every deck must address all six. Set include true/false and
+# add notes describing exactly what we'll do for THIS prospect.
+services:
+  weedmaps:
+    include: true
+    notes: "Bid strategy for top-3 placement in zone, full menu verification, weekly deal rotation, review responses, weekly reporting."
+  leafly:
+    include: true
+    notes: "Menu sync with POS, Leafly ads, deal activations, review management."
+  yelp:
+    include: true
+    notes: "Yelp Ads (Certified Partner), profile optimization, review responses and removal requests, lead tracking."
+  google:
+    include: true
+    gbp: true
+    ads: false                # true only if compliant Google Ads are in scope
+    notes: "Claim & optimize GBP, weekly Google Posts, photo refresh, Q&A, review response. Target: Maps 3-pack in 90 days."
+  local_seo:
+    include: true
+    notes: "NAP cleanup and citations across 50+ directories, voice-assistant visibility."
+  other:                      # free-form extras; leave list empty [] if none
+    - name: "Programmatic Advertising"
+      notes: "Geo-fenced display + CTV within 5 miles via compliant DSPs; retargeting listing visitors."
+
+# Investment / engagement. Blank pricing renders as "Custom proposal".
+investment:
+  monthly_fee: ""             # e.g. "$2,500/mo"
+  ad_spend_note: "Ad spend billed directly by platforms; Sparks manages allocation."
+  term: "Month-to-month after 90-day launch"
+  options:                    # optional tiered packages; leave [] to hide
+    - name: "Launch"
+      price: ""
+      includes: "Weedmaps + Google"
+    - name: "Growth"
+      price: ""
+      includes: "Weedmaps + Leafly + Yelp + Google"
+    - name: "Dominate"
+      price: ""
+      includes: "All platforms + Local SEO + Programmatic"
+
+# 30/60/90 plan shown on the Next Steps slide. Defaults are fine for most decks.
+plan:
+  - period: "Days 1–30"
+    items: "Full audit, strategy, listing + menu clean-up, campaigns live"
+  - period: "Days 31–60"
+    items: "Bid & deal optimization, review program, dashboard attribution"
+  - period: "Days 61–90"
+    items: "Scale winners, Maps 3-pack push, quarterly plan"
+
+# Optional: pick which case studies to feature (keys from src/case_studies.yml)
+case_studies: [purple_lotus, nuna_harvest]

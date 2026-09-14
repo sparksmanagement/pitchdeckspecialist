@@ -1,0 +1,44 @@
+# Brand-level settings used by every deck. Edit once, applies everywhere.
+company: Sparks
+website: sparkscann.com
+tagline: The Cannabis Listing Management Agency
+one_liner: >-
+  We manage your Weedmaps, Leafly, Yelp, and Google listings and ads so your
+  dispensary gets found, clicked, and ordered from.
+
+contact:
+  name: Kevin Sparks
+  title: Founder & CEO
+  email: kevin@sparkscann.com
+  phone: ""            # fill in
+  booking_link: ""     # e.g. calendly link
+
+team:
+  - name: Kevin Sparks
+    title: Founder & CEO
+    bio: 4 years at Weedmaps working with the largest dispensaries in the world, then 3 years running listing management for Purple Lotus before founding Sparks in 2022.
+  # - name: ""
+  #   title: ""
+  #   bio: ""
+
+# Palette (hex, no #). Swap to official brand colors if they differ.
+palette:
+  primary: "0F2A1D"    # deep forest — dark slides
+  secondary: "1F6F43"  # cannabis green — headers, icons
+  accent: "C8F04A"     # electric lime — stats, highlights
+  light: "F4F7F2"      # off-white content background
+  ink: "16211B"        # body text
+  muted: "6B7A70"      # captions
+
+# Proof points shown on the Results slide (numbers from sparkscann.com only)
+proof:
+  - stat: "88%"
+    label: "avg. increase in order conversions in the first 90 days"
+  - stat: "$17"
+    label: "avg. return on every $1 of Weedmaps ad spend"
+  - stat: "25%"
+    label: "higher average order value than non-managed accounts"
+  - stat: "100+"
+    label: "dispensaries, deliveries & brands managed"
+
+guarantee: "Results in 30 days or your money back."
