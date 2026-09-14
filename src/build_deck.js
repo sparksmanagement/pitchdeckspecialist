@@ -183,6 +183,16 @@ function bullets(s, items, o) {
   s.addText(arr, { fontFace: FONT_B, fontSize: 13, color: C.ink, isTextBox: true, valign: "top", ...o });
 }
 
+// Free-trial starburst. (x, y) is the top-left of the burst's bounding box.
+function trialBurst(s, x, y, d = 1.7) {
+  s.addShape(pres.ShapeType.star16, { x, y, w: d, h: d, fill: { color: "FFFFFF" }, line: { color: C.primary, width: 1.5 }, rotate: 8 });
+  s.addText([
+    { text: "FREE", options: { fontFace: "Arial Black", fontSize: 17, bold: true, breakLine: true } },
+    { text: "30 DAYS", options: { fontFace: "Arial Black", fontSize: 14.5, bold: true, breakLine: true } },
+    { text: "no invoice until day 31", options: { fontFace: FONT_B, fontSize: 6, bold: true } },
+  ], { x: x + 0.15, y: y + 0.3, w: d - 0.3, h: d - 0.6, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0, lineSpacingMultiple: 0.95 });
+}
+
 function pill(s, label, x, y, w, opts = {}) {
   const h = 0.34;
   s.addShape(pres.ShapeType.roundRect, { x, y, w, h, rectRadius: 0.17, fill: { color: opts.fill || C.primary }, line: { color: opts.fill || C.primary, width: 0 } });
@@ -520,6 +530,7 @@ async function build() {
   {
     const s = base(true);
     title(s, `${focus.service} investment`, { dark: true, eyebrow: secEyebrow("Investment"), sub: inv.term || "" });
+    if (trial) trialBurst(s, W - M - 1.75, 0.5, 1.75);
     let opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const addonsPending = others.filter((k) => !isIncluded(k));
     if (!opts.length) {
@@ -680,12 +691,7 @@ async function build() {
     const px = M + leftW + 0.4, pw = W - M - px;
     card(s, px, 2.35, pw, 4.2, { fill: C.deep });
     text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 1.5, h: 0.3, fontSize: 10.5, color: C.accent, charSpacing: 3, bold: true });
-    if (trial) {
-      const bd = 1.5, bx = px + pw - bd * 0.7, byy = 2.35 - bd * 0.62;
-      s.addShape(pres.ShapeType.star16, { x: bx, y: byy, w: bd, h: bd, fill: { color: "FFFFFF" }, line: { color: C.primary, width: 1.5 }, rotate: 8 });
-      s.addText([{ text: "FREE", options: { fontSize: 10.5, bold: true, breakLine: true } }, { text: "30 DAYS", options: { fontSize: 14, bold: true, breakLine: true } }, { text: "no invoice until day 31", options: { fontSize: 6 } }],
-        { x: bx + 0.2, y: byy + 0.3, w: bd - 0.4, h: bd - 0.6, fontFace: FONT_H, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0 });
-    }
+    if (trial) trialBurst(s, px + pw - 1.7 * 0.7, 2.35 - 1.7 * 0.62, 1.7);
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const pendingKeys = others.filter((k) => !isIncluded(k));
