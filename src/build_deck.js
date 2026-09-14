@@ -313,7 +313,7 @@ async function build() {
       s.addShape(pres.ShapeType.roundRect, { x: sx, y: sy, w: sw, h: sh, rectRadius: 0.25, fill: { color: "FFFFFF" }, line: { color: "FFFFFF", width: 0 } });
       s.addShape(pres.ShapeType.roundRect, { x: px + pw / 2 - 0.35, y: sy + 0.08, w: 0.7, h: 0.16, rectRadius: 0.08, fill: { color: "1C1C1E" }, line: { color: "1C1C1E", width: 0 } });
       const sections = {}; // section key -> y (for markers)
-      const img = { x: sx + 0.02, y: sy + 0.3, w: sw - 0.04, h: sh - 0.34 };
+      const img = { x: sx + 0.12, y: sy + 0.36, w: sw - 0.24, h: sh - 0.5 };
       if (shot) {
         s.addImage({ path: shot, x: img.x, y: img.y, w: img.w, h: img.h, sizing: { type: "cover", w: img.w, h: img.h } });
       } else {
@@ -360,8 +360,8 @@ async function build() {
         card(s, cx, y, cwid, ch);
         s.addShape(pres.ShapeType.ellipse, { x: cx + 0.2, y: y + 0.18, w: 0.36, h: 0.36, fill: { color: FLAG }, line: { color: FLAG, width: 0 } });
         s.addText(String(i + 1), { x: cx + 0.2, y: y + 0.18, w: 0.36, h: 0.36, fontFace: FONT_H, fontSize: 11, bold: true, color: "FFFFFF", align: "center", valign: "middle", isTextBox: true, margin: 0 });
-        text(s, c.title || "", { x: cx + 0.7, y: y + 0.12, w: cwid - 0.9, h: 0.3, fontSize: 12, bold: true, color: C.primary });
-        text(s, c.text || "", { x: cx + 0.7, y: y + 0.4, w: cwid - 0.85, h: ch - 0.45, fontSize: 9.5, color: C.ink });
+        text(s, c.title || "", { x: cx + 0.7, y: y + 0.1, w: cwid - 0.85, h: 0.28, fontSize: 11.5, bold: true, color: C.primary, valign: "middle" });
+        text(s, c.text || "", { x: cx + 0.7, y: y + 0.38, w: cwid - 0.85, h: ch - 0.42, fontSize: 9, color: C.ink });
         // marker on the phone
         let my = null, mx = sx + sw - 0.4;
         if (shot && Array.isArray(c.at)) { mx = img.x + c.at[0] * img.w - 0.15; my = img.y + c.at[1] * img.h - 0.15; }
@@ -380,8 +380,8 @@ async function build() {
       fleet.forEach((r, i) => {
         const y = y0 + 0.6 + i * fh;
         const label = String(r.platform || "").replace(new RegExp(`^${focus.name}\\s*[·:-]?\\s*`, "i"), "") || focus.name;
-        text(s, label, { x: fx + 0.3, y, w: fw - 0.6, h: 0.24, fontSize: 10.5, bold: true, color: "FFFFFF" });
-        text(s, r.finding || "", { x: fx + 0.3, y: y + 0.24, w: fw - 0.6, h: fh - 0.28, fontSize: 9.5, color: C.soft });
+        text(s, label, { x: fx + 0.3, y, w: fw - 0.6, h: 0.22, fontSize: 10, bold: true, color: "FFFFFF" });
+        text(s, r.finding || "", { x: fx + 0.3, y: y + 0.22, w: fw - 0.6, h: fh - 0.26, fontSize: 9, color: C.soft });
       });
       s.addNotes(`Walk the phone left to right: this is ${mock.listing || "their listing"} exactly as a shopper sees it. Each numbered flag is a fix in the first 30 days. Right column: the same pattern across the other listings. Items marked 'to confirm' need account access to verify.`);
     } else {

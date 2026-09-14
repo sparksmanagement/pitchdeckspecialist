@@ -17,19 +17,19 @@ prospect:
 # Verified on the live Weedmaps listings (headless browser, Sept 14 2026).
 audit:
   - platform: "Weedmaps · Sacramento"
-    finding: "Listed as \"Community Health Solutions - Sacramento\" — the header image says it too. 4.7★ / 1,145 reviews, 1,954 products"
+    finding: "Listed as \"Community Health Solutions - Sacramento\" (header image too). 4.7★ / 1,145 reviews."
     impact: "The flagship store doesn't carry the NUG name; brand searches and reviews are split"
   - platform: "Weedmaps · Vallejo"
-    finding: "Listed as \"California Collective Care\"; online ordering stops at 7:00pm while the store is open until 10:00pm"
+    finding: "Listed as \"California Collective Care\"; ordering stops at 7pm while the store is open to 10pm."
     impact: "Three hours of open-store time with no online orders, every day"
   - platform: "Weedmaps · Riverside"
-    finding: "Page shows \"The Artist Tree\", browser title \"Biomass Industries, LLC\", logo says NUG. 4.6★ / 10 reviews, pickup only"
+    finding: "Shows \"The Artist Tree\" (browser title \"Biomass Industries, LLC\"), NUG logo. 4.6★ / 10 reviews, pickup only."
     impact: "Three names on one listing; the June 1-star review has no reply"
   - platform: "Weedmaps · Alameda"
-    finding: "4.8★ but only 41 reviews, a single photo, and the same expired Labor Day header"
+    finding: "4.8★ but only 41 reviews, one photo, and the same expired Labor Day header."
     impact: "Thin social proof and a stale, one-photo profile in a newer zone"
   - platform: "Weedmaps · Red Bluff & San Leandro"
-    finding: "Red Bluff: 4.3★ from 8 reviews, lowest in the chain. San Leandro (4.7★ / 577) is the only NUG listing that answers reviews"
+    finding: "Red Bluff 4.3★ / 8 reviews, lowest in the chain. San Leandro (4.7★ / 577) is the only listing answering reviews."
     impact: "The playbook that works in San Leandro isn't applied anywhere else"
 
 # NUG Oakland on an iPhone with numbered callouts (slide 5). Real screenshot captured from
@@ -48,19 +48,19 @@ audit_mock:
   callouts:
     - at: [0.9, 0.073]
       title: "Still promoting Labor Day"
-      text: "The Labor Day Sale header (Sept 3–7) is still the hero image a week after it ended — on Oakland, Alameda, Vallejo and Riverside."
+      text: "Labor Day Sale header (Sept 3–7) is still the hero image a week later — also on Alameda, Vallejo and Riverside."
     - at: [0.9, 0.72]
       title: "\"Monday Deals…\" says nothing"
-      text: "One deal tile with a generic tag icon and no detail. Shoppers can't see what's on sale without clicking through."
+      text: "One tile, a generic tag icon, no detail. Shoppers can't see what's on sale without clicking through."
     - at: [0.9, 0.884]
       title: "On-sale products aren't featured"
-      text: "Items carrying –20% badges sit buried in the menu; nothing is surfaced as a featured product above the fold."
+      text: "–20% items sit buried in the menu; nothing is surfaced as a featured product above the fold."
     - at: [0.9, 0.423]
       title: "Only 59 reviews"
-      text: "4.7★ from 59 reviews for a downtown store that's been open for years, and none of them answered."
+      text: "4.7★ from 59 reviews for a downtown store open for years — and none of them answered."
     - at: [0.37, 0.95]
       title: "Products missing verification"
-      text: "838-item menu with product verifications missing — unverified SKUs drop out of brand-filtered search."
+      text: "838-item menu with verifications missing — unverified SKUs drop out of brand-filtered search."
 
 market:
   competitors_in_zone:          # left blank: seven zones, counts vary — panel shows location count instead
