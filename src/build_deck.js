@@ -66,7 +66,7 @@ const listWords = (a) => (a.length <= 1 ? a.join("") : a.slice(0, -1).join(", ")
 const includedNames = ORDER.filter(isIncluded).map((k) => PLAT[k].name);
 const otherNames = () => ORDER.filter((k) => k !== focusKey).map((k) => PLAT[k].name);
 const bundleLabel = () => (bundle && bundle.label) || `${otherNames().join(" + ")} bundle`;
-const tileAddonLabel = bundle ? `ADD-ON BUNDLE ${bundle.price}` : `ADD-ON ${addonPrice}`;
+const tileAddonLabel = bundle ? "ADD-ON BUNDLE" : "ADD-ON";
 const scopeList = listWords(includedNames.length ? includedNames : [focus.name]);
 const oneLiner = `We manage your ${scopeList} listings and ads so your ${typeWord} gets found, clicked, and ordered from.`;
 
