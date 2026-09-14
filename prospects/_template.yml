@@ -62,22 +62,30 @@ services:
     - name: "Programmatic Advertising"
       notes: "Geo-fenced display + CTV within 5 miles via compliant DSPs; retargeting listing visitors."
 
-# Investment / engagement. Blank pricing renders as "Custom proposal".
+# Investment / engagement. Two ways to price the non-focus platforms:
+#   addon_price  — per platform ("$495/mo each")            [used when `addon` is absent]
+#   addon        — one bundle for all non-focus platforms    [preferred; add `total` for the package]
 investment:
-  monthly_fee: ""             # e.g. "$2,500/mo" (used when options is empty)
-  addon_price: "$495/mo"      # price shown for each non-focus platform that is not included
-  ad_spend_note: "Ad spend billed directly by platforms; Sparks manages allocation."
-  term: "Month-to-month after 90-day launch"
-  options:                    # optional tiered packages; leave [] to hide
-    - name: "Launch"
-      price: ""
-      includes: "Weedmaps + Google"
-    - name: "Growth"
-      price: ""
-      includes: "Weedmaps + Leafly + Yelp + Google"
-    - name: "Dominate"
-      price: ""
-      includes: "All platforms + Local SEO + Programmatic"
+  monthly_fee: ""             # single price, used when options is empty
+  trial: ""                   # e.g. "Free 30-day trial — no invoice until day 31. Zero risk to start." (keep under ~65 chars)
+  addon_price: "$495/mo"
+  addon:
+    label: "Leafly + Yelp + Google"
+    price: "$495/mo"
+    detail: "One fee for all three platforms; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+  total:
+    label: "Total package"
+    price: "$1,490/mo"
+    detail: "Weedmaps + Leafly + Yelp + Google, unless the 10%-of-ad-spend rule applies"
+  ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
+  term: "Month-to-month after the 90-day launch"
+  options:                    # focus-platform tiers shown on the Investment slide; leave [] to use monthly_fee
+    - name: "Weedmaps · Base"
+      price: "$995/mo"
+      includes: "Full Weedmaps management while Weedmaps ad spend is $9,995/mo or less"
+    - name: "Weedmaps · Scale"
+      price: "10% of ad spend"
+      includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo"
 
 # 30/60/90 plan shown on the Next Steps slide. Defaults are fine for most decks.
 plan:

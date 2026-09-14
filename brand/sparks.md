@@ -118,6 +118,13 @@ on a slide.
 | General marketing agency | Doesn't know cannabis compliance or marketplace auctions; treats Weedmaps like a social channel |
 | **Sparks** | Ex-Weedmaps operators, all four platforms + 50 directories, POS-integrated attribution dashboard, 30-day guarantee |
 
+## Standard pricing (Sept 2026)
+
+- Weedmaps Management: $995/mo base; becomes 10% of Weedmaps ad spend once spend exceeds $9,995/mo.
+- Add-on bundle (Leafly + Yelp + Google management): $495/mo total; becomes 10% of ad spend if any platform exceeds $4,950/mo.
+- Full package: $1,490/mo unless a 10%-of-ad-spend rule applies. Ad spend is billed by the platforms.
+- Results in 30 days or money back; month-to-month after the 90-day launch.
+
 ## Contact
 
 - Website: https://sparkscann.com

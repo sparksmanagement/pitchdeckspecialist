@@ -61,16 +61,24 @@ services:
 
 investment:
   monthly_fee: ""
-  addon_price: "$495/mo"        # Leafly, Yelp, Google each, on top of Weedmaps
-  ad_spend_note: "Ad spend is billed directly by Weedmaps; Sparks manages allocation and bidding across every listing."
+  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."
+  ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
   term: "Month-to-month after the 90-day launch"
   options:
-    - name: "Base"
+    - name: "Weedmaps · Base"
       price: "$995/mo"
-      includes: "Full Weedmaps management across all 7 listings + brand page while total Weedmaps ad spend is $9,995/mo or less"
-    - name: "Scale"
+      includes: "Full Weedmaps management across all 7 listings + brand page while Weedmaps ad spend is $9,995/mo or less"
+    - name: "Weedmaps · Scale"
       price: "10% of ad spend"
       includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo — the fee scales only when the spend does"
+  addon:                        # one bundle price for every non-focus platform
+    label: "Leafly + Yelp + Google"
+    price: "$495/mo"
+    detail: "One fee for all three platforms; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+  total:
+    label: "Total package"
+    price: "$1,490/mo"
+    detail: "Weedmaps + Leafly + Yelp + Google, unless the 10%-of-ad-spend rule applies"
 
 plan:
   - period: "Days 1–30"

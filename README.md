@@ -21,7 +21,10 @@ An example is included: `prospects/example-green-valley.yml` →
 
 Decks are split by platform: the focus platform (default Weedmaps) gets the full
 pitch, then Leafly, Yelp and Google follow as one-slide previews, each marked
-INCLUDED or ADD-ON at the price in `investment.addon_price`.
+INCLUDED or ADD-ON. Sparks standard pricing: focus platform $995/mo (10% of ad
+spend above $9,995/mo), the other three as one $495/mo bundle (10% of ad spend
+above $4,950/mo on any platform), $1,490/mo for the full package — set in the
+prospect file under `investment`.
 
 | # | Slide | Personalized by |
 |---|---|---|

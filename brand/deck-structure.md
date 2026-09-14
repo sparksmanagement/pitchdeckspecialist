@@ -16,7 +16,7 @@ Rules that carry over from the Airbnb deck:
 |---|---|---|---|
 | 1 | Cover — Sparks × Prospect, "<Focus> Management proposal" | Cover | prospect + brand |
 | 2 | The Problem | Problem | brand |
-| 3 | The Solution — platform tiles: THIS PROPOSAL / INCLUDED / ADD-ON $495 | Solution | services + investment.addon_price |
+| 3 | The Solution — platform tiles: THIS PROPOSAL / INCLUDED / ADD-ON BUNDLE $495 | Solution | services + investment.addon_price |
 | 4 | **Focus · Why it matters** — 3 reasons + "your market" panel | Market validation | platforms.yml + prospect.market |
 | 5 | **Focus · Audit** — what we found on their listings | Market size | prospect.audit (rows whose platform starts with the focus name) |
 | 6 | **Focus · Scope** — what Sparks will manage (8 numbered lines) | Product | platforms.yml + services.<focus>.notes |

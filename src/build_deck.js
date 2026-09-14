@@ -58,8 +58,15 @@ const others = ORDER.filter((k) => k !== focusKey);
 const isIncluded = (k) => !!(SV[k] && SV[k].include);
 const inv = P.investment || {};
 const addonPrice = inv.addon_price || "$495/mo";
+// Bundle mode: investment.addon = { price, detail } prices all non-focus platforms together.
+const bundle = inv.addon && inv.addon.price ? inv.addon : null;
+const total = inv.total && inv.total.price ? inv.total : null;
+const trial = typeof inv.trial === "string" && inv.trial.trim() ? inv.trial.trim() : null;
 const listWords = (a) => (a.length <= 1 ? a.join("") : a.slice(0, -1).join(", ") + (a.length > 2 ? "," : "") + " and " + a[a.length - 1]);
 const includedNames = ORDER.filter(isIncluded).map((k) => PLAT[k].name);
+const otherNames = () => ORDER.filter((k) => k !== focusKey).map((k) => PLAT[k].name);
+const bundleLabel = () => (bundle && bundle.label) || `${otherNames().join(" + ")} bundle`;
+const tileAddonLabel = bundle ? `ADD-ON BUNDLE ${bundle.price}` : `ADD-ON ${addonPrice}`;
 const scopeList = listWords(includedNames.length ? includedNames : [focus.name]);
 const oneLiner = `We manage your ${scopeList} listings and ads so your ${typeWord} gets found, clicked, and ordered from.`;
 
@@ -196,12 +203,12 @@ async function build() {
       isTextBox: true, margin: 0, valign: "top",
     });
     const afterTitle = coverY + coverH + 0.2;
-    text(s, `${focus.service} proposal`, { x: M, y: afterTitle, w: 7.6, h: 0.4, fontSize: 18, bold: true, color: "FFFFFF" });
+    text(s, `${focus.service} proposal${trial ? "  ·  Free 30-day trial" : ""}`, { x: M, y: afterTitle, w: 8.2, h: 0.4, fontSize: 18, bold: true, color: "FFFFFF" });
     text(s, oneLiner, { x: M, y: afterTitle + 0.45, w: 7.6, h: 1.0, fontSize: 16, color: C.soft });
     text(s, [place, today, pros.contact_name ? `Prepared for ${pros.contact_name}${pros.contact_title ? ", " + pros.contact_title : ""}` : ""].filter(Boolean).join("   ·   "), {
       x: M, y: Math.min(afterTitle + 1.55, H - 1.1), w: 9, h: 0.4, fontSize: 12, color: C.accent,
     });
-    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. This deck is ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are add-ons at ${addonPrice} each.`);
+    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. This deck is ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are ${bundle ? `an add-on bundle at ${bundle.price} total` : `add-ons at ${addonPrice} each`}.`);
   }
 
   // 2. PROBLEM
@@ -241,9 +248,11 @@ async function build() {
       card(s, x, 4.95, bw, 1.7, { fill: on ? "FFFFFF" : C.deep });
       s.addImage({ data: await icon(pl.icon, on ? C.primary : C.dim), x: x + bw / 2 - 0.3, y: 5.15, w: 0.6, h: 0.6 });
       text(s, pl.name, { x, y: 5.85, w: bw, h: 0.3, fontSize: 14, bold: true, color: on ? C.primary : C.dim, align: "center" });
-      text(s, isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : `ADD-ON ${addonPrice}`, { x, y: 6.15, w: bw, h: 0.25, fontSize: 8, bold: true, color: on ? C.ink : C.dim, align: "center", charSpacing: 1 });
+      text(s, isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel, { x, y: 6.15, w: bw, h: 0.25, fontSize: 8, bold: true, color: on ? C.ink : C.dim, align: "center", charSpacing: 1 });
     }
-    s.addNotes("One sentence the prospect can repeat back. The tiles preview the deck's order: the focus platform in full, then each add-on.");
+    s.addNotes(bundle
+      ? `One sentence the prospect can repeat back. The tiles preview the deck's order: ${focus.name} in full, then the add-on bundle (${bundleLabel()} for ${bundle.price} total${total ? `; whole package ${total.price}` : ""}).`
+      : "One sentence the prospect can repeat back. The tiles preview the deck's order: the focus platform in full, then each add-on.");
   }
 
   // ── FOCUS PLATFORM SECTION ──
@@ -385,6 +394,8 @@ async function build() {
     const s = base(true);
     title(s, `${focus.service} investment`, { dark: true, eyebrow: secEyebrow("Investment"), sub: inv.term || "" });
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
+    const addonsPending = others.filter((k) => !isIncluded(k));
+    if (bundle && addonsPending.length) opts.push({ name: "Add-on bundle", price: bundle.price, includes: `${bundleLabel()}. ${bundle.detail || ""}`.trim() });
     const gap = 0.3;
     if (opts.length) {
       const n = Math.min(opts.length, 3), cw = (W - 2 * M - gap * (n - 1)) / n;
@@ -392,21 +403,32 @@ async function build() {
         const x = M + i * (cw + gap);
         card(s, x, 2.55, cw, 2.9, { fill: "FFFFFF" });
         text(s, o.name, { x: x + 0.35, y: 2.8, w: cw - 0.7, h: 0.4, fontSize: 16, bold: true, color: C.primary });
-        s.addText(o.price || "Custom", { x: x + 0.35, y: 3.2, w: cw - 0.7, h: 0.95, fontFace: FONT_H, fontSize: 34, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "top" });
-        text(s, o.includes || "", { x: x + 0.35, y: 4.2, w: cw - 0.7, h: 1.1, fontSize: 12.5, color: C.ink });
+        const price = o.price || "Custom";
+        const pf = price.length <= 9 ? 34 : price.length <= 14 ? 28 : 22;
+        s.addText(price, { x: x + 0.35, y: 3.2, w: cw - 0.7, h: 0.9, fontFace: FONT_H, fontSize: pf, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
+        text(s, o.includes || "", { x: x + 0.35, y: 4.2, w: cw - 0.7, h: 1.15, fontSize: 12, color: C.ink });
       });
     } else {
       card(s, M, 2.55, 6, 2.9, { fill: "FFFFFF" });
       text(s, focus.service, { x: M + 0.35, y: 2.8, w: 5.3, h: 0.4, fontSize: 16, bold: true, color: C.primary });
       s.addText(inv.monthly_fee || "Custom proposal", { x: M + 0.35, y: 3.2, w: 5.3, h: 0.95, fontFace: FONT_H, fontSize: 34, bold: true, color: C.ink, isTextBox: true, margin: 0 });
     }
-    text(s, brand.guarantee, { x: M, y: 5.7, w: 6.5, h: 0.4, fontSize: 15, bold: true, color: C.accent });
-    text(s, inv.ad_spend_note || "", { x: M, y: 6.1, w: 6.5, h: 0.5, fontSize: 11, color: C.soft, italic: true });
-    const addons = others.filter((k) => !isIncluded(k)).map((k) => PLAT[k].name);
-    if (addons.length) {
-      text(s, `Add ${listWords(addons)} management for ${addonPrice} each — previews on the next ${addons.length === 1 ? "slide" : "slides"}.`, { x: M + 6.8, y: 5.7, w: W - 2 * M - 6.8, h: 0.9, fontSize: 13, bold: true, color: "FFFFFF", align: "right" });
+    if (trial) {
+      text(s, trial, { x: M, y: 5.6, w: 6.6, h: 0.4, fontSize: 13, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: 6.0, w: 6.5, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
+      text(s, inv.ad_spend_note || "", { x: M, y: 6.3, w: 6.5, h: 0.4, fontSize: 10.5, color: C.soft, italic: true });
+    } else {
+      text(s, brand.guarantee, { x: M, y: 5.7, w: 6.5, h: 0.4, fontSize: 15, bold: true, color: C.accent });
+      text(s, inv.ad_spend_note || "", { x: M, y: 6.1, w: 6.5, h: 0.5, fontSize: 11, color: C.soft, italic: true });
     }
-    s.addNotes(`Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. Then transition: each add-on is ${addonPrice}.`);
+    const addons = addonsPending.map((k) => PLAT[k].name);
+    if (addons.length) {
+      const teaser = bundle
+        ? (total ? `Total package with ${listWords(addons)}: ${total.price}${total.detail ? ` — ${total.detail}` : ""}` : `Add ${listWords(addons)} management together for ${bundle.price}.`)
+        : `Add ${listWords(addons)} management for ${addonPrice} each — previews on the next ${addons.length === 1 ? "slide" : "slides"}.`;
+      text(s, teaser, { x: M + 6.8, y: 5.7, w: W - 2 * M - 6.8, h: 0.9, fontSize: 13, bold: true, color: "FFFFFF", align: "right" });
+    }
+    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Whole package: ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──
@@ -415,7 +437,8 @@ async function build() {
     const inc = isIncluded(k);
     const cfg = SV[k] || {};
     const s = base();
-    const y0 = title(s, pl.service, { eyebrow: inc ? `Included  ·  ${pl.name}` : `Add-on  ·  ${pl.name}  ·  ${addonPrice}`, sub: pl.tagline });
+    const eyebrow = inc ? `Included  ·  ${pl.name}` : bundle ? `Add-on bundle  ·  ${pl.name}  ·  ${bundle.price} for ${otherNames().join(" + ")}` : `Add-on  ·  ${pl.name}  ·  ${addonPrice}`;
+    const y0 = title(s, pl.service, { eyebrow, sub: pl.tagline });
     const items = (pl.why_it_matters || []).slice(0, 3);
     const leftW = 7.4;
     const seen = auditFor(k);
@@ -444,10 +467,12 @@ async function build() {
       s.addText(pl.proof.stat, { x: rx + 0.35, y: y0 + rhgt - 1.38, w: 2.0, h: 0.55, fontFace: FONT_H, fontSize: 24, bold: true, color: C.accent, isTextBox: true, margin: 0, valign: "middle" });
       text(s, pl.proof.label, { x: rx + 2.4, y: y0 + rhgt - 1.38, w: rw - 2.75, h: 0.55, fontSize: 10.5, color: C.soft, valign: "middle" });
     }
-    pill(s, inc ? "INCLUDED IN THIS PROPOSAL" : `ADD-ON  ·  +${addonPrice}`, rx + 0.35, y0 + rhgt - 0.65, rw - 0.7, { fill: "FFFFFF", color: C.primary });
+    pill(s, inc ? "INCLUDED IN THIS PROPOSAL" : bundle ? `IN THE ${bundle.price} ADD-ON BUNDLE` : `ADD-ON  ·  +${addonPrice}`, rx + 0.35, y0 + rhgt - 0.65, rw - 0.7, { fill: "FFFFFF", color: C.primary });
     s.addNotes(inc
       ? `${pl.service} is included in this proposal. Scope notes: ${cfg.notes || "see scope of services"}.`
-      : `${pl.service} preview. Offered as an add-on at ${addonPrice}. Same seven pillars applied to ${pl.name}; can be switched on at any point in the engagement.`);
+      : bundle
+        ? `${pl.service} preview. Part of the add-on bundle: ${bundleLabel()} for ${bundle.price} total${bundle.detail ? ` (${bundle.detail})` : ""}. Same seven pillars applied to ${pl.name}; can be switched on at any point.`
+        : `${pl.service} preview. Offered as an add-on at ${addonPrice}. Same seven pillars applied to ${pl.name}; can be switched on at any point in the engagement.`);
   }
 
   // WHY SPARKS
@@ -519,30 +544,43 @@ async function build() {
       const y = 2.35 + i * 1.05;
       s.addShape(pres.ShapeType.ellipse, { x: M, y: y + 0.1, w: 0.55, h: 0.55, fill: { color: C.accent }, line: { color: C.accent, width: 0 } });
       s.addText(String(i + 1), { x: M, y: y + 0.1, w: 0.55, h: 0.55, fontFace: FONT_H, fontSize: 16, bold: true, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0 });
-      text(s, p.period, { x: M + 0.8, y, w: leftW - 0.8, h: 0.4, fontSize: 15, bold: true, color: "FFFFFF" });
+      text(s, p.period + (trial && i === 0 ? "  ·  Free trial" : ""), { x: M + 0.8, y, w: leftW - 0.8, h: 0.4, fontSize: 15, bold: true, color: "FFFFFF" });
       text(s, p.items, { x: M + 0.8, y: y + 0.4, w: leftW - 0.8, h: 0.6, fontSize: 12, color: C.soft });
     });
-    text(s, brand.guarantee, { x: M, y: 5.6, w: leftW, h: 0.4, fontSize: 14, bold: true, color: C.accent });
-    if (LOGO.wordmark_white) s.addImage({ ...logoW("wordmark_white", 1.1), x: M, y: 6.05 });
+    if (trial) {
+      text(s, trial, { x: M, y: 5.45, w: leftW, h: 0.35, fontSize: 13, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: 5.8, w: leftW, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
+    } else {
+      text(s, brand.guarantee, { x: M, y: 5.6, w: leftW, h: 0.4, fontSize: 14, bold: true, color: C.accent });
+    }
+    if (LOGO.wordmark_white) s.addImage({ ...logoW("wordmark_white", 1.0), x: M, y: 6.15 });
     const px = M + leftW + 0.4, pw = W - M - px;
     card(s, px, 2.35, pw, 4.2, { fill: C.deep });
     text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 0.7, h: 0.3, fontSize: 11, color: C.accent, charSpacing: 4, bold: true });
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
-    if (opts.length) opts.forEach((o) => lines.push([`${focus.name} · ${o.name}`, o.price || "Custom"]));
+    if (opts.length) opts.forEach((o) => lines.push([o.name.toLowerCase().startsWith(focus.name.toLowerCase()) ? o.name : `${focus.name} · ${o.name}`, o.price || "Custom"]));
     else lines.push([focus.service, inv.monthly_fee || "Custom"]);
-    for (const k of others) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), isIncluded(k) ? "Included" : `+${addonPrice}`]);
-    const lh = Math.min(0.42, 2.2 / lines.length);
+    const pendingKeys = others.filter((k) => !isIncluded(k));
+    for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
+    if (pendingKeys.length) {
+      if (bundle) lines.push([pendingKeys.map((k) => PLAT[k].name).join(" + "), `+${bundle.price}`]);
+      else for (const k of pendingKeys) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), `+${addonPrice}`]);
+    }
+    if (total) lines.push([total.label || "Total package", total.price, true]);
+    const lh = Math.min(0.42, 2.3 / lines.length);
     lines.forEach((l, i) => {
       const y = 3.0 + i * lh;
-      text(s, l[0], { x: px + 0.35, y, w: pw - 2.6, h: lh, fontSize: 12.5, color: "FFFFFF", valign: "middle" });
-      text(s, l[1], { x: px + pw - 2.35, y, w: 2.0, h: lh, fontSize: 12.5, bold: true, color: C.accent, align: "right", valign: "middle" });
+      if (l[2]) s.addShape(pres.ShapeType.line, { x: px + 0.35, y: y + 0.02, w: pw - 0.7, h: 0, line: { color: C.dim, width: 0.75 } });
+      text(s, l[0], { x: px + 0.35, y, w: pw - 2.1, h: lh, fontSize: 12, bold: !!l[2], color: "FFFFFF", valign: "middle" });
+      text(s, l[1], { x: px + pw - 1.95, y, w: 1.6, h: lh, fontSize: l[2] ? 14 : 12, bold: true, color: C.accent, align: "right", valign: "middle" });
     });
+    if (total && total.detail) text(s, total.detail, { x: px + 0.35, y: 3.0 + lines.length * lh + 0.02, w: pw - 0.7, h: 0.45, fontSize: 10, italic: true, color: C.soft });
     const ct = brand.contact || {};
     const contactLine = [ct.name && `${ct.name}${ct.title ? ", " + ct.title : ""}`, ct.email, ct.phone, ct.booking_link].filter(Boolean).join("  ·  ");
     text(s, "Ready when you are.", { x: px + 0.35, y: 5.55, w: pw - 0.7, h: 0.4, fontSize: 16, bold: true, color: "FFFFFF" });
     text(s, contactLine, { x: px + 0.35, y: 5.95, w: pw - 0.7, h: 0.5, fontSize: 11, color: C.accent });
-    s.addNotes(`Close: restate the guarantee, propose a start date, and ask for ${focus.name} admin access to begin the audit. Add-ons are ${addonPrice} each and can be switched on at any time.`);
+    s.addNotes(`${trial ? trial + " " : ""}Close: restate the guarantee, propose a start date, and ask for ${focus.name} admin access to begin the audit. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });

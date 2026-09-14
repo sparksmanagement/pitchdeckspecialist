@@ -16,7 +16,12 @@ your job is to turn that into a finished `.pptx`.
 2. **Create the prospect file.** Copy `prospects/_template.yml` to
    `prospects/<slug>.yml` and fill every section. Set `focus` (default
    `weedmaps`) — that platform gets the full pitch; the others become one-slide
-   add-on previews at `investment.addon_price` (default $495/mo). The
+   add-on previews priced as a bundle via `investment.addon` (Sparks standard:
+   Leafly + Yelp + Google for $495/mo total, scaling to 10% of ad spend above
+   $4,950/mo on any platform; `investment.total` shows the package price,
+   $1,490/mo with Weedmaps at $995/mo). `addon_price` is the per-platform fallback. `investment.trial` (free
+   30-day trial, no invoice until day 31) shows on the cover, investment and
+   next-steps slides when set. The
    `services` block must always address all six: `weedmaps`, `leafly`, `yelp`,
    `google` (with `gbp` and `ads` flags), `local_seo`, and `other` (a list; `[]`
    if none). `include: true` on a non-focus platform marks its preview slide
