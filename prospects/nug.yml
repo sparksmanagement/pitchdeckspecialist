@@ -14,8 +14,7 @@ prospect:
   contact_title: ""
   date: ""
 
-# Verified on the live Weedmaps listings (headless browser, Sept 14 2026). Items marked
-# "to confirm" need account access.
+# Verified on the live Weedmaps listings (headless browser, Sept 14 2026).
 audit:
   - platform: "Weedmaps · Sacramento"
     finding: "Listed as \"Community Health Solutions - Sacramento\" — the header image says it too. 4.7★ / 1,145 reviews, 1,954 products"
@@ -23,45 +22,45 @@ audit:
   - platform: "Weedmaps · Vallejo"
     finding: "Listed as \"California Collective Care\"; online ordering stops at 7:00pm while the store is open until 10:00pm"
     impact: "Three hours of open-store time with no online orders, every day"
+  - platform: "Weedmaps · Riverside"
+    finding: "Page shows \"The Artist Tree\", browser title \"Biomass Industries, LLC\", logo says NUG. 4.6★ / 10 reviews, pickup only"
+    impact: "Three names on one listing; the June 1-star review has no reply"
   - platform: "Weedmaps · Alameda"
-    finding: "4.8★ but only 41 reviews, a single photo, and the Labor Day (Sept 3–7) header still live"
+    finding: "4.8★ but only 41 reviews, a single photo, and the same expired Labor Day header"
     impact: "Thin social proof and a stale, one-photo profile in a newer zone"
-  - platform: "Weedmaps · Red Bluff"
-    finding: "4.3★ from 8 reviews — lowest rating in the chain; no owner replies"
-    impact: "With a tiny review base, every 1-star review moves the rating"
-  - platform: "Weedmaps · Oakland & San Leandro"
-    finding: "4.7★ / 155 and 4.7★ / 577 reviews. San Leandro is the only NUG listing that answers reviews (12 replies)"
-    impact: "The playbook that works in San Leandro isn't applied to the other six"
+  - platform: "Weedmaps · Red Bluff & San Leandro"
+    finding: "Red Bluff: 4.3★ from 8 reviews, lowest in the chain. San Leandro (4.7★ / 577) is the only NUG listing that answers reviews"
+    impact: "The playbook that works in San Leandro isn't applied anywhere else"
 
-# Worst-looking listing, shown on an iPhone with numbered callouts (slide 5).
-# Real screenshot captured from weedmaps.com/dispensaries/nug-riverside on Sept 14 2026.
+# NUG Oakland on an iPhone with numbered callouts (slide 5). Real screenshot captured from
+# weedmaps.com/dispensaries/nug-oakland on Sept 14 2026.
 audit_mock:
-  listing: "NUG Riverside (weedmaps.com/dispensaries/nug-riverside)"
-  subtitle: "Dispensary · Riverside, CA · Medical & Recreational"
-  rating: "4.6"
-  reviews: "10 reviews"
+  listing: "NUG Oakland (weedmaps.com/dispensaries/nug-oakland)"
+  subtitle: "Dispensary · Oakland, CA · Medical & Recreational"
+  rating: "4.7"
+  reviews: "59 reviews"
   badges: ["Order online", "Pickup"]
-  deals: "Monday Deals"
-  menu: "1,768 products · Live menu"
+  deals: "Monday Deals..."
+  menu: "838 products · Live menu"
   reviews_line: "No owner replies"
-  screenshot: "prospects/assets/nug-riverside-weedmaps.png"
+  screenshot: "prospects/assets/nug-oakland-weedmaps.png"
   fleet_title: "Across the other 6 listings"
   callouts:
-    - at: [0.9, 0.29]
-      title: "Three names on one listing"
-      text: "Page: \"The Artist Tree\". Browser title: \"Biomass Industries, LLC\". Logo and reviews: NUG Riverside. Brand searches can't find it."
-    - at: [0.9, 0.075]
-      title: "Expired banner still live"
-      text: "The Labor Day Sale header (Sept 3–7) is still up a week later — here and on Alameda and Vallejo."
-    - at: [0.9, 0.42]
-      title: "10 reviews, none answered"
-      text: "4.6★ from 10 reviews. The June 1-star (\"sold old flower\") has no owner reply."
-    - at: [0.9, 0.535]
-      title: "Pickup only"
-      text: "Storefront | Pickup — no delivery option on this or any of the seven listings."
-    - at: [0.9, 0.93]
-      title: "Verification to confirm"
-      text: "1,768 products; verification isn't visible from outside the account. Unverified SKUs drop out of brand-filtered search."
+    - at: [0.9, 0.073]
+      title: "Still promoting Labor Day"
+      text: "The Labor Day Sale header (Sept 3–7) is still the hero image a week after it ended — on Oakland, Alameda, Vallejo and Riverside."
+    - at: [0.9, 0.72]
+      title: "\"Monday Deals…\" says nothing"
+      text: "One deal tile with a generic tag icon and no detail. Shoppers can't see what's on sale without clicking through."
+    - at: [0.9, 0.884]
+      title: "On-sale products aren't featured"
+      text: "Items carrying –20% badges sit buried in the menu; nothing is surfaced as a featured product above the fold."
+    - at: [0.9, 0.423]
+      title: "Only 59 reviews"
+      text: "4.7★ from 59 reviews for a downtown store that's been open for years, and none of them answered."
+    - at: [0.37, 0.95]
+      title: "Products missing verification"
+      text: "838-item menu with product verifications missing — unverified SKUs drop out of brand-filtered search."
 
 market:
   competitors_in_zone:          # left blank: seven zones, counts vary — panel shows location count instead
@@ -120,7 +119,7 @@ investment:
 
 plan:
   - period: "Days 1–30"
-    items: "Fix naming on Sacramento, Vallejo and Riverside, pull expired banners, answer reviews, verify menus, launch bids in every zone"
+    items: "Pull expired banners, rebuild deal tiles and featured products, fix naming on Sacramento, Vallejo and Riverside, verify menus, launch bids in every zone"
   - period: "Days 31–60"
     items: "Deal and promo cadence, review program, creative refresh, POS-integrated dashboard live"
   - period: "Days 61–90"
