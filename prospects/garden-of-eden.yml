@@ -94,7 +94,7 @@ services:
 
 investment:
   monthly_fee: ""
-  trial: ""
+  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."
   ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
   term: "Month-to-month after the 90-day launch"
   options:
