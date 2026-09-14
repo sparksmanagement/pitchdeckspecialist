@@ -7,6 +7,7 @@
 prospect:
   name: "Business Name"
   type: dispensary            # dispensary | delivery | brand
+  type_label: ""              # optional free text, e.g. "dispensary, delivery and brand operation"
   city: "City"
   state: "ST"
   locations: 1

@@ -44,7 +44,24 @@ const place = [pros.city, pros.state].filter(Boolean).join(", ");
 const today =
   pros.date ||
   new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-const typeWord = { dispensary: "dispensary", delivery: "delivery service", brand: "brand" }[pros.type] || "dispensary";
+const typeWord = pros.type_label || { dispensary: "dispensary", delivery: "delivery service", brand: "brand" }[pros.type] || "dispensary";
+
+// Platforms in scope for this proposal (drives cover + solution copy)
+const SV = P.services || {};
+const PLATFORMS = [
+  { key: "weedmaps", name: "Weedmaps", icon: "FaMapMarkedAlt" },
+  { key: "leafly", name: "Leafly", icon: "FaLeaf" },
+  { key: "yelp", name: "Yelp", icon: "FaYelp" },
+  { key: "google", name: "Google", icon: "FaGoogle" },
+];
+const included = PLATFORMS.filter((p) => SV[p.key] && SV[p.key].include);
+const scopeNames = (included.length ? included : PLATFORMS).map((p) => p.name);
+const listWords = (a) => (a.length <= 1 ? a.join("") : a.slice(0, -1).join(", ") + (a.length > 2 ? "," : "") + " and " + a[a.length - 1]);
+const scopeList = listWords(scopeNames);
+const fullScope = included.length === 0 || included.length === PLATFORMS.length;
+const oneLiner = fullScope
+  ? brand.one_liner
+  : `We manage your ${scopeList} listings and ads so your ${typeWord} gets found, clicked, and ordered from.`;
 
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
@@ -139,7 +156,7 @@ async function build() {
       isTextBox: true, margin: 0, valign: "top",
     });
     const afterTitle = coverY + coverH + 0.2;
-    text(s, brand.one_liner, { x: M, y: afterTitle, w: 7.6, h: 1.1, fontSize: 18, color: "E6EFE9" });
+    text(s, oneLiner, { x: M, y: afterTitle, w: 7.6, h: 1.1, fontSize: 18, color: "E6EFE9" });
     text(s, [place, today, pros.contact_name ? `Prepared for ${pros.contact_name}${pros.contact_title ? ", " + pros.contact_title : ""}` : ""].filter(Boolean).join("   ·   "), {
       x: M, y: Math.min(afterTitle + 1.35, H - 1.1), w: 9, h: 0.4, fontSize: 12, color: C.accent,
     });
@@ -171,19 +188,23 @@ async function build() {
   {
     const s = base(true);
     text(s, "THE SOLUTION", { x: M, y: 0.6, w: 6, h: 0.4, fontSize: 13, color: C.accent, charSpacing: 6, bold: true });
-    s.addText("We run your listings and ads on every platform your customers use — and we're accountable for the orders.", {
+    s.addText(fullScope
+      ? "We run your listings and ads on every platform your customers use — and we're accountable for the orders."
+      : `We run your ${scopeList} listings and ads — and we're accountable for the orders.`, {
       x: M, y: 1.15, w: 8.2, h: 2.5, fontFace: FONT_H, fontSize: 32, bold: true, color: "FFFFFF", isTextBox: true, margin: 0, valign: "top",
     });
     text(s, `Full-service listing management for ${typeWord === "brand" ? "cannabis brands" : "dispensaries and deliveries"}: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators.`, {
       x: M, y: 3.85, w: 7.8, h: 1.2, fontSize: 16, color: "D9E5DD",
     });
-    const platforms = [["FaMapMarkedAlt", "Weedmaps"], ["FaLeaf", "Leafly"], ["FaYelp", "Yelp"], ["FaGoogle", "Google"]];
     const bw = 1.75, gap = 0.25, x0 = W - M - (4 * bw + 3 * gap);
-    for (let i = 0; i < platforms.length; i++) {
+    for (let i = 0; i < PLATFORMS.length; i++) {
+      const pl = PLATFORMS[i];
+      const on = fullScope || included.some((q) => q.key === pl.key);
       const x = x0 + i * (bw + gap);
-      card(s, x, 5.1, bw, 1.55, { fill: C.secondary, line: C.secondary });
-      s.addImage({ data: await icon(platforms[i][0], "FFFFFF"), x: x + bw / 2 - 0.3, y: 5.3, w: 0.6, h: 0.6 });
-      text(s, platforms[i][1], { x, y: 6.0, w: bw, h: 0.5, fontSize: 14, bold: true, color: "FFFFFF", align: "center" });
+      card(s, x, 5.1, bw, 1.55, { fill: on ? C.secondary : "163826", line: on ? C.secondary : "163826" });
+      s.addImage({ data: await icon(pl.icon, on ? "FFFFFF" : "5E7A68"), x: x + bw / 2 - 0.3, y: 5.3, w: 0.6, h: 0.6 });
+      text(s, pl.name, { x, y: 6.0, w: bw, h: 0.3, fontSize: 14, bold: true, color: on ? "FFFFFF" : "8FA697", align: "center" });
+      if (!fullScope) text(s, on ? "THIS PROPOSAL" : "ADD-ON", { x, y: 6.3, w: bw, h: 0.25, fontSize: 8, bold: true, color: on ? C.accent : "5E7A68", align: "center", charSpacing: 1 });
     }
     s.addNotes("Like Airbnb's 'Book rooms with locals, rather than hotels' — one sentence the prospect can repeat back. Don't move on until they nod.");
   }
@@ -191,7 +212,7 @@ async function build() {
   // 4. WHERE YOUR CUSTOMERS ARE (market validation)
   {
     const s = base();
-    title(s, `Where ${place || "your"} customers find a ${typeWord}`, { sub: "Market validation: the four channels that drive cannabis discovery and ordering." });
+    title(s, pros.type_label ? `Where ${prospectName}'s customers are` : `Where ${place || "your"} customers find a ${typeWord}`, { sub: "Market validation: the four channels that drive cannabis discovery and ordering." });
     const rows = [
       ["Weedmaps", "The largest cannabis marketplace. Auction-based placement in your service zone; menu, deals and reviews drive the order.", "FaMapMarkedAlt"],
       ["Leafly", "Strain-led discovery and online ordering; second marketplace most customers check.", "FaLeaf"],
@@ -211,10 +232,17 @@ async function build() {
     card(s, mx, 2.2, mw, 4.45, { fill: C.primary, line: C.primary });
     text(s, "YOUR MARKET", { x: mx + 0.35, y: 2.45, w: mw - 0.7, h: 0.35, fontSize: 11, color: C.accent, charSpacing: 4, bold: true });
     const comp = P.market && P.market.competitors_in_zone;
-    s.addText(comp ? String(comp) : "—", {
+    const locs = Number(pros.locations) || 0;
+    const bigNum = comp ? String(comp) : locs > 1 ? String(locs) : "—";
+    const bigLabel = comp
+      ? `competing ${pros.type === "brand" ? "brands" : "dispensaries"} in your service zone`
+      : locs > 1
+        ? `listings to manage across ${pros.state || "your market"}`
+        : "competitors in your service zone";
+    s.addText(bigNum, {
       x: mx + 0.35, y: 2.85, w: mw - 0.7, h: 1.1, fontFace: FONT_H, fontSize: 60, bold: true, color: C.accent, isTextBox: true, margin: 0,
     });
-    text(s, comp ? `competing ${typeWord === "brand" ? "brands" : "dispensaries"} in your service zone` : "competitors in your service zone (fill in market.competitors_in_zone)", {
+    text(s, bigLabel, {
       x: mx + 0.35, y: 4.0, w: mw - 0.7, h: 0.7, fontSize: 13, color: "FFFFFF",
     });
     text(s, (P.market && P.market.notes) || "", { x: mx + 0.35, y: 4.8, w: mw - 0.7, h: 1.7, fontSize: 12, color: "D9E5DD" });
@@ -241,7 +269,7 @@ async function build() {
       }),
     ];
     s.addTable(tableRows, {
-      x: M, y: 2.2, w: W - 2 * M, colW: [2.0, 5.3, 4.83], rowH: 0.6,
+      x: M, y: 2.2, w: W - 2 * M, colW: [2.5, 5.0, 4.63], rowH: 0.6,
       border: { type: "solid", color: "DDE5DF", pt: 0.75 },
       margin: [0.08, 0.15, 0.08, 0.15],
     });
@@ -506,8 +534,8 @@ async function build() {
       const rh = Math.min(0.8, 2.45 / opts.length);
       opts.slice(0, 4).forEach((o, i) => {
         const y = 2.95 + i * rh;
-        text(s, o.name, { x: px + 0.35, y, w: pw - 2.4, h: 0.36, fontSize: 14, bold: true, color: "FFFFFF", valign: "middle" });
-        text(s, o.price || "Custom", { x: px + pw - 2.05, y, w: 1.7, h: 0.36, fontSize: 14, bold: true, color: C.accent, align: "right", valign: "middle" });
+        text(s, o.name, { x: px + 0.35, y, w: pw - 3.3, h: 0.36, fontSize: 14, bold: true, color: "FFFFFF", valign: "middle" });
+        text(s, o.price || "Custom", { x: px + pw - 3.05, y, w: 2.7, h: 0.36, fontSize: 14, bold: true, color: C.accent, align: "right", valign: "middle" });
         text(s, o.includes || "", { x: px + 0.35, y: y + 0.36, w: pw - 0.7, h: rh - 0.4, fontSize: 11, color: "D9E5DD" });
       });
     } else {

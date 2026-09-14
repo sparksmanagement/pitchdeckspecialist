@@ -1,0 +1,81 @@
+# NUG — California vertically integrated cannabis company (dispensaries, delivery, brand).
+# Pitch scope: Weedmaps management only. Build: npm run build -- prospects/nug.yml
+
+prospect:
+  name: "NUG"
+  type: dispensary
+  type_label: "dispensary, delivery and brand operation"
+  city: "Oakland"
+  state: "CA"
+  locations: 7                 # Sacramento, Oakland, San Leandro, Alameda, Riverside, Vallejo (CCC powered by NUG), Red Bluff
+  website: "nug.com"
+  contact_name: ""
+  contact_title: ""
+  date: ""
+
+# Verified from public Weedmaps / Google / Yelp listings (Sept 2026). Items marked
+# "to confirm" could not be verified from outside the account.
+audit:
+  - platform: "Weedmaps · Sacramento"
+    finding: "4.7★ from 727 reviews, but the listing still surfaces in search as \"Community Health Solutions - Sacramento\""
+    impact: "Shoppers searching NUG may not connect the listing to the brand; split authority"
+  - platform: "Weedmaps · Alameda & Riverside"
+    finding: "4.8★ each but only 23 and 20 reviews; Riverside also shows a second 4.0★ / 4-review record"
+    impact: "Thin review volume and a likely duplicate listing hold both stores back in zone ranking"
+  - platform: "Weedmaps · Oakland & San Leandro"
+    finding: "4.7★ / 152 and 4.6★ / 546 reviews; paid placement and deal cadence to confirm"
+    impact: "Strong ratings under-leveraged in the most competitive East Bay service zones"
+  - platform: "Weedmaps · Brand page"
+    finding: "NUG brand page live with retailer, deals and events feed; product verification across NUG-owned menus to confirm"
+    impact: "Unverified SKUs drop out of brand-filtered search and the retailer map"
+  - platform: "Weedmaps · Delivery"
+    finding: "Sacramento delivery live; delivery coverage and bids for East Bay and Riverside to confirm"
+    impact: "Delivery orders leak to competitors in zones NUG already serves from a storefront"
+
+market:
+  competitors_in_zone:          # left blank: seven zones, counts vary — panel shows location count instead
+  notes: "Seven NUG-branded Weedmaps listings across Northern and Southern California plus a brand page: one strategy, one bidding model, one report."
+
+services:
+  weedmaps:
+    include: true
+    notes: "Ad spend & bid management across all 7 listings, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses and removals, weekly reporting."
+  leafly:
+    include: false
+    notes: ""
+  yelp:
+    include: false
+    notes: ""
+  google:
+    include: false
+    gbp: false
+    ads: false
+    notes: ""
+  local_seo:
+    include: false
+    notes: ""
+  other:
+    - name: "Weedmaps Brand Page"
+      notes: "Brand page management: verified products, retailer map, brand deals and events feed synced with NUG-owned menus."
+
+investment:
+  monthly_fee: ""
+  ad_spend_note: "Ad spend is billed directly by Weedmaps; Sparks manages allocation and bidding across every listing."
+  term: "Month-to-month after the 90-day launch"
+  options:
+    - name: "Base"
+      price: "$995/mo"
+      includes: "Full Weedmaps management while total ad spend is $9,995/mo or less"
+    - name: "Scale"
+      price: "10% of ad spend"
+      includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo"
+
+plan:
+  - period: "Days 1–30"
+    items: "Audit all 7 listings + brand page, fix naming and duplicates, verify menus, launch bids in every zone"
+  - period: "Days 31–60"
+    items: "Deal and promo cadence, review program, creative refresh, POS-integrated dashboard live"
+  - period: "Days 61–90"
+    items: "Scale winning zones, brand-page campaigns, delivery bids, quarterly plan"
+
+case_studies: [purple_lotus, nuna_harvest]
