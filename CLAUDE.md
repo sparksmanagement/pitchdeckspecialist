@@ -38,7 +38,9 @@ your job is to turn that into a finished `.pptx`.
    Add `audit_mock` (see the template) to show the worst listing as an iPhone
    mockup with numbered callouts instead of the table; a real screenshot can be
    dropped in via `audit_mock.screenshot`. Never pitch Yelp Ads (not available
-   to cannabis right now); directories are "20+", not 50.
+   to cannabis right now); directories are "20+", not 50. Say "official partner"
+   only for Yelp, Google and Apple Maps; for Weedmaps/Leafly say "10+ years
+   working inside and alongside" (founder was a Weedmaps executive).
 3. **Build:** `npm run build -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`.
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
@@ -70,7 +72,7 @@ your job is to turn that into a finished `.pptx`.
 - Decks are split by platform in the order Weedmaps → Leafly → Yelp → Google.
   The focus platform gets ~80% of the deck; every other platform still gets its
   preview slide (included or add-on) so all services are always presented.
-- Keep the deck at 15 slides; add content by editing the prospect file or
+- Keep the deck at 14 slides; add content by editing the prospect file or
   `src/platforms.yml`, not by bolting on slides, unless the user asks.
 - Brand: Sparks orange `DD5F13`, white, charcoal. Use the logo assets in
   `brand/assets/`; never recolor the logo outside orange/white/black.

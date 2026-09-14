@@ -222,7 +222,7 @@ async function build() {
     const s = base();
     const y0 = title(s, "Cannabis can't market like everyone else", { sub: "Ads are restricted, so the customer journey lives on pay-to-play platforms — and most listings are left on autopilot." });
     const pains = [
-      ["FaBan", "Restricted advertising", "Google Ads, Meta and most networks block cannabis. Discovery happens on Weedmaps, Leafly, Yelp and Google Maps."],
+      ["FaBan", "Restricted advertising", "Google Ads, Meta and most networks block cannabis. Discovery happens on Weedmaps, Leafly, Google Maps, Apple Maps and Yelp."],
       ["FaClock", "Listings decay", "Menus drift from POS, deals expire, photos go stale, reviews sit unanswered. Every gap costs orders."],
       ["FaChartLine", "Spend isn't managed", "Budgets are set once and never optimized. Platform reps grow platform revenue, not your ROAS."],
       ["FaUserSlash", "Nobody owns it", "GMs and budtenders juggle dashboards on the side with no attribution and no accountability."],
@@ -242,22 +242,30 @@ async function build() {
   {
     const s = base(true);
     const y0 = title(s, `We run your ${focus.name} listings and ads — and we're accountable for the orders.`, { dark: true, eyebrow: "The solution" });
-    text(s, "Full-service listing management: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest (plus 20+ directories for local SEO) when you're ready.", {
+    text(s, "Full-service listing management across the marketplaces, maps and directories your customers use: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest when you're ready.", {
       x: M, y: y0 + 0.1, w: 7.8, h: 1.3, fontSize: 15, color: C.soft,
     });
     const dirOn = isIncluded("local_seo") || isIncluded("google");
-    const tiles = ORDER.map((k) => {
-      const pl = PLAT[k], isFocus = k === focusKey, inc = isIncluded(k);
-      return { icon: pl.icon, name: pl.name, on: isFocus || inc, label: isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel };
-    });
-    tiles.push({ icon: "FaSitemap", name: "+20 directories", on: dirOn, label: dirOn ? "INCLUDED" : tileAddonLabel, sub: true });
-    const bw = 1.75, gap = 0.25, x0 = W - M - (tiles.length * bw + (tiles.length - 1) * gap);
-    for (let i = 0; i < tiles.length; i++) {
-      const t = tiles[i], x = x0 + i * (bw + gap);
-      card(s, x, 4.95, bw, 1.7, { fill: t.on ? "FFFFFF" : C.deep });
-      s.addImage({ data: await icon(t.icon, t.on ? C.primary : C.dim), x: x + bw / 2 - 0.3, y: 5.15, w: 0.6, h: 0.6 });
-      text(s, t.name, { x, y: 5.85, w: bw, h: 0.3, fontSize: t.sub ? 12.5 : 14, bold: true, color: t.on ? C.primary : C.dim, align: "center" });
-      text(s, t.label, { x, y: 6.15, w: bw, h: 0.25, fontSize: 8, bold: true, color: t.on ? C.ink : C.dim, align: "center", charSpacing: 1 });
+    const tileFor = (k) => { const pl = PLAT[k], isFocus = k === focusKey, inc = isIncluded(k); return { icon: pl.icon, name: pl.name, on: isFocus || inc, label: isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel }; };
+    const groups = [
+      ["Marketplaces", [tileFor("weedmaps"), tileFor("leafly")]],
+      ["Maps", [tileFor("google"), { icon: "FaApple", name: "Apple Maps", on: dirOn, label: dirOn ? "INCLUDED" : tileAddonLabel }]],
+      ["Directories", [tileFor("yelp"), { icon: "FaSitemap", name: "+20 directories", on: dirOn, label: dirOn ? "INCLUDED" : tileAddonLabel, sub: true }]],
+    ];
+    const bw = 1.62, gapIn = 0.18, gapOut = 0.45;
+    const totalW = groups.reduce((a, g) => a + g[1].length * bw + (g[1].length - 1) * gapIn, 0) + (groups.length - 1) * gapOut;
+    let x = W - M - totalW;
+    for (const [gname, tiles] of groups) {
+      const gw = tiles.length * bw + (tiles.length - 1) * gapIn;
+      text(s, gname.toUpperCase(), { x, y: 4.6, w: gw, h: 0.25, fontSize: 9, bold: true, charSpacing: 3, color: C.accent, align: "center" });
+      for (const t of tiles) {
+        card(s, x, 4.95, bw, 1.7, { fill: t.on ? "FFFFFF" : C.deep });
+        s.addImage({ data: await icon(t.icon, t.on ? C.primary : C.dim), x: x + bw / 2 - 0.3, y: 5.15, w: 0.6, h: 0.6 });
+        text(s, t.name, { x, y: 5.85, w: bw, h: 0.3, fontSize: t.sub ? 11.5 : 13, bold: true, color: t.on ? C.primary : C.dim, align: "center" });
+        text(s, t.label, { x, y: 6.15, w: bw, h: 0.25, fontSize: 7.5, bold: true, color: t.on ? C.ink : C.dim, align: "center", charSpacing: 1 });
+        x += bw + gapIn;
+      }
+      x += gapOut - gapIn;
     }
     s.addNotes(bundle
       ? `One sentence the prospect can repeat back. The tiles preview the deck's order: ${focus.name} in full, then the add-on bundle (${bundleLabel()} for ${bundle.price} total${total ? `; whole package ${total.price}` : ""}).`
@@ -267,32 +275,52 @@ async function build() {
   // ── FOCUS PLATFORM SECTION ──
   const secEyebrow = (label) => `${focus.service}  ·  ${label}`;
 
-  // 4. WHY THIS PLATFORM
+  // 4. WHY SPARKS
   {
     const s = base();
-    const y0 = title(s, `Where ${prospectName}'s customers are on ${focus.name}`, { eyebrow: secEyebrow("Why it matters"), sub: focus.tagline });
-    const items = focus.why_it_matters || [];
-    const rh = (H - 0.8 - y0 - 0.15 * (items.length - 1)) / Math.max(items.length, 1);
-    for (let i = 0; i < items.length; i++) {
-      const y = y0 + i * (rh + 0.15);
-      card(s, M, y, 7.9, rh);
-      await iconCircle(s, items[i].icon || focus.icon, M + 0.2, y + (rh - 0.6) / 2, 0.6);
-      text(s, items[i].title, { x: M + 1.0, y: y + 0.15, w: 6.7, h: 0.35, fontSize: 15, bold: true, color: C.primary });
-      text(s, items[i].body, { x: M + 1.0, y: y + 0.5, w: 6.7, h: rh - 0.6, fontSize: 11.5, color: C.ink });
+    const y0 = title(s, `Why ${brand.company}`, { eyebrow: "Why Sparks", sub: "The team behind 100+ dispensary listings — recognized, partnered, and built by a Weedmaps executive." });
+    const gap = 0.3;
+    // row 1: three stat cards
+    const stats = [
+      ["100+", "dispensaries, deliveries and brands managed — the largest Weedmaps and directory management platform in cannabis"],
+      ["#1", "Top Cannabis Listing Management Agency 2026 — Cannabis Business Insights"],
+      ["10+ yrs", "working inside and alongside Weedmaps and Leafly. Our founder ran accounts at Weedmaps as an executive before starting Sparks."],
+    ];
+    const cw = (W - 2 * M - 2 * gap) / 3, r1h = 1.75;
+    stats.forEach(([big, label], i) => {
+      const x = M + i * (cw + gap);
+      card(s, x, y0, cw, r1h);
+      s.addText(big, { x: x + 0.3, y: y0 + 0.2, w: cw - 0.6, h: 0.75, fontFace: FONT_H, fontSize: 36, bold: true, color: C.primary, isTextBox: true, margin: 0, valign: "middle" });
+      text(s, label, { x: x + 0.3, y: y0 + 0.95, w: cw - 0.6, h: r1h - 1.05, fontSize: 11, color: C.ink });
+    });
+    // row 2: official partners (left) + two advantage cards (right)
+    const y1 = y0 + r1h + gap, r2h = H - 0.8 - y1;
+    const pw = cw * 1.5 + gap * 0.5;
+    card(s, M, y1, pw, r2h, { fill: C.primary });
+    text(s, "OFFICIAL PARTNERS", { x: M + 0.35, y: y1 + 0.25, w: pw - 0.7, h: 0.3, fontSize: 11, bold: true, charSpacing: 4, color: C.accent });
+    text(s, "Official partner programs with the directories and maps that decide local search.", { x: M + 0.35, y: y1 + 0.6, w: pw - 0.7, h: 0.5, fontSize: 12, color: C.soft });
+    const partners = [["FaYelp", "Yelp"], ["FaGoogle", "Google"], ["FaApple", "Apple Maps"]];
+    const tw = (pw - 0.7 - 0.2 * 2) / 3, ty = y1 + 1.1, th = r2h - 1.4;
+    for (let i = 0; i < partners.length; i++) {
+      const x = M + 0.35 + i * (tw + 0.2), y = ty;
+      card(s, x, y, tw, th, { fill: "FFFFFF" });
+      s.addImage({ data: await icon(partners[i][0], C.primary), x: x + tw / 2 - 0.25, y: y + 0.12, w: 0.5, h: 0.5 });
+      text(s, partners[i][1], { x, y: y + 0.64, w: tw, h: 0.26, fontSize: 12.5, bold: true, color: C.primary, align: "center" });
+      text(s, "OFFICIAL PARTNER", { x, y: y + 0.9, w: tw, h: 0.2, fontSize: 7, bold: true, charSpacing: 1, color: C.ink, align: "center" });
     }
-    const mx = M + 8.2, mw = W - M - mx, mh = H - 0.8 - y0;
-    card(s, mx, y0, mw, mh, { fill: C.primary });
-    text(s, "YOUR MARKET", { x: mx + 0.35, y: y0 + 0.25, w: mw - 0.7, h: 0.35, fontSize: 11, color: C.accent, charSpacing: 4, bold: true });
-    const comp = P.market && P.market.competitors_in_zone;
-    const locs = Number(pros.locations) || 0;
-    const bigNum = comp ? String(comp) : locs > 1 ? String(locs) : "—";
-    const bigLabel = comp
-      ? `competing ${pros.type === "brand" ? "brands" : "dispensaries"} in your ${focus.name} service zone`
-      : locs > 1 ? `${focus.name} listings to manage across ${pros.state || "your market"}` : `competitors in your ${focus.name} service zone`;
-    s.addText(bigNum, { x: mx + 0.35, y: y0 + 0.65, w: mw - 0.7, h: 1.1, fontFace: FONT_H, fontSize: 60, bold: true, color: C.accent, isTextBox: true, margin: 0 });
-    text(s, bigLabel, { x: mx + 0.35, y: y0 + 1.8, w: mw - 0.7, h: 0.7, fontSize: 13, color: "FFFFFF" });
-    text(s, (P.market && P.market.notes) || "", { x: mx + 0.35, y: y0 + 2.6, w: mw - 0.7, h: mh - 2.8, fontSize: 12, color: C.soft });
-    s.addNotes(`Market validation for ${focus.name}. Ask which platform they think drives the most orders — most owners are guessing, which is the opening for the audit slide.`);
+    const rx = M + pw + gap, rw = W - M - rx, ah = (r2h - gap) / 2;
+    const adv = [
+      ["FaTrophy", "Best results of any Weedmaps advertiser", "Sparks clients out-convert every other advertiser on the platform: 88% more orders in 90 days, $17 back per ad dollar."],
+      ["FaPlug", "POS-integrated attribution", "Treez, Dutchie and other POS data joined with spend and platform metrics — you see which platform, campaign and deal drove revenue."],
+    ];
+    for (let i = 0; i < adv.length; i++) {
+      const y = y1 + i * (ah + gap);
+      card(s, rx, y, rw, ah);
+      await iconCircle(s, adv[i][0], rx + 0.3, y + (ah - 0.55) / 2, 0.55);
+      text(s, adv[i][1], { x: rx + 1.05, y: y + 0.15, w: rw - 1.3, h: 0.3, fontSize: 13.5, bold: true, color: C.primary });
+      text(s, adv[i][2], { x: rx + 1.05, y: y + 0.45, w: rw - 1.3, h: ah - 0.55, fontSize: 11, color: C.ink });
+    }
+    s.addNotes("Credibility before the audit. Say 'official partner' only for Yelp, Google and Apple Maps. For Weedmaps and Leafly, say we've worked with them for 10+ years and the founder was a Weedmaps executive — not 'partner'.");
   }
 
   // 5. WHAT WE FOUND — iPhone mockup of the worst listing + callouts (audit_mock), else table
@@ -544,7 +572,7 @@ async function build() {
     const inc = isIncluded(k);
     const cfg = SV[k] || {};
     const s = base();
-    const eyebrow = inc ? `Included  ·  ${pl.name}` : bundle ? `Add-on bundle  ·  ${pl.name}  ·  ${bundle.price} for ${otherNames().join(" + ")}` : `Add-on  ·  ${pl.name}  ·  ${addonPrice}`;
+    const eyebrow = inc ? `Included  ·  ${pl.name}` : bundle ? `Add-on bundle  ·  ${pl.name}  ·  ${bundle.price} for ${bundle.label || otherNames().join(" + ")}` : `Add-on  ·  ${pl.name}  ·  ${addonPrice}`;
     const y0 = title(s, pl.service, { eyebrow, sub: pl.tagline });
     const items = (pl.why_it_matters || []).slice(0, 3);
     const leftW = 7.4;
@@ -589,27 +617,6 @@ async function build() {
       : bundle
         ? `${pl.service} preview. Part of the add-on bundle: ${bundleLabel()} for ${bundle.price} total${bundle.detail ? ` (${bundle.detail})` : ""}. Same seven pillars applied to ${pl.name}; can be switched on at any point.`
         : `${pl.service} preview. Offered as an add-on at ${addonPrice}. Same seven pillars applied to ${pl.name}; can be switched on at any point in the engagement.`);
-  }
-
-  // WHY SPARKS
-  {
-    const s = base(true);
-    title(s, `Why ${brand.company}`, { dark: true, sub: "Competitive advantages you can verify." });
-    const adv = [
-      ["FaUserTie", "Built by ex-Weedmaps operators", "Four years inside Weedmaps working with the largest dispensaries. We know how the auction, ranking and menu systems actually work."],
-      ["FaLayerGroup", "All four platforms + 20 directories", "One team, one strategy, one report across Weedmaps, Leafly, Yelp, Google and 20+ directories that feed local SEO."],
-      ["FaPlug", "POS-integrated attribution", "Treez, Dutchie and other POS data joined with ad spend and platform metrics — you see which platform, campaign and deal drove revenue."],
-      ["FaAward", "Recognized", "Top Cannabis Listing Management Agency 2026 (Cannabis Business Insights). One of the few cannabis partners recognized by Yelp. 100+ businesses managed."],
-    ];
-    const gap = 0.3, cw = (W - 2 * M - gap) / 2, ch = 1.95;
-    for (let i = 0; i < adv.length; i++) {
-      const x = M + (i % 2) * (cw + gap), y = 2.35 + Math.floor(i / 2) * (ch + 0.3);
-      card(s, x, y, cw, ch, { fill: C.deep });
-      await iconCircle(s, adv[i][0], x + 0.3, y + 0.3, 0.6, C.accent, C.primary);
-      text(s, adv[i][1], { x: x + 1.1, y: y + 0.3, w: cw - 1.4, h: 0.6, fontSize: 16, bold: true, color: "FFFFFF" });
-      text(s, adv[i][2], { x: x + 1.1, y: y + 0.9, w: cw - 1.4, h: 1.0, fontSize: 12, color: C.soft });
-    }
-    s.addNotes("Four reasons to pick us over doing it in-house, trusting platform reps, or hiring a general agency. The founder story is the credibility anchor; the dashboard is the differentiator.");
   }
 
   // TEAM
@@ -672,7 +679,13 @@ async function build() {
     if (LOGO.wordmark_white) s.addImage({ ...logoW("wordmark_white", 1.0), x: M, y: 6.15 });
     const px = M + leftW + 0.4, pw = W - M - px;
     card(s, px, 2.35, pw, 4.2, { fill: C.deep });
-    text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 0.7, h: 0.3, fontSize: 11, color: C.accent, charSpacing: 4, bold: true });
+    text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 1.5, h: 0.3, fontSize: 10.5, color: C.accent, charSpacing: 3, bold: true });
+    if (trial) {
+      const bd = 1.5, bx = px + pw - bd * 0.7, byy = 2.35 - bd * 0.62;
+      s.addShape(pres.ShapeType.star16, { x: bx, y: byy, w: bd, h: bd, fill: { color: "FFFFFF" }, line: { color: C.primary, width: 1.5 }, rotate: 8 });
+      s.addText([{ text: "FREE", options: { fontSize: 10.5, bold: true, breakLine: true } }, { text: "30 DAYS", options: { fontSize: 14, bold: true, breakLine: true } }, { text: "no invoice until day 31", options: { fontSize: 6 } }],
+        { x: bx + 0.2, y: byy + 0.3, w: bd - 0.4, h: bd - 0.6, fontFace: FONT_H, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0 });
+    }
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const pendingKeys = others.filter((k) => !isIncluded(k));

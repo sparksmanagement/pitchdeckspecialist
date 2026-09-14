@@ -90,13 +90,13 @@ investment:
   trial: ""                   # e.g. "Free 30-day trial — no invoice until day 31. Zero risk to start." (keep under ~65 chars)
   addon_price: "$495/mo"
   addon:
-    label: "Leafly + Yelp + Google"
+    label: "Leafly + Yelp + Google + Apple Maps"
     price: "$495/mo"
-    detail: "One fee for all three platforms; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+    detail: "One fee for Leafly, Yelp, Google, Apple Maps and 20 directories; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
   total:
     label: "Total package"
     price: "$1,490/mo"
-    detail: "Weedmaps + Leafly + Yelp + Google, unless the 10%-of-ad-spend rule applies"
+    detail: "Weedmaps + Leafly + Yelp + Google + Apple Maps + 20 directories, unless the 10%-of-ad-spend rule applies"
   ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
   term: "Month-to-month after the 90-day launch"
   options:                    # up to 3 cards on the Investment slide; leave [] to auto-build from monthly_fee + addon + total
@@ -107,12 +107,12 @@ investment:
     - name: "Listing Bundle"
       price: "$495/mo"
       alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
-      includes: "Leafly + Yelp + Google management added to Weedmaps"
+      includes: "Leafly + Yelp + Google + Apple Maps and 20 directories, added to Weedmaps"
       optional: true          # shows "(optional)" in the next-steps summary
     - name: "Total Package"
       price: "$1,490/mo"
       alt: "or 10% of ad spend where the spend thresholds are exceeded"
-      includes: "Weedmaps + Leafly + Yelp + Google. Every platform your customers use, one team, one report."
+      includes: "Every marketplace, map and directory your customers use — one team, one report."
       recommended: true       # highlighted card
 
 # 30/60/90 plan shown on the Next Steps slide. Defaults are fine for most decks.

@@ -101,21 +101,21 @@ investment:
     - name: "Listing Bundle"
       price: "$495/mo"
       alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
-      includes: "Leafly + Yelp + Google management added to Weedmaps — same seven pillars on every platform"
+      includes: "Leafly + Yelp + Google + Apple Maps and 20 directories, added to Weedmaps — same seven pillars everywhere"
       optional: true
     - name: "Total Package"
       price: "$1,490/mo"
       alt: "or 10% of ad spend where the spend thresholds are exceeded"
-      includes: "Weedmaps + Leafly + Yelp + Google. Every platform your customers use, one team, one report."
+      includes: "Every marketplace, map and directory your customers use — one team, one report."
       recommended: true
   addon:                        # one bundle price for every non-focus platform
-    label: "Leafly + Yelp + Google"
+    label: "Leafly + Yelp + Google + Apple Maps"
     price: "$495/mo"
-    detail: "One fee for all three platforms; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+    detail: "One fee for Leafly, Yelp, Google, Apple Maps and 20 directories; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
   total:
     label: "Total package"
     price: "$1,490/mo"
-    detail: "Weedmaps + Leafly + Yelp + Google, unless the 10%-of-ad-spend rule applies"
+    detail: "Weedmaps + Leafly + Yelp + Google + Apple Maps + 20 directories, unless the 10%-of-ad-spend rule applies"
 
 plan:
   - period: "Days 1–30"

@@ -103,9 +103,9 @@ yelp:
 
 google:
   name: Google
-  service: Google Management (GBP, Ads & Local SEO)
+  service: Google & Apple Maps Management (GBP, Ads & Local SEO)
   icon: FaGoogle
-  tagline: "\"Dispensary near me\" is decided in the Maps 3-pack."
+  tagline: "\"Dispensary near me\" is decided on Google Maps and Apple Maps."
   why_it_matters:
     - icon: FaMapMarkerAlt
       title: The Maps 3-pack
@@ -113,9 +113,9 @@ google:
     - icon: FaGoogle
       title: One of the few free channels
       body: With cannabis restricted on most ad platforms, your Google Business Profile is one of the only free places to reach local customers at scale.
-    - icon: FaSitemap
-      title: Citations feed the ranking
-      body: Consistent name, address, and phone across 20+ directories is what tells Google (and Siri and Alexa) that your store is the real one.
+    - icon: FaApple
+      title: Apple Maps and 20+ directories
+      body: iPhone users search in Apple Maps, Siri and CarPlay. Apple Business Connect plus consistent name, address and phone across 20+ directories is what tells every map you're the real one.
   what_we_manage:
     - title: "Business Profile"
       body: "Claim, cleanup, and optimization of your Google Business Profile"
@@ -123,8 +123,8 @@ google:
       body: "Weekly Google Posts, photo refresh, Q&A, and review responses"
     - title: "Google Ads"
       body: "Compliant campaigns where the market allows"
-    - title: "Local SEO & citations"
-      body: "NAP consistency across 20+ directories"
+    - title: "Apple Maps & 20+ directories"
+      body: "Apple Business Connect (Apple Maps, Siri, CarPlay) plus NAP consistency across 20+ directories"
     - title: "Map-pack tracking"
       body: "Ranking tracking with a Top 3 goal in 90 days"
   proof:

@@ -102,6 +102,18 @@ on a slide.
 ### Nuna Harvest — New York (dispensary + delivery)
 - Results after 6 months: Weedmaps ROAS +638%, Leafly ROAS +44%, Yelp leads +109%.
 
+## Partnerships and scale claims (from Kevin, Sept 2026)
+
+- **Official partners:** Yelp, Google, and Apple Maps (Apple Business Connect). Say
+  "official partner" only for these three.
+- **Weedmaps and Leafly:** no official partnership — say "10+ years working inside and
+  alongside Weedmaps and Leafly"; the founder was a Weedmaps executive.
+- 100+ dispensaries managed; the largest Weedmaps and directory management platform in
+  the cannabis industry; Sparks clients have the best results of all Weedmaps advertisers.
+- Channel framing: **marketplaces** (Weedmaps, Leafly) · **maps** (Google Maps, Apple
+  Maps) · **directories** (Yelp + 20 directories). Apple Maps is included in directory
+  management (Google add-on).
+
 ## Recognition / press
 
 - Cannabis Business Insights — "Top Cannabis Listing Management Agency 2026"

@@ -10,14 +10,14 @@ Rules that carry over from the Airbnb deck:
 - The viewer knows exactly what we do by slide 3, in plain words.
 - One idea per slide. Big headline, one supporting visual, minimal body copy.
 - Numbers are the argument. Every claim gets a stat or a case study.
-- 15 slides, presentable in under 15 minutes.
+- 14 slides, presentable in under 15 minutes.
 
 | # | Slide | Airbnb equivalent | Content source |
 |---|---|---|---|
 | 1 | Cover — Sparks × Prospect, "<Focus> Management proposal" | Cover | prospect + brand |
 | 2 | The Problem | Problem | brand |
-| 3 | The Solution — platform tiles + "20+ directories" tile: THIS PROPOSAL / INCLUDED / ADD-ON BUNDLE $495 | Solution | services + investment.addon_price |
-| 4 | **Focus · Why it matters** — 3 reasons + "your market" panel | Market validation | platforms.yml + prospect.market |
+| 3 | The Solution — tiles grouped as marketplaces (Weedmaps, Leafly), maps (Google, Apple Maps), directories (Yelp, +20 directories) | Solution | services + investment.addon_price |
+| 4 | **Why Sparks** — 100+ managed, #1 agency 2026, 10+ yrs with Weedmaps/Leafly, official partners (Yelp, Google, Apple Maps), best Weedmaps results, POS attribution | Team / Press / Competitive advantages | brand |
 | 5 | **Focus · Audit** — worst listing on an iPhone with numbered callouts + fleet-wide findings (table when no `audit_mock`) | Market size | prospect.audit_mock + prospect.audit |
 | 6 | **Focus · Scope** — what Sparks will manage (8 numbered lines) | Product | platforms.yml + services.<focus>.notes |
 | 7 | **Focus · Results** — proof stats | Traction | brand.proof + platform proof |
@@ -26,9 +26,8 @@ Rules that carry over from the Airbnb deck:
 | 10 | Add-on preview · Leafly | — | platforms.yml (+ audit rows for Leafly) |
 | 11 | Add-on preview · Yelp | — | platforms.yml |
 | 12 | Add-on preview · Google (GBP, Ads, Local SEO) | — | platforms.yml |
-| 13 | Why Sparks | Competitive advantages + Press | brand |
-| 14 | Your account team | Team | brand/config.yml |
-| 15 | Next steps — 90-day plan, investment summary, contact | Financials / ask | prospect.plan + investment |
+| 13 | Your account team | Team | brand/config.yml |
+| 14 | Next steps — 90-day plan, investment summary with free-trial burst, contact | Financials / ask | prospect.plan + investment |
 
 If a non-focus platform is `include: true` in the prospect file, its preview slide is
 labeled INCLUDED instead of ADD-ON and the summary shows "Included". Speaker notes are
