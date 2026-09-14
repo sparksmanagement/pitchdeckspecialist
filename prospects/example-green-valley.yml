@@ -23,7 +23,7 @@ audit:
     finding: "Menu last synced 3 weeks ago; no deals running"
     impact: "Out-of-stock items still showing; lost orders"
   - platform: Yelp
-    finding: "4 unanswered 1-star reviews; no Yelp Ads"
+    finding: "4 unanswered 1-star reviews; profile incomplete"
     impact: "3.4 rating vs 4.5 market average"
   - platform: Google
     finding: "GBP not claimed / wrong hours; 0 posts in 6 months"
@@ -45,7 +45,7 @@ services:
     notes: "Menu sync with POS, Leafly ads, deal activations, review management."
   yelp:
     include: true
-    notes: "Yelp Ads (Certified Partner), profile optimization, review responses and removal requests, lead tracking."
+    notes: "Profile optimization, review responses and removal requests, lead tracking."
   google:
     include: true
     gbp: true
@@ -53,7 +53,7 @@ services:
     notes: "Claim & optimize GBP, weekly Google Posts, photo refresh, Q&A, review response. Target: Maps 3-pack in 90 days."
   local_seo:
     include: true
-    notes: "NAP cleanup and citations across 50+ directories, voice-assistant visibility."
+    notes: "NAP cleanup and citations across 20+ directories, voice-assistant visibility."
   other:                      # free-form extras; leave list empty [] if none
     - name: "Programmatic Advertising"
       notes: "Geo-fenced display + CTV within 5 miles via compliant DSPs; retargeting listing visitors."

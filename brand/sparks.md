@@ -12,7 +12,7 @@ or offer changes; every deck pulls its copy from here.
   living inside four dashboards.
 - **Who we serve:** Licensed dispensaries, delivery services, and cannabis brands
   nationwide. 100+ businesses managed across Google, Weedmaps, Leafly, Yelp and
-  50+ directories.
+  20+ directories.
 - **Founded:** 2022, by ex-Weedmaps operators. Founder & CEO Kevin Sparks spent four
   years at Weedmaps working with some of the largest dispensaries in the world, then
   three years running listing management for Purple Lotus (San Jose) — a dispensary
@@ -58,13 +58,13 @@ platform-driven spend.
   Weedmaps accounts average $17 ROAS.
 - **Leafly Management** — listing and menu optimization, Leafly advertising, deal
   activations, review management, reporting.
-- **Yelp Management** — Yelp Ads (Sparks is a Yelp Ads Certified Partner and one of the
-  few cannabis partners recognized by Yelp), profile optimization, review management and
-  removals, lead tracking.
+- **Yelp Management** — profile optimization, review management and removals (Sparks is
+  one of the few cannabis partners recognized by Yelp), lead tracking. **Yelp Ads are not
+  currently available to cannabis businesses — do not pitch Yelp advertising.**
 - **Google Management (GBP + Ads)** — Google Business Profile optimization, Google Posts,
   Q&A, photos, review response; compliant Google Ads where allowed. Goal: Top 3 in the
   Google Maps pack within 90 days.
-- **Local SEO** — NAP consistency and citations across 50+ cannabis and general
+- **Local SEO** — NAP consistency and citations across 20+ cannabis and general
   directories, voice-assistant visibility (Siri, Alexa), map-pack authority signals.
 - **Other / add-ons** — Programmatic advertising (display, video, native, CTV through
   cannabis-compliant DSPs: Fyllo, Mantis, MediaJel, Surfside; geo-fencing, lookalike
@@ -81,7 +81,7 @@ on a slide.
   managed accounts — use $17 as the headline, or cite both as a range)
 - **25%** higher average order value than non-managed accounts
 - **100+** businesses managed
-- **50+** directories covered
+- **20+** directories covered
 - **Top 3** Google Maps ranking goal within 90 days
 - **30-day** results guarantee or money back
 - **Typical timeline:** onboarding audit → strategy → listing/menu optimization → campaign
@@ -105,7 +105,7 @@ on a slide.
 ## Recognition / press
 
 - Cannabis Business Insights — "Top Cannabis Listing Management Agency 2026"
-- Yelp Ads Certified Partner (one of few cannabis partners recognized by Yelp)
+- One of the few cannabis partners recognized by Yelp (review tools; no Yelp Ads at present)
 - Respect My Region podcast partnership (three episodes)
 - Founder background: 4 years at Weedmaps
 
@@ -116,7 +116,7 @@ on a slide.
 | Do it in-house | GM/budtender time, no bidding expertise, no attribution, listings decay |
 | Platform account reps | Incentivized to grow platform spend, not your ROAS; one platform only |
 | General marketing agency | Doesn't know cannabis compliance or marketplace auctions; treats Weedmaps like a social channel |
-| **Sparks** | Ex-Weedmaps operators, all four platforms + 50 directories, POS-integrated attribution dashboard, 30-day guarantee |
+| **Sparks** | Ex-Weedmaps operators, all four platforms + 20 directories, POS-integrated attribution dashboard, 30-day guarantee |
 
 ## Standard pricing (Sept 2026)
 

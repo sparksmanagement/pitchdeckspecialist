@@ -33,6 +33,37 @@ audit:
     finding: "Sacramento delivery live; delivery coverage and bids for East Bay and Riverside to confirm"
     impact: "Delivery orders leak to competitors in zones NUG already serves from a storefront"
 
+# Worst-looking listing, shown on an iPhone with numbered callouts (slide 5). Built from
+# public Weedmaps data; drop a real screenshot at `screenshot` to replace the mockup.
+audit_mock:
+  listing: "NUG - Riverside"
+  subtitle: "Dispensary · Riverside, CA · Medical & Recreational"
+  rating: "4.0"
+  reviews: "4 reviews"
+  badges: ["Order online", "Pickup"]
+  deals: "No deals shown on this record"
+  menu: "Product verification to confirm"
+  reviews_line: "Responses to reviews: none visible"
+  screenshot: ""
+  fleet_title: "Across the other 6 listings"
+  callouts:
+    - section: name
+      covers: "Riverside"
+      title: "Duplicate Riverside listing"
+      text: "A second NUG - Riverside record (4.0★, 4 reviews) sits beside the main 4.8★ / 20-review page, splitting reviews and rank."
+    - section: rating
+      title: "Thin social proof"
+      text: "24 reviews across both records vs 727 in Sacramento. In a new zone the rating is the pitch."
+    - section: badges
+      title: "No delivery shown"
+      text: "Riverside shows pickup only. Delivery coverage and bids for the zone to confirm."
+    - section: deals
+      title: "No deals on the record"
+      text: "Deal tiles are what get a listing clicked in results. Cadence on the main page to confirm."
+    - section: menu
+      title: "Verification status unknown"
+      text: "Unverified products drop out of brand-filtered search and the NUG brand page's retailer map."
+
 market:
   competitors_in_zone:          # left blank: seven zones, counts vary — panel shows location count instead
   notes: "Seven NUG-branded Weedmaps listings across Northern and Southern California plus a brand page: one strategy, one bidding model, one report."
@@ -73,6 +104,7 @@ investment:
       price: "$495/mo"
       alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
       includes: "Leafly + Yelp + Google management added to Weedmaps — same seven pillars on every platform"
+      optional: true
     - name: "Total Package"
       price: "$1,490/mo"
       alt: "or 10% of ad spend where the spend thresholds are exceeded"

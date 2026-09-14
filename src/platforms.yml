@@ -75,26 +75,26 @@ yelp:
   name: Yelp
   service: Yelp Management
   icon: FaYelp
-  tagline: Where reviews decide, and where Sparks is a Yelp Ads Certified Partner.
+  tagline: Where reviews decide, and where Sparks is one of the few cannabis partners recognized by Yelp.
   why_it_matters:
     - icon: FaStar
       title: The rating is the pitch
       body: Yelp is where shoppers compare local options on rating alone. Unanswered one-star reviews and policy-breaking reviews pull the average down.
-    - icon: FaBullhorn
-      title: Yelp Ads reach comparison shoppers
-      body: Yelp Ads put your store in front of people actively comparing dispensaries. Sparks is one of the few cannabis partners recognized by Yelp.
+    - icon: FaSearch
+      title: Yelp ranks in Google too
+      body: Your Yelp page often outranks your own site for your store name. A complete, current profile is what people see before they ever reach your menu.
     - icon: FaPhoneAlt
       title: Leads, not just clicks
       body: Yelp drives calls, direction requests, and website clicks that never show up on a marketplace dashboard. We track them.
   what_we_manage:
-    - title: "Yelp Ads"
-      body: "Campaigns run through Sparks' Yelp Ads Certified Partner access"
     - title: "Profile optimization"
-      body: "Photos, categories, hours, and highlights"
+      body: "Photos, categories, hours, highlights, and business details kept complete and current"
     - title: "Review management"
-      body: "Responses and removal requests for guideline-breaking reviews"
+      body: "Responses and removal requests for guideline-breaking reviews through Sparks' recognized partner access"
     - title: "Lead tracking"
       body: "Calls, direction requests, and site visits attributed to Yelp"
+    - title: "Content & updates"
+      body: "Specials, announcements, and photo refreshes to keep the page active"
     - title: "Reporting"
       body: "Monthly reporting alongside your marketplace results"
   proof:
@@ -115,7 +115,7 @@ google:
       body: With cannabis restricted on most ad platforms, your Google Business Profile is one of the only free places to reach local customers at scale.
     - icon: FaSitemap
       title: Citations feed the ranking
-      body: Consistent name, address, and phone across 50+ directories is what tells Google (and Siri and Alexa) that your store is the real one.
+      body: Consistent name, address, and phone across 20+ directories is what tells Google (and Siri and Alexa) that your store is the real one.
   what_we_manage:
     - title: "Business Profile"
       body: "Claim, cleanup, and optimization of your Google Business Profile"
@@ -124,7 +124,7 @@ google:
     - title: "Google Ads"
       body: "Compliant campaigns where the market allows"
     - title: "Local SEO & citations"
-      body: "NAP consistency across 50+ directories"
+      body: "NAP consistency across 20+ directories"
     - title: "Map-pack tracking"
       body: "Ranking tracking with a Top 3 goal in 90 days"
   proof:

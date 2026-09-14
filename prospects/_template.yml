@@ -27,11 +27,31 @@ audit:
     finding: "Menu last synced 3 weeks ago; no deals running"
     impact: "Out-of-stock items still showing; lost orders"
   - platform: Yelp
-    finding: "4 unanswered 1-star reviews; no Yelp Ads"
+    finding: "4 unanswered 1-star reviews; profile incomplete"
     impact: "3.4 rating vs 4.5 market average"
   - platform: Google
     finding: "GBP not claimed / wrong hours; 0 posts in 6 months"
     impact: "Not in the Maps 3-pack for 'dispensary near me'"
+
+# Optional: replaces the audit table with an iPhone mockup of the worst listing plus
+# numbered callouts. `section` places the marker: name | rating | badges | deals | menu | reviews.
+# Put a real screenshot at `screenshot` (PNG/JPG, portrait) to use it instead of the mockup;
+# markers then use `at: [x, y]` as fractions of the screen (0–1).
+# audit_mock:
+#   listing: "Business Name - City"
+#   subtitle: "Dispensary · City, ST"
+#   rating: "4.2"
+#   reviews: "18 reviews"
+#   badges: ["Order online", "Pickup"]
+#   deals: "No deals listed"
+#   menu: "212 items · verification to confirm"
+#   reviews_line: "3 unanswered reviews"
+#   screenshot: ""
+#   callouts:
+#     - section: name
+#       title: "Listing name doesn't match the brand"
+#       text: "Shoppers searching the brand may not connect this page to it."
+#   fleet_title: "Across all locations"      # heading for the remaining audit rows
 
 # Local context for the "Where Your Customers Are" slide.
 market:
@@ -49,7 +69,7 @@ services:
     notes: "Menu sync with POS, Leafly ads, deal activations, review management."
   yelp:
     include: true
-    notes: "Yelp Ads (Certified Partner), profile optimization, review responses and removal requests, lead tracking."
+    notes: "Profile optimization, review responses and removal requests, lead tracking. (No Yelp Ads — not available to cannabis right now.)"
   google:
     include: true
     gbp: true
@@ -57,7 +77,7 @@ services:
     notes: "Claim & optimize GBP, weekly Google Posts, photo refresh, Q&A, review response. Target: Maps 3-pack in 90 days."
   local_seo:
     include: true
-    notes: "NAP cleanup and citations across 50+ directories, voice-assistant visibility."
+    notes: "NAP cleanup and citations across 20+ directories, voice-assistant visibility."
   other:                      # free-form extras; leave list empty [] if none
     - name: "Programmatic Advertising"
       notes: "Geo-fenced display + CTV within 5 miles via compliant DSPs; retargeting listing visitors."
@@ -88,6 +108,7 @@ investment:
       price: "$495/mo"
       alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
       includes: "Leafly + Yelp + Google management added to Weedmaps"
+      optional: true          # shows "(optional)" in the next-steps summary
     - name: "Total Package"
       price: "$1,490/mo"
       alt: "or 10% of ad spend where the spend thresholds are exceeded"

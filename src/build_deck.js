@@ -74,6 +74,9 @@ const oneLiner = `We manage your ${scopeList} listings and ads so your ${typeWor
 const auditRows = Array.isArray(P.audit) ? P.audit.filter((r) => r && (r.finding || r.impact)) : [];
 const auditFor = (k) => auditRows.filter((r) => String(r.platform || "").toLowerCase().startsWith(PLAT[k].name.toLowerCase()));
 
+// true when a callout declares it covers this audit row (callout.covers matches row.platform)
+const c_in = (row, callouts) => callouts.some((c) => c.covers && String(row.platform || "").toLowerCase().includes(String(c.covers).toLowerCase()));
+
 const itemTitle = (it) => (typeof it === "string" ? it : it.title || "");
 const itemBody = (it) => (typeof it === "string" ? "" : it.body || "");
 
@@ -239,19 +242,22 @@ async function build() {
   {
     const s = base(true);
     const y0 = title(s, `We run your ${focus.name} listings and ads — and we're accountable for the orders.`, { dark: true, eyebrow: "The solution" });
-    text(s, "Full-service listing management: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest when you're ready.", {
+    text(s, "Full-service listing management: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest (plus 20+ directories for local SEO) when you're ready.", {
       x: M, y: y0 + 0.1, w: 7.8, h: 1.3, fontSize: 15, color: C.soft,
     });
-    const bw = 1.75, gap = 0.25, x0 = W - M - (4 * bw + 3 * gap);
-    for (let i = 0; i < ORDER.length; i++) {
-      const k = ORDER[i], pl = PLAT[k];
-      const isFocus = k === focusKey, inc = isIncluded(k);
-      const on = isFocus || inc;
-      const x = x0 + i * (bw + gap);
-      card(s, x, 4.95, bw, 1.7, { fill: on ? "FFFFFF" : C.deep });
-      s.addImage({ data: await icon(pl.icon, on ? C.primary : C.dim), x: x + bw / 2 - 0.3, y: 5.15, w: 0.6, h: 0.6 });
-      text(s, pl.name, { x, y: 5.85, w: bw, h: 0.3, fontSize: 14, bold: true, color: on ? C.primary : C.dim, align: "center" });
-      text(s, isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel, { x, y: 6.15, w: bw, h: 0.25, fontSize: 8, bold: true, color: on ? C.ink : C.dim, align: "center", charSpacing: 1 });
+    const dirOn = isIncluded("local_seo") || isIncluded("google");
+    const tiles = ORDER.map((k) => {
+      const pl = PLAT[k], isFocus = k === focusKey, inc = isIncluded(k);
+      return { icon: pl.icon, name: pl.name, on: isFocus || inc, label: isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel };
+    });
+    tiles.push({ icon: "FaSitemap", name: "+20 directories", on: dirOn, label: dirOn ? "INCLUDED" : tileAddonLabel, sub: true });
+    const bw = 1.75, gap = 0.25, x0 = W - M - (tiles.length * bw + (tiles.length - 1) * gap);
+    for (let i = 0; i < tiles.length; i++) {
+      const t = tiles[i], x = x0 + i * (bw + gap);
+      card(s, x, 4.95, bw, 1.7, { fill: t.on ? "FFFFFF" : C.deep });
+      s.addImage({ data: await icon(t.icon, t.on ? C.primary : C.dim), x: x + bw / 2 - 0.3, y: 5.15, w: 0.6, h: 0.6 });
+      text(s, t.name, { x, y: 5.85, w: bw, h: 0.3, fontSize: t.sub ? 12.5 : 14, bold: true, color: t.on ? C.primary : C.dim, align: "center" });
+      text(s, t.label, { x, y: 6.15, w: bw, h: 0.25, fontSize: 8, bold: true, color: t.on ? C.ink : C.dim, align: "center", charSpacing: 1 });
     }
     s.addNotes(bundle
       ? `One sentence the prospect can repeat back. The tiles preview the deck's order: ${focus.name} in full, then the add-on bundle (${bundleLabel()} for ${bundle.price} total${total ? `; whole package ${total.price}` : ""}).`
@@ -289,41 +295,124 @@ async function build() {
     s.addNotes(`Market validation for ${focus.name}. Ask which platform they think drives the most orders — most owners are guessing, which is the opening for the audit slide.`);
   }
 
-  // 5. WHAT WE FOUND (audit for focus platform; falls back to all rows)
+  // 5. WHAT WE FOUND — iPhone mockup of the worst listing + callouts (audit_mock), else table
   {
     const s = base();
-    const y0 = title(s, `What we found on ${prospectName}'s ${focus.name} listings`, { eyebrow: secEyebrow("Audit"), sub: "Every row is revenue currently left on the table." });
+    const mock = P.audit_mock && typeof P.audit_mock === "object" ? P.audit_mock : null;
     let rows = auditFor(focusKey);
     if (!rows.length) rows = auditRows;
     const hasAudit = rows.length > 0;
-    const audit = hasAudit ? rows : [{ platform: focus.name, finding: "Audit pending", impact: "Run the audit before presenting" }];
-    const head = { fill: { color: C.primary }, color: "FFFFFF", bold: true, fontFace: FONT_B, fontSize: 13, valign: "middle" };
-    const cell = { fontFace: FONT_B, fontSize: 12, color: C.ink, valign: "middle" };
-    const tableRows = [
-      [{ text: "Listing", options: head }, { text: "What we found", options: head }, { text: "What it's costing you", options: head }],
-      ...audit.map((r, i) => {
-        const fill = { color: i % 2 ? "FFFFFF" : C.light };
+    const y0 = title(s, `What we found on ${prospectName}'s ${focus.name} listings`, { eyebrow: secEyebrow("Audit"), sub: mock ? `${mock.listing || "Their listing"} as a shopper sees it — and what it's costing.` : "Every row is revenue currently left on the table." });
+    const FLAG = "C8322B"; // callout red
+    if (mock) {
+      // ── phone ──
+      const ph = H - 0.75 - y0, pw = 2.3, px = M, py = y0;
+      const shot = mock.screenshot && fs.existsSync(path.join(ROOT, mock.screenshot)) ? path.join(ROOT, mock.screenshot) : null;
+      s.addShape(pres.ShapeType.roundRect, { x: px, y: py, w: pw, h: ph, rectRadius: 0.32, fill: { color: "1C1C1E" }, line: { color: "3A3A3C", width: 1 } });
+      const sx = px + 0.09, sy = py + 0.09, sw = pw - 0.18, sh = ph - 0.18;
+      s.addShape(pres.ShapeType.roundRect, { x: sx, y: sy, w: sw, h: sh, rectRadius: 0.25, fill: { color: "FFFFFF" }, line: { color: "FFFFFF", width: 0 } });
+      s.addShape(pres.ShapeType.roundRect, { x: px + pw / 2 - 0.35, y: sy + 0.08, w: 0.7, h: 0.16, rectRadius: 0.08, fill: { color: "1C1C1E" }, line: { color: "1C1C1E", width: 0 } });
+      const sections = {}; // section key -> y (for markers)
+      if (shot) {
+        s.addImage({ path: shot, x: sx + 0.02, y: sy + 0.3, w: sw - 0.04, h: sh - 0.34 });
+      } else {
+        const ix = sx + 0.14, iw = sw - 0.28;
+        let y = sy + 0.32;
+        text(s, "9:41", { x: ix, y, w: 0.6, h: 0.18, fontSize: 7, bold: true, color: "1C1C1E" });
+        text(s, "●●● 100%", { x: sx + sw - 0.9, y, w: 0.76, h: 0.18, fontSize: 6, color: "1C1C1E", align: "right" });
+        y += 0.24;
+        // hero
+        s.addShape(pres.ShapeType.rect, { x: sx + 0.02, y, w: sw - 0.04, h: 0.9, fill: { color: "E9E4DF" }, line: { color: "E9E4DF", width: 0 } });
+        s.addImage({ data: await icon("FaImage", "B8AFA7"), x: sx + sw / 2 - 0.2, y: y + 0.25, w: 0.4, h: 0.4 });
+        y += 1.0;
+        sections.name = y + 0.15;
+        text(s, mock.listing || prospectName, { x: ix, y, w: iw - 0.42, h: 0.42, fontSize: 10, bold: true, color: "1C1C1E" });
+        y += 0.42;
+        text(s, mock.subtitle || "", { x: ix, y, w: iw, h: 0.2, fontSize: 6.5, color: "6E6E73" });
+        y += 0.24;
+        sections.rating = y + 0.1;
+        text(s, [{ text: "★ ", options: { color: "F5A623", bold: true } }, { text: `${mock.rating || "—"}  `, options: { bold: true } }, { text: mock.reviews || "", options: { color: "6E6E73" } }], { x: ix, y, w: iw, h: 0.22, fontSize: 8, color: "1C1C1E" });
+        y += 0.28;
+        sections.badges = y + 0.12;
+        let bx = ix;
+        for (const b of (mock.badges || []).slice(0, 3)) {
+          const bwid = Math.min(0.62, 0.12 + b.length * 0.05);
+          s.addShape(pres.ShapeType.roundRect, { x: bx, y, w: bwid, h: 0.22, rectRadius: 0.11, fill: { color: "F2EFEC" }, line: { color: "E2DDD8", width: 0.5 } });
+          text(s, b, { x: bx, y, w: bwid, h: 0.22, fontSize: 6, color: "1C1C1E", align: "center", valign: "middle" });
+          bx += bwid + 0.06;
+        }
+        y += 0.36;
+        const rowsDef = [["deals", "Deals", mock.deals], ["menu", "Menu", mock.menu], ["reviews", "Reviews", mock.reviews_line]];
+        for (const [key, label, val] of rowsDef) {
+          s.addShape(pres.ShapeType.line, { x: ix, y: y - 0.04, w: iw, h: 0, line: { color: "ECE7E2", width: 0.5 } });
+          sections[key] = y + 0.2;
+          text(s, label, { x: ix, y, w: iw, h: 0.2, fontSize: 7.5, bold: true, color: "1C1C1E" });
+          text(s, val || "—", { x: ix, y: y + 0.19, w: iw, h: 0.3, fontSize: 6.5, color: "6E6E73" });
+          y += 0.5;
+        }
+      }
+      // ── callouts ──
+      const callouts = (Array.isArray(mock.callouts) ? mock.callouts : []).slice(0, 5);
+      const cx = px + pw + 0.35, cwid = 4.4, ch = (ph - 0.1 * (callouts.length - 1)) / Math.max(callouts.length, 1);
+      callouts.forEach((c, i) => {
+        const y = y0 + i * (ch + 0.1);
+        card(s, cx, y, cwid, ch);
+        s.addShape(pres.ShapeType.ellipse, { x: cx + 0.2, y: y + 0.18, w: 0.36, h: 0.36, fill: { color: FLAG }, line: { color: FLAG, width: 0 } });
+        s.addText(String(i + 1), { x: cx + 0.2, y: y + 0.18, w: 0.36, h: 0.36, fontFace: FONT_H, fontSize: 11, bold: true, color: "FFFFFF", align: "center", valign: "middle", isTextBox: true, margin: 0 });
+        text(s, c.title || "", { x: cx + 0.7, y: y + 0.12, w: cwid - 0.9, h: 0.3, fontSize: 12, bold: true, color: C.primary });
+        text(s, c.text || "", { x: cx + 0.7, y: y + 0.4, w: cwid - 0.85, h: ch - 0.45, fontSize: 9.5, color: C.ink });
+        // marker on the phone
+        let my = null, mx = sx + sw - 0.4;
+        if (shot && Array.isArray(c.at)) { mx = sx + c.at[0] * sw - 0.15; my = sy + c.at[1] * sh - 0.15; }
+        else if (c.section && sections[c.section] != null) my = sections[c.section] - 0.15;
+        if (my != null) {
+          s.addShape(pres.ShapeType.ellipse, { x: mx, y: my, w: 0.3, h: 0.3, fill: { color: FLAG }, line: { color: "FFFFFF", width: 1.5 } });
+          s.addText(String(i + 1), { x: mx, y: my, w: 0.3, h: 0.3, fontFace: FONT_H, fontSize: 9, bold: true, color: "FFFFFF", align: "center", valign: "middle", isTextBox: true, margin: 0 });
+        }
+      });
+      // ── fleet-wide findings ──
+      const fx = cx + cwid + 0.3, fw = W - M - fx;
+      const fleet = rows.filter((r) => !c_in(r, callouts)).slice(0, 5);
+      card(s, fx, y0, fw, ph, { fill: C.primary });
+      text(s, (mock.fleet_title || "Across all listings").toUpperCase(), { x: fx + 0.3, y: y0 + 0.22, w: fw - 0.6, h: 0.3, fontSize: 10, bold: true, charSpacing: 3, color: C.accent });
+      const fh = (ph - 0.75) / Math.max(fleet.length, 1);
+      fleet.forEach((r, i) => {
+        const y = y0 + 0.6 + i * fh;
         const label = String(r.platform || "").replace(new RegExp(`^${focus.name}\\s*[·:-]?\\s*`, "i"), "") || focus.name;
-        return [
-          { text: label, options: { ...cell, bold: true, color: C.primary, fill } },
-          { text: r.finding || "", options: { ...cell, fill } },
-          { text: r.impact || "", options: { ...cell, fill } },
-        ];
-      }),
-    ];
-    const rowH = Math.min(0.6, (H - 0.8 - y0 - 0.2) / (audit.length + 1));
-    s.addTable(tableRows, {
-      x: M, y: y0, w: W - 2 * M, colW: [2.3, 5.1, 4.73], rowH,
-      border: { type: "solid", color: "E6DED7", pt: 0.75 }, margin: [0.06, 0.15, 0.06, 0.15],
-    });
-    const yAfter = y0 + rowH * (audit.length + 1) + 0.35;
-    const h = H - 0.8 - yAfter;
-    if (hasAudit && h >= 0.9) {
-      card(s, M, yAfter, W - 2 * M, Math.min(h, 1.2), { fill: C.primary });
-      text(s, `${audit.length} gap${audit.length === 1 ? "" : "s"} on ${focus.name}`, { x: M + 0.35, y: yAfter + 0.2, w: 5, h: 0.45, fontSize: 18, bold: true, color: C.accent });
-      text(s, "Each one maps to a line on the next slide. All of them are fixed inside the first 30 days of the launch plan.", { x: M + 0.35, y: yAfter + 0.62, w: W - 2 * M - 0.7, h: 0.5, fontSize: 12.5, color: "FFFFFF" });
+        text(s, label, { x: fx + 0.3, y, w: fw - 0.6, h: 0.24, fontSize: 10.5, bold: true, color: "FFFFFF" });
+        text(s, r.finding || "", { x: fx + 0.3, y: y + 0.24, w: fw - 0.6, h: fh - 0.28, fontSize: 9.5, color: C.soft });
+      });
+      s.addNotes(`Walk the phone left to right: this is ${mock.listing || "their listing"} exactly as a shopper sees it. Each numbered flag is a fix in the first 30 days. Right column: the same pattern across the other listings. Items marked 'to confirm' need account access to verify.`);
+    } else {
+      const audit = hasAudit ? rows : [{ platform: focus.name, finding: "Audit pending", impact: "Run the audit before presenting" }];
+      const head = { fill: { color: C.primary }, color: "FFFFFF", bold: true, fontFace: FONT_B, fontSize: 13, valign: "middle" };
+      const cell = { fontFace: FONT_B, fontSize: 12, color: C.ink, valign: "middle" };
+      const tableRows = [
+        [{ text: "Listing", options: head }, { text: "What we found", options: head }, { text: "What it's costing you", options: head }],
+        ...audit.map((r, i) => {
+          const fill = { color: i % 2 ? "FFFFFF" : C.light };
+          const label = String(r.platform || "").replace(new RegExp(`^${focus.name}\\s*[·:-]?\\s*`, "i"), "") || focus.name;
+          return [
+            { text: label, options: { ...cell, bold: true, color: C.primary, fill } },
+            { text: r.finding || "", options: { ...cell, fill } },
+            { text: r.impact || "", options: { ...cell, fill } },
+          ];
+        }),
+      ];
+      const rowH = Math.min(0.6, (H - 0.8 - y0 - 0.2) / (audit.length + 1));
+      s.addTable(tableRows, {
+        x: M, y: y0, w: W - 2 * M, colW: [2.3, 5.1, 4.73], rowH,
+        border: { type: "solid", color: "E6DED7", pt: 0.75 }, margin: [0.06, 0.15, 0.06, 0.15],
+      });
+      const yAfter = y0 + rowH * (audit.length + 1) + 0.35;
+      const h = H - 0.8 - yAfter;
+      if (hasAudit && h >= 0.9) {
+        card(s, M, yAfter, W - 2 * M, Math.min(h, 1.2), { fill: C.primary });
+        text(s, `${audit.length} gap${audit.length === 1 ? "" : "s"} on ${focus.name}`, { x: M + 0.35, y: yAfter + 0.2, w: 5, h: 0.45, fontSize: 18, bold: true, color: C.accent });
+        text(s, "Each one maps to a line on the next slide. All of them are fixed inside the first 30 days of the launch plan.", { x: M + 0.35, y: yAfter + 0.62, w: W - 2 * M - 0.7, h: 0.5, fontSize: 12.5, color: "FFFFFF" });
+      }
+      s.addNotes("Read it like a doctor reading a chart — calm, specific, no blame. Rows marked 'to confirm' could not be verified from outside the account; ask on the call.");
     }
-    s.addNotes("Read it like a doctor reading a chart — calm, specific, no blame. Rows marked 'to confirm' could not be verified from outside the account; ask on the call.");
   }
 
   // 6. WHAT WE'LL MANAGE
@@ -507,9 +596,9 @@ async function build() {
     title(s, `Why ${brand.company}`, { dark: true, sub: "Competitive advantages you can verify." });
     const adv = [
       ["FaUserTie", "Built by ex-Weedmaps operators", "Four years inside Weedmaps working with the largest dispensaries. We know how the auction, ranking and menu systems actually work."],
-      ["FaLayerGroup", "All four platforms + 50 directories", "One team, one strategy, one report across Weedmaps, Leafly, Yelp, Google and every citation that feeds local SEO."],
+      ["FaLayerGroup", "All four platforms + 20 directories", "One team, one strategy, one report across Weedmaps, Leafly, Yelp, Google and 20+ directories that feed local SEO."],
       ["FaPlug", "POS-integrated attribution", "Treez, Dutchie and other POS data joined with ad spend and platform metrics — you see which platform, campaign and deal drove revenue."],
-      ["FaAward", "Recognized", "Top Cannabis Listing Management Agency 2026 (Cannabis Business Insights). Yelp Ads Certified Partner. 100+ businesses managed."],
+      ["FaAward", "Recognized", "Top Cannabis Listing Management Agency 2026 (Cannabis Business Insights). One of the few cannabis partners recognized by Yelp. 100+ businesses managed."],
     ];
     const gap = 0.3, cw = (W - 2 * M - gap) / 2, ch = 1.95;
     for (let i = 0; i < adv.length; i++) {
@@ -586,7 +675,7 @@ async function build() {
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const pendingKeys = others.filter((k) => !isIncluded(k));
-    if (opts.length) opts.forEach((o) => lines.push([o.name, o.price || "Custom", !!o.recommended]));
+    if (opts.length) opts.forEach((o) => lines.push([o.name + (o.optional ? "  (optional)" : ""), o.price || "Custom", !!o.recommended]));
     else lines.push([focus.service, inv.monthly_fee || "Custom"]);
     for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
     if (pendingKeys.length && !(bundle && opts.some((o) => o.price === bundle.price))) {

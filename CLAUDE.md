@@ -27,6 +27,10 @@ your job is to turn that into a finished `.pptx`.
    if none). `include: true` on a non-focus platform marks its preview slide
    INCLUDED instead of ADD-ON. Prefix each `audit` row's `platform` with the
    platform name (e.g. "Weedmaps · Sacramento") so rows land on the right slide.
+   Add `audit_mock` (see the template) to show the worst listing as an iPhone
+   mockup with numbered callouts instead of the table; a real screenshot can be
+   dropped in via `audit_mock.screenshot`. Never pitch Yelp Ads (not available
+   to cannabis right now); directories are "20+", not 50.
 3. **Build:** `npm run build -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`.
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
