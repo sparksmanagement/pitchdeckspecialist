@@ -14,59 +14,58 @@ prospect:
   contact_title: ""
   date: ""
 
-# Verified from public Weedmaps / Google / Yelp listings (Sept 2026). Items marked
-# "to confirm" could not be verified from outside the account.
+# Verified on the live Weedmaps listings (headless browser, Sept 14 2026). Items marked
+# "to confirm" need account access.
 audit:
   - platform: "Weedmaps · Sacramento"
-    finding: "4.7★ from 727 reviews, but the listing still surfaces in search as \"Community Health Solutions - Sacramento\""
-    impact: "Shoppers searching NUG may not connect the listing to the brand; split authority"
-  - platform: "Weedmaps · Alameda & Riverside"
-    finding: "4.8★ each but only 23 and 20 reviews; Riverside also shows a second 4.0★ / 4-review record"
-    impact: "Thin review volume and a likely duplicate listing hold both stores back in zone ranking"
+    finding: "Listed as \"Community Health Solutions - Sacramento\" — the header image says it too. 4.7★ / 1,145 reviews, 1,954 products"
+    impact: "The flagship store doesn't carry the NUG name; brand searches and reviews are split"
+  - platform: "Weedmaps · Vallejo"
+    finding: "Listed as \"California Collective Care\"; online ordering stops at 7:00pm while the store is open until 10:00pm"
+    impact: "Three hours of open-store time with no online orders, every day"
+  - platform: "Weedmaps · Alameda"
+    finding: "4.8★ but only 41 reviews, a single photo, and the Labor Day (Sept 3–7) header still live"
+    impact: "Thin social proof and a stale, one-photo profile in a newer zone"
+  - platform: "Weedmaps · Red Bluff"
+    finding: "4.3★ from 8 reviews — lowest rating in the chain; no owner replies"
+    impact: "With a tiny review base, every 1-star review moves the rating"
   - platform: "Weedmaps · Oakland & San Leandro"
-    finding: "4.7★ / 152 and 4.6★ / 546 reviews; paid placement and deal cadence to confirm"
-    impact: "Strong ratings under-leveraged in the most competitive East Bay service zones"
-  - platform: "Weedmaps · Brand page"
-    finding: "NUG brand page live with retailer, deals and events feed; product verification across NUG-owned menus to confirm"
-    impact: "Unverified SKUs drop out of brand-filtered search and the retailer map"
-  - platform: "Weedmaps · Delivery"
-    finding: "Sacramento delivery live; delivery coverage and bids for East Bay and Riverside to confirm"
-    impact: "Delivery orders leak to competitors in zones NUG already serves from a storefront"
+    finding: "4.7★ / 155 and 4.7★ / 577 reviews. San Leandro is the only NUG listing that answers reviews (12 replies)"
+    impact: "The playbook that works in San Leandro isn't applied to the other six"
 
-# Worst-looking listing, shown on an iPhone with numbered callouts (slide 5). Built from
-# public Weedmaps data; drop a real screenshot at `screenshot` to replace the mockup.
+# Worst-looking listing, shown on an iPhone with numbered callouts (slide 5).
+# Real screenshot captured from weedmaps.com/dispensaries/nug-riverside on Sept 14 2026.
 audit_mock:
-  listing: "NUG - Riverside"
+  listing: "NUG Riverside (weedmaps.com/dispensaries/nug-riverside)"
   subtitle: "Dispensary · Riverside, CA · Medical & Recreational"
-  rating: "4.0"
-  reviews: "4 reviews"
+  rating: "4.6"
+  reviews: "10 reviews"
   badges: ["Order online", "Pickup"]
-  deals: "No deals shown on this record"
-  menu: "Product verification to confirm"
-  reviews_line: "Responses to reviews: none visible"
-  screenshot: ""
+  deals: "Monday Deals"
+  menu: "1,768 products · Live menu"
+  reviews_line: "No owner replies"
+  screenshot: "prospects/assets/nug-riverside-weedmaps.png"
   fleet_title: "Across the other 6 listings"
   callouts:
-    - section: name
-      covers: "Riverside"
-      title: "Duplicate Riverside listing"
-      text: "A second NUG - Riverside record (4.0★, 4 reviews) sits beside the main 4.8★ / 20-review page, splitting reviews and rank."
-    - section: rating
-      title: "Thin social proof"
-      text: "24 reviews across both records vs 727 in Sacramento. In a new zone the rating is the pitch."
-    - section: badges
-      title: "No delivery shown"
-      text: "Riverside shows pickup only. Delivery coverage and bids for the zone to confirm."
-    - section: deals
-      title: "No deals on the record"
-      text: "Deal tiles are what get a listing clicked in results. Cadence on the main page to confirm."
-    - section: menu
-      title: "Verification status unknown"
-      text: "Unverified products drop out of brand-filtered search and the NUG brand page's retailer map."
+    - at: [0.9, 0.29]
+      title: "Three names on one listing"
+      text: "Page: \"The Artist Tree\". Browser title: \"Biomass Industries, LLC\". Logo and reviews: NUG Riverside. Brand searches can't find it."
+    - at: [0.9, 0.075]
+      title: "Expired banner still live"
+      text: "The Labor Day Sale header (Sept 3–7) is still up a week later — here and on Alameda and Vallejo."
+    - at: [0.9, 0.42]
+      title: "10 reviews, none answered"
+      text: "4.6★ from 10 reviews. The June 1-star (\"sold old flower\") has no owner reply."
+    - at: [0.9, 0.535]
+      title: "Pickup only"
+      text: "Storefront | Pickup — no delivery option on this or any of the seven listings."
+    - at: [0.9, 0.93]
+      title: "Verification to confirm"
+      text: "1,768 products; verification isn't visible from outside the account. Unverified SKUs drop out of brand-filtered search."
 
 market:
   competitors_in_zone:          # left blank: seven zones, counts vary — panel shows location count instead
-  notes: "Seven NUG-branded Weedmaps listings across Northern and Southern California plus a brand page: one strategy, one bidding model, one report."
+  notes: "Seven NUG Weedmaps listings across Northern and Southern California plus a brand page — three of them don't carry the NUG name today. One strategy, one bidding model, one report."
 
 services:
   weedmaps:
@@ -121,7 +120,7 @@ investment:
 
 plan:
   - period: "Days 1–30"
-    items: "Audit all 7 listings + brand page, fix naming and duplicates, verify menus, launch bids in every zone"
+    items: "Fix naming on Sacramento, Vallejo and Riverside, pull expired banners, answer reviews, verify menus, launch bids in every zone"
   - period: "Days 31–60"
     items: "Deal and promo cadence, review program, creative refresh, POS-integrated dashboard live"
   - period: "Days 61–90"

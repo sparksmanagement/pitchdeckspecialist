@@ -313,8 +313,9 @@ async function build() {
       s.addShape(pres.ShapeType.roundRect, { x: sx, y: sy, w: sw, h: sh, rectRadius: 0.25, fill: { color: "FFFFFF" }, line: { color: "FFFFFF", width: 0 } });
       s.addShape(pres.ShapeType.roundRect, { x: px + pw / 2 - 0.35, y: sy + 0.08, w: 0.7, h: 0.16, rectRadius: 0.08, fill: { color: "1C1C1E" }, line: { color: "1C1C1E", width: 0 } });
       const sections = {}; // section key -> y (for markers)
+      const img = { x: sx + 0.02, y: sy + 0.3, w: sw - 0.04, h: sh - 0.34 };
       if (shot) {
-        s.addImage({ path: shot, x: sx + 0.02, y: sy + 0.3, w: sw - 0.04, h: sh - 0.34 });
+        s.addImage({ path: shot, x: img.x, y: img.y, w: img.w, h: img.h, sizing: { type: "cover", w: img.w, h: img.h } });
       } else {
         const ix = sx + 0.14, iw = sw - 0.28;
         let y = sy + 0.32;
@@ -363,7 +364,7 @@ async function build() {
         text(s, c.text || "", { x: cx + 0.7, y: y + 0.4, w: cwid - 0.85, h: ch - 0.45, fontSize: 9.5, color: C.ink });
         // marker on the phone
         let my = null, mx = sx + sw - 0.4;
-        if (shot && Array.isArray(c.at)) { mx = sx + c.at[0] * sw - 0.15; my = sy + c.at[1] * sh - 0.15; }
+        if (shot && Array.isArray(c.at)) { mx = img.x + c.at[0] * img.w - 0.15; my = img.y + c.at[1] * img.h - 0.15; }
         else if (c.section && sections[c.section] != null) my = sections[c.section] - 0.15;
         if (my != null) {
           s.addShape(pres.ShapeType.ellipse, { x: mx, y: my, w: 0.3, h: 0.3, fill: { color: FLAG }, line: { color: "FFFFFF", width: 1.5 } });

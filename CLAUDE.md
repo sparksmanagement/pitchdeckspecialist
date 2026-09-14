@@ -7,7 +7,15 @@ your job is to turn that into a finished `.pptx`.
 
 ## Workflow when the user gives you a business
 
-1. **Research the prospect.** Use web search for the business name + city: type
+1. **Research the prospect.** Weedmaps and sparkscann.com serve bot-challenge pages
+   to curl and the WebFetch tool; load them with the pre-installed headless Chromium
+   via Playwright instead (default profile, no UA spoofing, `proxy: { server:
+   process.env.HTTPS_PROXY }`; if you get `ERR_CERT_AUTHORITY_INVALID`, register the
+   proxy CA once: `apt-get install -y libnss3-tools && certutil -d sql:$HOME/.pki/nssdb
+   -A -t "C,," -n ccr-agent-proxy -i /root/.ccr/agent-proxy-ca.crt`). Screenshot each
+   listing at a 430×932 viewport, save `document.body.innerText`, and crop the worst
+   listing's screenshot into `prospects/assets/<slug>-<platform>.png` for
+   `audit_mock.screenshot`. Also use web search for the business name + city: type
    (dispensary / delivery / brand), locations, website, and anything visible about
    their Weedmaps, Leafly, Yelp and Google presence (rating, review count, deals,
    whether GBP is claimed, competitor density). Do not invent facts; if you
