@@ -1,0 +1,132 @@
+# Garden of Eden (GOE) — Bay Area dispensary since 2003: Hayward + Tracy storefronts, Hayward + Tracy
+# delivery zones. Pitch scope: Weedmaps management. Build: npm run build -- prospects/garden-of-eden.yml
+
+prospect:
+  name: "Garden of Eden"
+  type: dispensary
+  type_label: "dispensary and delivery operation"
+  focus: weedmaps
+  city: "Hayward"
+  state: "CA"
+  locations: 4                 # Hayward store, Tracy store, Hayward delivery, Tracy delivery (Weedmaps listings)
+  website: "goe.menu"
+  contact_name: ""
+  contact_title: ""
+  date: ""
+
+# Verified on the live listings (headless browser, Sept 14 2026) unless marked otherwise.
+audit:
+  - platform: "Weedmaps · Tracy"
+    finding: "4.9★ but only 15 reviews; no deals section; online ordering stops at 7pm while the store is open until 10pm."
+    impact: "The best-rated store has nothing to click and loses three hours of orders nightly"
+  - platform: "Weedmaps · Hayward Delivery"
+    finding: "4.0★ from a single review; $5 fee and a $100 minimum shown up top; no deals, 5 photos."
+    impact: "A 4.0 on one review is the first thing delivery shoppers see"
+  - platform: "Weedmaps · Tracy Delivery"
+    finding: "3 reviews (15 ratings) for a zone covering Manteca, Lathrop and Mountain House; no deals."
+    impact: "Thin social proof in the widest delivery footprint"
+  - platform: "Weedmaps · All four listings"
+    finding: "No deal tiles or featured products anywhere; first-time offers live only in the Announcement text. No owner replies on Hayward or either delivery listing."
+    impact: "Deals are the tile that gets a listing clicked in results — none of the four has one"
+  - platform: "Leafly · Hayward"
+    finding: "Unclaimed listing (\"claim your store\"), 3.8★ from 24 reviews, and hours show Closed every day — Leafly member since 2015."
+    impact: "Leafly shoppers are told the flagship is closed"
+  - platform: "Yelp · Hayward"
+    finding: "446 reviews and 78 photos (per Yelp) — the deepest review base after Google."
+    impact: "Responses and profile upkeep protect a rating that carries into search"
+  - platform: "Google · Hayward"
+    finding: "4.5★ from roughly 1,800 reviews (per Google listing) — strong, and not reflected on the marketplaces."
+    impact: "Proof to carry into Apple Maps and 20+ directories"
+
+# Hayward flagship on an iPhone with numbered callouts (slide 5). Real screenshot captured from
+# weedmaps.com/dispensaries/garden-of-eden-6 on Sept 14 2026.
+audit_mock:
+  listing: "Garden of Eden - Hayward, the flagship listing,"
+  subtitle: "Dispensary · Hayward, CA · Medical & Recreational"
+  rating: "4.8"
+  reviews: "12 reviews"
+  badges: ["Order online", "Pickup"]
+  deals: "No deals section"
+  menu: "436 products · Live menu"
+  reviews_line: "No owner replies"
+  screenshot: "prospects/assets/garden-of-eden-weedmaps.png"
+  fleet_title: "Across the other listings"
+  callouts:
+    - at: [0.62, 0.423]
+      title: "Only 12 reviews since 2003"
+      text: "4.8★, but just 12 reviews on the flagship. Google has 1,800+. The social proof exists — it isn't on Weedmaps."
+    - at: [0.9, 0.471]
+      title: "Orders stop two hours before close"
+      text: "Ordering cuts off at 7pm while the store is open until 9pm (Tracy: 7pm vs 10pm). Evening shoppers bounce."
+    - at: [0.9, 0.63]
+      title: "No deals section at all"
+      text: "The page jumps from the action buttons straight to the menu. No deal tiles, no featured products — the 10% first-time offer is buried in the announcement."
+    - at: [0.04, 0.545]
+      title: "No replies to reviews"
+      text: "Zero owner responses on Hayward and both delivery listings; one on Tracy."
+    - at: [0.62, 0.766]
+      title: "Verification to confirm"
+      text: "436 products; verification status isn't visible from outside the account."
+
+market:
+  competitors_in_zone:
+  notes: "Four Weedmaps listings — two storefronts and two delivery zones across Hayward and Tracy. Google is strong (4.5★, ~1,800 reviews); the marketplaces don't show it yet."
+
+services:
+  weedmaps:
+    include: true
+    notes: "Ad spend & bid management across all 4 listings (2 storefronts + 2 delivery zones), listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
+  leafly:
+    include: false
+    notes: ""
+  yelp:
+    include: false
+    notes: ""
+  google:
+    include: false
+    gbp: false
+    ads: false
+    notes: ""
+  local_seo:
+    include: false
+    notes: ""
+  other: []
+
+investment:
+  monthly_fee: ""
+  trial: ""
+  ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
+  term: "Month-to-month after the 90-day launch"
+  options:
+    - name: "Weedmaps Management"
+      price: "$995/mo"
+      alt: "or 10% of Weedmaps ad spend once spend exceeds $9,995/mo"
+      includes: "Full Weedmaps management across all 4 listings: bids, listings, menus, deals, graphics, reviews, weekly reporting"
+    - name: "Listing Bundle"
+      price: "$495/mo"
+      alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
+      includes: "Leafly + Yelp + Google + Apple Maps and 20 directories, added to Weedmaps — same seven pillars everywhere"
+      optional: true
+    - name: "Total Package"
+      price: "$1,490/mo"
+      alt: "or 10% of ad spend where the spend thresholds are exceeded"
+      includes: "Every marketplace, map and directory your customers use — one team, one report."
+      recommended: true
+  addon:
+    label: "Leafly + Yelp + Google + Apple Maps"
+    price: "$495/mo"
+    detail: "One fee for Leafly, Yelp, Google, Apple Maps and 20 directories; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+  total:
+    label: "Total package"
+    price: "$1,490/mo"
+    detail: "Weedmaps + Leafly + Yelp + Google + Apple Maps + 20 directories, unless the 10%-of-ad-spend rule applies"
+
+plan:
+  - period: "Days 1–30"
+    items: "Deal tiles and featured products on all 4 listings, ordering extended to close, review program live, menus verified, bids launched in Hayward and Tracy"
+  - period: "Days 31–60"
+    items: "Deal cadence, creative refresh, delivery-zone bids for Manteca, Lathrop and Mountain House, POS-integrated dashboard live"
+  - period: "Days 61–90"
+    items: "Scale winning zones, review velocity to match Google, quarterly plan"
+
+case_studies: [purple_lotus, nuna_harvest]
