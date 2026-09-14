@@ -79,13 +79,20 @@ investment:
     detail: "Weedmaps + Leafly + Yelp + Google, unless the 10%-of-ad-spend rule applies"
   ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
   term: "Month-to-month after the 90-day launch"
-  options:                    # focus-platform tiers shown on the Investment slide; leave [] to use monthly_fee
-    - name: "Weedmaps · Base"
+  options:                    # up to 3 cards on the Investment slide; leave [] to auto-build from monthly_fee + addon + total
+    - name: "Weedmaps Management"
       price: "$995/mo"
-      includes: "Full Weedmaps management while Weedmaps ad spend is $9,995/mo or less"
-    - name: "Weedmaps · Scale"
-      price: "10% of ad spend"
-      includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo"
+      alt: "or 10% of Weedmaps ad spend once spend exceeds $9,995/mo"
+      includes: "Full Weedmaps management: bids, listings, menus, deals, graphics, reviews, weekly reporting"
+    - name: "Listing Bundle"
+      price: "$495/mo"
+      alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
+      includes: "Leafly + Yelp + Google management added to Weedmaps"
+    - name: "Total Package"
+      price: "$1,490/mo"
+      alt: "or 10% of ad spend where the spend thresholds are exceeded"
+      includes: "Weedmaps + Leafly + Yelp + Google. Every platform your customers use, one team, one report."
+      recommended: true       # highlighted card
 
 # 30/60/90 plan shown on the Next Steps slide. Defaults are fine for most decks.
 plan:

@@ -402,42 +402,50 @@ async function build() {
   {
     const s = base(true);
     title(s, `${focus.service} investment`, { dark: true, eyebrow: secEyebrow("Investment"), sub: inv.term || "" });
-    const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
+    let opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const addonsPending = others.filter((k) => !isIncluded(k));
-    if (bundle && addonsPending.length) opts.push({ name: "Add-on bundle", price: bundle.price, includes: `${bundleLabel()}. ${bundle.detail || ""}`.trim() });
-    const gap = 0.3;
-    if (opts.length) {
-      const n = Math.min(opts.length, 3), cw = (W - 2 * M - gap * (n - 1)) / n;
-      opts.slice(0, 3).forEach((o, i) => {
-        const x = M + i * (cw + gap);
-        card(s, x, 2.55, cw, 2.9, { fill: "FFFFFF" });
-        text(s, o.name, { x: x + 0.35, y: 2.8, w: cw - 0.7, h: 0.4, fontSize: 16, bold: true, color: C.primary });
-        const price = o.price || "Custom";
-        const pf = price.length <= 9 ? 34 : price.length <= 14 ? 28 : 22;
-        s.addText(price, { x: x + 0.35, y: 3.2, w: cw - 0.7, h: 0.9, fontFace: FONT_H, fontSize: pf, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
-        text(s, o.includes || "", { x: x + 0.35, y: 4.2, w: cw - 0.7, h: 1.15, fontSize: 12, color: C.ink });
-      });
-    } else {
-      card(s, M, 2.55, 6, 2.9, { fill: "FFFFFF" });
-      text(s, focus.service, { x: M + 0.35, y: 2.8, w: 5.3, h: 0.4, fontSize: 16, bold: true, color: C.primary });
-      s.addText(inv.monthly_fee || "Custom proposal", { x: M + 0.35, y: 3.2, w: 5.3, h: 0.95, fontFace: FONT_H, fontSize: 34, bold: true, color: C.ink, isTextBox: true, margin: 0 });
+    if (!opts.length) {
+      opts = [{ name: focus.service, price: inv.monthly_fee || "Custom proposal", includes: "" }];
+      if (bundle && addonsPending.length) opts.push({ name: "Listing bundle", price: bundle.price, includes: `${bundleLabel()}. ${bundle.detail || ""}`.trim() });
+      if (total) opts.push({ name: total.label || "Total package", price: total.price, includes: total.detail || "", recommended: true });
     }
+    const gap = 0.3, n = Math.min(opts.length, 3), cw = (W - 2 * M - gap * (n - 1)) / n;
+    const cy = 2.5, ch = 3.15;
+    opts.slice(0, 3).forEach((o, i) => {
+      const x = M + i * (cw + gap);
+      const rec = !!o.recommended;
+      card(s, x, cy, cw, ch, { fill: rec ? C.highlight : "FFFFFF", line: rec ? "FFFFFF" : undefined });
+      if (rec) {
+        s.addShape(pres.ShapeType.roundRect, { x, y: cy, w: cw, h: ch, rectRadius: 0.12, fill: { type: "none" }, line: { color: "FFFFFF", width: 2 } });
+        pill(s, "RECOMMENDED", x + cw - 1.65, cy + 0.28, 1.35);
+      }
+      text(s, o.name, { x: x + 0.35, y: cy + 0.25, w: cw - (rec ? 2.1 : 0.7), h: 0.4, fontSize: 16, bold: true, color: C.primary, valign: "middle" });
+      const price = o.price || "Custom";
+      const pf = price.length <= 9 ? 36 : price.length <= 14 ? 28 : 22;
+      s.addText(price, { x: x + 0.35, y: cy + 0.7, w: cw - 0.7, h: 0.8, fontFace: FONT_H, fontSize: pf, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
+      if (o.alt) text(s, o.alt, { x: x + 0.35, y: cy + 1.5, w: cw - 0.7, h: 0.55, fontSize: 11.5, italic: true, color: C.primary });
+      text(s, o.includes || "", { x: x + 0.35, y: cy + (o.alt ? 2.1 : 1.6), w: cw - 0.7, h: ch - (o.alt ? 2.25 : 1.75), fontSize: 12, color: C.ink });
+    });
+    const by = cy + ch + 0.12;
     if (trial) {
-      text(s, trial, { x: M, y: 5.6, w: 6.6, h: 0.4, fontSize: 13, bold: true, color: C.accent });
-      text(s, brand.guarantee, { x: M, y: 6.0, w: 6.5, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
-      text(s, inv.ad_spend_note || "", { x: M, y: 6.3, w: 6.5, h: 0.4, fontSize: 10.5, color: C.soft, italic: true });
+      text(s, trial, { x: M, y: by, w: 7.5, h: 0.35, fontSize: 13, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: by + 0.36, w: 7.5, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
+      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.66, w: 7.5, h: 0.35, fontSize: 10.5, color: C.soft, italic: true });
     } else {
-      text(s, brand.guarantee, { x: M, y: 5.7, w: 6.5, h: 0.4, fontSize: 15, bold: true, color: C.accent });
-      text(s, inv.ad_spend_note || "", { x: M, y: 6.1, w: 6.5, h: 0.5, fontSize: 11, color: C.soft, italic: true });
+      text(s, brand.guarantee, { x: M, y: by, w: 7.5, h: 0.4, fontSize: 14, bold: true, color: C.accent });
+      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.42, w: 7.5, h: 0.4, fontSize: 10.5, color: C.soft, italic: true });
     }
+    const showsTotal = total && opts.some((o) => o.price === total.price);
     const addons = addonsPending.map((k) => PLAT[k].name);
-    if (addons.length) {
+    if (addons.length && !showsTotal) {
       const teaser = bundle
         ? (total ? `Total package with ${listWords(addons)}: ${total.price}${total.detail ? ` — ${total.detail}` : ""}` : `Add ${listWords(addons)} management together for ${bundle.price}.`)
         : `Add ${listWords(addons)} management for ${addonPrice} each — previews on the next ${addons.length === 1 ? "slide" : "slides"}.`;
-      text(s, teaser, { x: M + 6.8, y: 5.7, w: W - 2 * M - 6.8, h: 0.9, fontSize: 13, bold: true, color: "FFFFFF", align: "right" });
+      text(s, teaser, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 12.5, bold: true, color: "FFFFFF", align: "right" });
+    } else if (addons.length) {
+      text(s, `${listWords(addons)} previews follow. Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
     }
-    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Whole package: ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}`);
+    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──
@@ -577,15 +585,15 @@ async function build() {
     text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 0.7, h: 0.3, fontSize: 11, color: C.accent, charSpacing: 4, bold: true });
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
-    if (opts.length) opts.forEach((o) => lines.push([o.name.toLowerCase().startsWith(focus.name.toLowerCase()) ? o.name : `${focus.name} · ${o.name}`, o.price || "Custom"]));
-    else lines.push([focus.service, inv.monthly_fee || "Custom"]);
     const pendingKeys = others.filter((k) => !isIncluded(k));
+    if (opts.length) opts.forEach((o) => lines.push([o.name, o.price || "Custom", !!o.recommended]));
+    else lines.push([focus.service, inv.monthly_fee || "Custom"]);
     for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
-    if (pendingKeys.length) {
+    if (pendingKeys.length && !(bundle && opts.some((o) => o.price === bundle.price))) {
       if (bundle) lines.push([pendingKeys.map((k) => PLAT[k].name).join(" + "), `+${bundle.price}`]);
       else for (const k of pendingKeys) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), `+${addonPrice}`]);
     }
-    if (total) lines.push([total.label || "Total package", total.price, true]);
+    if (total && !opts.some((o) => o.price === total.price)) lines.push([total.label || "Total package", total.price, true]);
     const lh = Math.min(0.42, 2.3 / lines.length);
     lines.forEach((l, i) => {
       const y = 3.0 + i * lh;
