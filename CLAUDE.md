@@ -14,12 +14,14 @@ your job is to turn that into a finished `.pptx`.
    cannot verify a listing detail, write it as a question for the user in the
    audit notes rather than a finding.
 2. **Create the prospect file.** Copy `prospects/_template.yml` to
-   `prospects/<slug>.yml` and fill every section. The `services` block must
-   always address all six: `weedmaps`, `leafly`, `yelp`, `google` (with `gbp`
-   and `ads` flags), `local_seo`, and `other` (a list; `[]` if none). Set
-   `include: false` for anything out of scope so it still shows as
-   "not included" on the scope slide. Write per-platform `notes` that are
-   specific to this prospect's audit findings.
+   `prospects/<slug>.yml` and fill every section. Set `focus` (default
+   `weedmaps`) — that platform gets the full pitch; the others become one-slide
+   add-on previews at `investment.addon_price` (default $495/mo). The
+   `services` block must always address all six: `weedmaps`, `leafly`, `yelp`,
+   `google` (with `gbp` and `ads` flags), `local_seo`, and `other` (a list; `[]`
+   if none). `include: true` on a non-focus platform marks its preview slide
+   INCLUDED instead of ADD-ON. Prefix each `audit` row's `platform` with the
+   platform name (e.g. "Weedmaps · Sacramento") so rows land on the right slide.
 3. **Build:** `npm run build -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`.
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
@@ -39,17 +41,23 @@ your job is to turn that into a finished `.pptx`.
 - `brand/config.yml` — contact, team, palette, proof stats, guarantee.
 - `brand/deck-structure.md` — the 14-slide structure (Slidebean Airbnb deck
   adapted to an agency sales pitch) and what feeds each slide.
-- `src/build_deck.js` — pptxgenjs generator. `src/case_studies.yml` — case
-  study data. `src/icons.js` — react-icons → PNG.
+- `src/build_deck.js` — pptxgenjs generator. `src/platforms.yml` — per-platform
+  pitch copy (why it matters, what we manage, proof). `src/case_studies.yml` —
+  case study data. `src/icons.js` — react-icons → PNG.
+- `brand/assets/` — Sparks logo variants (orange/white/black full logo, wordmark,
+  sparkles icon). Palette and logo paths are in `brand/config.yml`.
 - `prospects/` — one YAML per business. `decks/` — output.
 
 ## Rules
 
-- Every deck covers all six services (Weedmaps, Leafly, Yelp, Google GBP/Ads,
-  Local SEO, Other) on the scope slide, included or not.
-- Keep the deck at 14 slides; add content by editing the prospect file, not by
-  bolting on slides, unless the user asks.
+- Decks are split by platform in the order Weedmaps → Leafly → Yelp → Google.
+  The focus platform gets ~80% of the deck; every other platform still gets its
+  preview slide (included or add-on) so all services are always presented.
+- Keep the deck at 15 slides; add content by editing the prospect file or
+  `src/platforms.yml`, not by bolting on slides, unless the user asks.
+- Brand: Sparks orange `DD5F13`, white, charcoal. Use the logo assets in
+  `brand/assets/`; never recolor the logo outside orange/white/black.
 - Proof points and case studies come only from `brand/sparks.md`; if the
   website changes, update that file first.
-- Fonts stay Cambria (headings) and Calibri (body) so QA renders are trustworthy.
+- Fonts stay Arial (headings) and Calibri (body) so QA renders are trustworthy.
 - Never put a model name in commits, files, or the deck.

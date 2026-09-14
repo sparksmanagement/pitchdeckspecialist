@@ -5,6 +5,7 @@ prospect:
   name: "NUG"
   type: dispensary
   type_label: "dispensary, delivery and brand operation"
+  focus: weedmaps               # full section; other platforms shown as add-ons
   city: "Oakland"
   state: "CA"
   locations: 7                 # Sacramento, Oakland, San Leandro, Alameda, Riverside, Vallejo (CCC powered by NUG), Red Bluff
@@ -60,15 +61,16 @@ services:
 
 investment:
   monthly_fee: ""
+  addon_price: "$495/mo"        # Leafly, Yelp, Google each, on top of Weedmaps
   ad_spend_note: "Ad spend is billed directly by Weedmaps; Sparks manages allocation and bidding across every listing."
   term: "Month-to-month after the 90-day launch"
   options:
     - name: "Base"
       price: "$995/mo"
-      includes: "Full Weedmaps management while total ad spend is $9,995/mo or less"
+      includes: "Full Weedmaps management across all 7 listings + brand page while total Weedmaps ad spend is $9,995/mo or less"
     - name: "Scale"
       price: "10% of ad spend"
-      includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo"
+      includes: "Replaces the base fee once Weedmaps ad spend exceeds $9,995/mo — the fee scales only when the spend does"
 
 plan:
   - period: "Days 1–30"

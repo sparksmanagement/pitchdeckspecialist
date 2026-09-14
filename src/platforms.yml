@@ -1,0 +1,109 @@
+# Per-platform pitch content. The focus platform (prospect.focus, default weedmaps)
+# gets a full section; every other platform gets one preview slide in this order.
+# Copy is sourced from brand/sparks.md — keep the two in sync.
+
+order: [weedmaps, leafly, yelp, google]
+
+weedmaps:
+  name: Weedmaps
+  service: Weedmaps Management
+  icon: FaMapMarkedAlt
+  tagline: The largest cannabis marketplace, and the one most orders start on.
+  why_it_matters:
+    - icon: FaSearchLocation
+      title: Discovery starts here
+      body: Shoppers open Weedmaps to find who's nearby, who's open, and who has the deal. If you're not in the top of the zone, you're not in the consideration set.
+    - icon: FaGavel
+      title: Placement is an auction
+      body: Ranking in your service zone is bid-based and daily-budgeted. Bids that aren't managed drift, overpay in quiet hours, and lose the slot in busy ones.
+    - icon: FaClipboardCheck
+      title: The listing closes the sale
+      body: Verified products, live deals, fresh photos, and answered reviews turn a click into an order. Every stale element leaks conversions.
+  what_we_manage:
+    - "Bid strategy and daily budget pacing for top placement in every service zone"
+    - "Listing optimization: hours, photos, attributes, description, and Q&A"
+    - "Menu management and product verification synced with your POS"
+    - "Daily and monthly deal activations, BOGOs, and featured products"
+    - "In-house graphics for headers, deal tiles, and product imagery"
+    - "Same-day review responses and removal requests for policy-breaking reviews"
+    - "Brand page management for retailers who also own a brand"
+    - "Weekly performance reporting with POS-attributed revenue"
+  proof:
+    stat: "$17"
+    label: "average return on every $1 of Weedmaps ad spend"
+  case_studies: [purple_lotus, nuna_harvest]
+
+leafly:
+  name: Leafly
+  service: Leafly Management
+  icon: FaLeaf
+  tagline: Strain-led discovery and the second marketplace most customers check.
+  why_it_matters:
+    - icon: FaCannabis
+      title: Strain and product search
+      body: Leafly shoppers arrive knowing the strain or product they want. A verified, well-tagged menu is what puts your store in front of them.
+    - icon: FaBullhorn
+      title: Leafly ads and deals
+      body: Paid placement, deal listings, and featured products work the same way as Weedmaps and are just as easy to leave unmanaged.
+    - icon: FaStar
+      title: Reviews carry weight
+      body: Leafly reviews surface in Google results for your store name, so unanswered reviews cost you off-platform too.
+  what_we_manage:
+    - "Menu sync and product tagging across strains, brands, and categories"
+    - "Leafly Ads strategy, budget, and creative"
+    - "Deal and featured-product activations"
+    - "Listing optimization and photo refresh"
+    - "Review responses and reporting"
+  proof:
+    stat: "+44%"
+    label: "Leafly ROAS for Nuna Harvest in six months"
+
+yelp:
+  name: Yelp
+  service: Yelp Management
+  icon: FaYelp
+  tagline: Where reviews decide, and where Sparks is a Yelp Ads Certified Partner.
+  why_it_matters:
+    - icon: FaStar
+      title: The rating is the pitch
+      body: Yelp is where shoppers compare local options on rating alone. Unanswered one-star reviews and policy-breaking reviews pull the average down.
+    - icon: FaBullhorn
+      title: Yelp Ads reach comparison shoppers
+      body: Yelp Ads put your store in front of people actively comparing dispensaries. Sparks is one of the few cannabis partners recognized by Yelp.
+    - icon: FaPhoneAlt
+      title: Leads, not just clicks
+      body: Yelp drives calls, direction requests, and website clicks that never show up on a marketplace dashboard. We track them.
+  what_we_manage:
+    - "Yelp Ads campaigns through Sparks' Certified Partner access"
+    - "Profile optimization: photos, categories, hours, and highlights"
+    - "Review responses and removal requests for guideline-breaking reviews"
+    - "Lead tracking for calls, directions, and site visits"
+    - "Monthly reporting alongside your marketplace results"
+  proof:
+    stat: "+109%"
+    label: "Yelp leads for Nuna Harvest in six months"
+
+google:
+  name: Google
+  service: Google Management (GBP, Ads & Local SEO)
+  icon: FaGoogle
+  tagline: "\"Dispensary near me\" is decided in the Maps 3-pack."
+  why_it_matters:
+    - icon: FaMapMarkerAlt
+      title: The Maps 3-pack
+      body: Most local searches end in the top three Google Maps results. Getting there takes a clean Business Profile, review velocity, and citation authority.
+    - icon: FaGoogle
+      title: One of the few free channels
+      body: With cannabis restricted on most ad platforms, your Google Business Profile is one of the only free places to reach local customers at scale.
+    - icon: FaSitemap
+      title: Citations feed the ranking
+      body: Consistent name, address, and phone across 50+ directories is what tells Google (and Siri and Alexa) that your store is the real one.
+  what_we_manage:
+    - "Google Business Profile claim, cleanup, and optimization"
+    - "Weekly Google Posts, photo refresh, Q&A, and review responses"
+    - "Compliant Google Ads where the market allows"
+    - "Local SEO: NAP consistency and citations across 50+ directories"
+    - "Map-pack ranking tracking with a Top 3 goal in 90 days"
+  proof:
+    stat: "Top 3"
+    label: "Google Maps ranking goal within 90 days"

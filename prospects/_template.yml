@@ -8,6 +8,7 @@ prospect:
   name: "Business Name"
   type: dispensary            # dispensary | delivery | brand
   type_label: ""              # optional free text, e.g. "dispensary, delivery and brand operation"
+  focus: weedmaps             # platform that gets the full pitch; others become one-slide previews
   city: "City"
   state: "ST"
   locations: 1
@@ -63,7 +64,8 @@ services:
 
 # Investment / engagement. Blank pricing renders as "Custom proposal".
 investment:
-  monthly_fee: ""             # e.g. "$2,500/mo"
+  monthly_fee: ""             # e.g. "$2,500/mo" (used when options is empty)
+  addon_price: "$495/mo"      # price shown for each non-focus platform that is not included
   ad_spend_note: "Ad spend billed directly by platforms; Sparks manages allocation."
   term: "Month-to-month after 90-day launch"
   options:                    # optional tiered packages; leave [] to hide

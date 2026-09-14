@@ -1,32 +1,42 @@
 # Deck Structure — Sparks Prospect Pitch
 
-Modeled on the Slidebean Airbnb pitch deck (14 slides: Cover, Problem, Solution,
-Market Validation, Market Size, Product, Business Model, Market Adoption,
-Competition, Competitive Advantages, Team, Press, Testimonials, Financials) and
-adapted from "raise money from investors" to "win a dispensary as a client".
+Modeled on the Slidebean Airbnb pitch deck (Cover, Problem, Solution, Market
+Validation, Market Size, Product, Business Model, Traction, Competition, Team, Press,
+Financials) and adapted from "raise money" to "win a dispensary as a client". The deck
+is **split by platform**: the focus platform (default Weedmaps) gets the full pitch;
+Leafly, Yelp and Google follow as one-slide previews, in that order.
 
 Rules that carry over from the Airbnb deck:
-- The viewer must know exactly what we do by slide 2–3, in plain words, no jargon.
+- The viewer knows exactly what we do by slide 3, in plain words.
 - One idea per slide. Big headline, one supporting visual, minimal body copy.
 - Numbers are the argument. Every claim gets a stat or a case study.
-- Short: 14 slides, present in under 15 minutes.
+- 15 slides, presentable in under 15 minutes.
 
-| # | Airbnb slide | Sparks slide | Content source |
+| # | Slide | Airbnb equivalent | Content source |
 |---|---|---|---|
-| 1 | Cover | **Cover** — "Sparks × {Prospect}" + one-liner | prospect + brand |
-| 2 | Problem | **The Problem** — 3 pains a dispensary feels (ads restricted, listings decay, spend unmanaged) — personalized with prospect's audit findings | brand + prospect.audit |
-| 3 | Solution | **The Solution** — one sentence + the four platforms we run | brand |
-| 4 | Market Validation | **Where Your Customers Are** — the platforms in the prospect's market and why they matter | brand + prospect.market |
-| 5 | Market Size | **Your Opportunity** — prospect's current state vs. what "managed" looks like (audit table) | prospect.audit |
-| 6 | Product | **How It Works** — the seven pillars | brand |
-| 7 | Business Model → | **Your Scope of Services** — Weedmaps, Leafly, Yelp, Google (GBP/Ads), Local SEO, Other — included / not included, with per-platform notes | prospect.services |
-| 8 | Market Adoption | **Results We Deliver** — 88% / $17 ROAS / 25% AOV / 100+ businesses | brand.proof |
-| 9 | Testimonials | **Case Studies** — Purple Lotus, Nuna Harvest (+ any prospect-relevant one) | brand.case_studies |
-| 10 | Competition | **Your Options** — in-house vs platform reps vs general agency vs Sparks | brand |
-| 11 | Competitive Advantages | **Why Sparks** — ex-Weedmaps, all platforms, attribution dashboard, guarantee | brand |
-| 12 | Team | **Team** — Kevin Sparks + team members from config | brand/config |
-| 13 | Press | **Recognition** — Top Agency 2026, Yelp Certified Partner | brand |
-| 14 | Financials | **Investment & Next Steps** — pricing/engagement, 30-60-90 plan, guarantee, CTA | prospect.investment + brand.contact |
+| 1 | Cover — Sparks × Prospect, "<Focus> Management proposal" | Cover | prospect + brand |
+| 2 | The Problem | Problem | brand |
+| 3 | The Solution — platform tiles: THIS PROPOSAL / INCLUDED / ADD-ON $495 | Solution | services + investment.addon_price |
+| 4 | **Focus · Why it matters** — 3 reasons + "your market" panel | Market validation | platforms.yml + prospect.market |
+| 5 | **Focus · Audit** — what we found on their listings | Market size | prospect.audit (rows whose platform starts with the focus name) |
+| 6 | **Focus · Scope** — what Sparks will manage (8 numbered lines) | Product | platforms.yml + services.<focus>.notes |
+| 7 | **Focus · Results** — proof stats | Traction | brand.proof + platform proof |
+| 8 | **Focus · Case studies** | Testimonials | case_studies.yml |
+| 9 | **Focus · Investment** — pricing tiers, guarantee, add-on teaser | Business model | prospect.investment |
+| 10 | Add-on preview · Leafly | — | platforms.yml (+ audit rows for Leafly) |
+| 11 | Add-on preview · Yelp | — | platforms.yml |
+| 12 | Add-on preview · Google (GBP, Ads, Local SEO) | — | platforms.yml |
+| 13 | Why Sparks | Competitive advantages + Press | brand |
+| 14 | Your account team | Team | brand/config.yml |
+| 15 | Next steps — 90-day plan, investment summary, contact | Financials / ask | prospect.plan + investment |
 
-Speaker notes are generated for every slide so the deck can be sent as a leave-behind
-or presented live.
+If a non-focus platform is `include: true` in the prospect file, its preview slide is
+labeled INCLUDED instead of ADD-ON and the summary shows "Included". Speaker notes are
+generated for every slide.
+
+## Branding
+
+Sparks orange `DD5F13` on white, charcoal body text, thin white rules on orange
+slides, the SPARKS wordmark on the cover and closing slide, and the sparkles icon in
+every footer — matching the Sparks 2025 proposal deck. Logo variants live in
+`brand/assets/`; palette and logo paths in `brand/config.yml`.

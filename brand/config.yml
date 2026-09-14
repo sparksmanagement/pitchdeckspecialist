@@ -21,14 +21,30 @@ team:
   #   title: ""
   #   bio: ""
 
-# Palette (hex, no #). Swap to official brand colors if they differ.
+# Palette (hex, no #). Sparks brand: burnt orange + white + charcoal, taken from the
+# logo (DD5F13) and the 2025 proposal deck.
 palette:
-  primary: "0F2A1D"    # deep forest — dark slides
-  secondary: "1F6F43"  # cannabis green — headers, icons
-  accent: "C8F04A"     # electric lime — stats, highlights
-  light: "F4F7F2"      # off-white content background
-  ink: "16211B"        # body text
-  muted: "6B7A70"      # captions
+  primary: "DD5F13"    # Sparks orange — orange slides, headings, icon circles
+  deep: "B84C0C"       # darker orange — cards on orange slides
+  secondary: "DD5F13"  # icon circles / emphasis on white slides
+  accent: "FFFFFF"     # text & stats on orange slides
+  soft: "FFE3D0"       # soft text on orange slides
+  dim: "F0B48C"        # de-emphasized items on orange slides
+  highlight: "FDE7D8"  # peach tint for callouts on white slides
+  light: "F8F3EF"      # warm off-white cards
+  ink: "222222"        # body text
+  muted: "7A716B"      # captions
+  no: "B0453A"         # "No" in comparison tables
+
+# Logo files (relative to repo root). Regenerate variants from the orange master
+# with Pillow if the logo changes — every variant is the same alpha mask recolored.
+logo:
+  full_orange: brand/assets/sparks-logo-orange.png      # wordmark + sparkles + "Marketplace Management"
+  full_white: brand/assets/sparks-logo-white.png
+  wordmark_white: brand/assets/sparks-wordmark-white.png # wordmark + sparkles, no tagline
+  wordmark_orange: brand/assets/sparks-wordmark-orange.png
+  icon_white: brand/assets/sparks-icon-white.png         # three sparkles only
+  icon_orange: brand/assets/sparks-icon-orange.png
 
 # Proof points shown on the Results slide (numbers from sparkscann.com only)
 proof:

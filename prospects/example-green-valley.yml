@@ -4,6 +4,7 @@
 prospect:
   name: "Green Valley Dispensary"
   type: dispensary            # dispensary | delivery | brand
+  focus: weedmaps
   city: "Sacramento"
   state: "CA"
   locations: 1
@@ -59,7 +60,8 @@ services:
 
 # Investment / engagement. Blank pricing renders as "Custom proposal".
 investment:
-  monthly_fee: ""             # e.g. "$2,500/mo"
+  monthly_fee: ""
+  addon_price: "$495/mo"             # e.g. "$2,500/mo"
   ad_spend_note: "Ad spend billed directly by platforms; Sparks manages allocation."
   term: "Month-to-month after 90-day launch"
   options:                    # optional tiered packages; leave [] to hide
