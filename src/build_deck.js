@@ -74,6 +74,9 @@ const oneLiner = `We manage your ${scopeList} listings and ads so your ${typeWor
 const auditRows = Array.isArray(P.audit) ? P.audit.filter((r) => r && (r.finding || r.impact)) : [];
 const auditFor = (k) => auditRows.filter((r) => String(r.platform || "").toLowerCase().startsWith(PLAT[k].name.toLowerCase()));
 
+const itemTitle = (it) => (typeof it === "string" ? it : it.title || "");
+const itemBody = (it) => (typeof it === "string" ? "" : it.body || "");
+
 const LOGO = {};
 for (const [k, rel] of Object.entries(brand.logo || {})) {
   const f = path.join(ROOT, rel);
@@ -339,7 +342,13 @@ async function build() {
       card(s, x, y, cw, rh);
       s.addShape(pres.ShapeType.ellipse, { x: x + 0.25, y: y + (rh - 0.42) / 2, w: 0.42, h: 0.42, fill: { color: C.primary }, line: { color: C.primary, width: 0 } });
       s.addText(String(i + 1), { x: x + 0.25, y: y + (rh - 0.42) / 2, w: 0.42, h: 0.42, fontFace: FONT_H, fontSize: 13, bold: true, color: "FFFFFF", align: "center", valign: "middle", isTextBox: true, margin: 0 });
-      text(s, items[i], { x: x + 0.85, y: y + 0.1, w: cw - 1.1, h: rh - 0.2, fontSize: 13, color: C.ink, valign: "middle" });
+      const body = itemBody(items[i]);
+      if (body) {
+        text(s, itemTitle(items[i]), { x: x + 0.85, y: y + 0.1, w: cw - 1.1, h: 0.3, fontSize: 13.5, bold: true, color: C.primary });
+        text(s, body, { x: x + 0.85, y: y + 0.4, w: cw - 1.1, h: rh - 0.45, fontSize: 11.5, color: C.ink });
+      } else {
+        text(s, itemTitle(items[i]), { x: x + 0.85, y: y + 0.1, w: cw - 1.1, h: rh - 0.2, fontSize: 13, color: C.ink, valign: "middle" });
+      }
     }
     s.addNotes("The seven Sparks pillars (spend, listing, menu, reviews, deals, creative, data) applied to this platform. Tie each line back to an audit finding.");
   }
@@ -460,12 +469,21 @@ async function build() {
     const rx = M + leftW + 0.3, rw = W - M - rx, rhgt = H - 0.8 - y0;
     card(s, rx, y0, rw, rhgt, { fill: C.primary });
     text(s, "WHAT'S INCLUDED", { x: rx + 0.35, y: y0 + 0.25, w: rw - 0.7, h: 0.3, fontSize: 11, bold: true, charSpacing: 4, color: C.accent });
-    s.addText((pl.what_we_manage || []).map((t, i, a) => ({ text: t, options: { bullet: { indent: 12 }, breakLine: i < a.length - 1, paraSpaceAfter: 3 } })),
-      { x: rx + 0.2, y: y0 + 0.62, w: rw - 0.5, h: rhgt - 2.25, fontFace: FONT_B, fontSize: 10.5, color: "FFFFFF", isTextBox: true, valign: "top" });
+    {
+      const runs = [];
+      const wm = pl.what_we_manage || [];
+      wm.forEach((it, i) => {
+        const last = i === wm.length - 1;
+        const body = itemBody(it);
+        runs.push({ text: itemTitle(it), options: { bold: true, bullet: { indent: 12 }, breakLine: !body && !last, paraSpaceAfter: 2 } });
+        if (body) runs.push({ text: ` — ${body}`, options: { color: C.soft, breakLine: !last } });
+      });
+      s.addText(runs, { x: rx + 0.2, y: y0 + 0.6, w: rw - 0.5, h: rhgt - 2.0, fontFace: FONT_B, fontSize: 10, color: "FFFFFF", isTextBox: true, valign: "top" });
+    }
     if (pl.proof) {
-      s.addShape(pres.ShapeType.line, { x: rx + 0.35, y: y0 + rhgt - 1.5, w: rw - 0.7, h: 0, line: { color: C.dim, width: 0.75 } });
-      s.addText(pl.proof.stat, { x: rx + 0.35, y: y0 + rhgt - 1.38, w: 2.0, h: 0.55, fontFace: FONT_H, fontSize: 24, bold: true, color: C.accent, isTextBox: true, margin: 0, valign: "middle" });
-      text(s, pl.proof.label, { x: rx + 2.4, y: y0 + rhgt - 1.38, w: rw - 2.75, h: 0.55, fontSize: 10.5, color: C.soft, valign: "middle" });
+      s.addShape(pres.ShapeType.line, { x: rx + 0.35, y: y0 + rhgt - 1.32, w: rw - 0.7, h: 0, line: { color: C.dim, width: 0.75 } });
+      s.addText(pl.proof.stat, { x: rx + 0.35, y: y0 + rhgt - 1.25, w: 2.0, h: 0.5, fontFace: FONT_H, fontSize: 22, bold: true, color: C.accent, isTextBox: true, margin: 0, valign: "middle" });
+      text(s, pl.proof.label, { x: rx + 2.4, y: y0 + rhgt - 1.25, w: rw - 2.75, h: 0.5, fontSize: 10, color: C.soft, valign: "middle" });
     }
     pill(s, inc ? "INCLUDED IN THIS PROPOSAL" : bundle ? `IN THE ${bundle.price} ADD-ON BUNDLE` : `ADD-ON  ·  +${addonPrice}`, rx + 0.35, y0 + rhgt - 0.65, rw - 0.7, { fill: "FFFFFF", color: C.primary });
     s.addNotes(inc

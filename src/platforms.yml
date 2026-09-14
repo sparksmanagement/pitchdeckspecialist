@@ -20,14 +20,22 @@ weedmaps:
       title: The listing closes the sale
       body: Verified products, live deals, fresh photos, and answered reviews turn a click into an order. Every stale element leaks conversions.
   what_we_manage:
-    - "Bid strategy and daily budget pacing for top placement in every service zone"
-    - "Listing optimization: hours, photos, attributes, description, and Q&A"
-    - "Menu management and product verification synced with your POS"
-    - "Daily and monthly deal activations, BOGOs, and featured products"
-    - "In-house graphics for headers, deal tiles, and product imagery"
-    - "Same-day review responses and removal requests for policy-breaking reviews"
-    - "Brand page management for retailers who also own a brand"
-    - "Weekly performance reporting with POS-attributed revenue"
+    - title: "Bid & budget strategy"
+      body: "Daily budget pacing and bid management for top placement in every service zone"
+    - title: "Listing optimization"
+      body: "Hours, photos, attributes, description, and Q&A kept accurate and conversion-ready"
+    - title: "Menu & product verification"
+      body: "Menu management synced with your POS; every product verified"
+    - title: "Deals & promotions"
+      body: "Daily and monthly deal activations, BOGOs, and featured products"
+    - title: "In-house graphics"
+      body: "Headers, deal tiles, and product imagery designed for every ad format"
+    - title: "Review management"
+      body: "Same-day responses and removal requests for policy-breaking reviews"
+    - title: "Brand page management"
+      body: "Brand page, retailer map, and product catalog for retailers who also own a brand"
+    - title: "Weekly reporting"
+      body: "Performance reporting with POS-attributed revenue and ROAS"
   proof:
     stat: "$17"
     label: "average return on every $1 of Weedmaps ad spend"
@@ -49,11 +57,16 @@ leafly:
       title: Reviews carry weight
       body: Leafly reviews surface in Google results for your store name, so unanswered reviews cost you off-platform too.
   what_we_manage:
-    - "Menu sync and product tagging across strains, brands, and categories"
-    - "Leafly Ads strategy, budget, and creative"
-    - "Deal and featured-product activations"
-    - "Listing optimization and photo refresh"
-    - "Review responses and reporting"
+    - title: "Menu sync & tagging"
+      body: "Product tagging across strains, brands, and categories, synced with your POS"
+    - title: "Leafly Ads"
+      body: "Ad strategy, budget, and creative built around ROAS"
+    - title: "Deals & featured products"
+      body: "Deal and featured-product activations kept current"
+    - title: "Listing optimization"
+      body: "Profile details and photo refresh"
+    - title: "Reviews & reporting"
+      body: "Review responses and monthly performance reporting"
   proof:
     stat: "+44%"
     label: "Leafly ROAS for Nuna Harvest in six months"
@@ -74,11 +87,16 @@ yelp:
       title: Leads, not just clicks
       body: Yelp drives calls, direction requests, and website clicks that never show up on a marketplace dashboard. We track them.
   what_we_manage:
-    - "Yelp Ads campaigns through Sparks' Certified Partner access"
-    - "Profile optimization: photos, categories, hours, and highlights"
-    - "Review responses and removal requests for guideline-breaking reviews"
-    - "Lead tracking for calls, directions, and site visits"
-    - "Monthly reporting alongside your marketplace results"
+    - title: "Yelp Ads"
+      body: "Campaigns run through Sparks' Yelp Ads Certified Partner access"
+    - title: "Profile optimization"
+      body: "Photos, categories, hours, and highlights"
+    - title: "Review management"
+      body: "Responses and removal requests for guideline-breaking reviews"
+    - title: "Lead tracking"
+      body: "Calls, direction requests, and site visits attributed to Yelp"
+    - title: "Reporting"
+      body: "Monthly reporting alongside your marketplace results"
   proof:
     stat: "+109%"
     label: "Yelp leads for Nuna Harvest in six months"
@@ -99,11 +117,16 @@ google:
       title: Citations feed the ranking
       body: Consistent name, address, and phone across 50+ directories is what tells Google (and Siri and Alexa) that your store is the real one.
   what_we_manage:
-    - "Google Business Profile claim, cleanup, and optimization"
-    - "Weekly Google Posts, photo refresh, Q&A, and review responses"
-    - "Compliant Google Ads where the market allows"
-    - "Local SEO: NAP consistency and citations across 50+ directories"
-    - "Map-pack ranking tracking with a Top 3 goal in 90 days"
+    - title: "Business Profile"
+      body: "Claim, cleanup, and optimization of your Google Business Profile"
+    - title: "Posts, photos & reviews"
+      body: "Weekly Google Posts, photo refresh, Q&A, and review responses"
+    - title: "Google Ads"
+      body: "Compliant campaigns where the market allows"
+    - title: "Local SEO & citations"
+      body: "NAP consistency across 50+ directories"
+    - title: "Map-pack tracking"
+      body: "Ranking tracking with a Top 3 goal in 90 days"
   proof:
     stat: "Top 3"
     label: "Google Maps ranking goal within 90 days"
