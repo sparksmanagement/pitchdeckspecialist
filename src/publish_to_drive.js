@@ -27,6 +27,11 @@ if (!files.length || !ROOT_FOLDER) {
   process.exit(1);
 }
 
+// Three ways in, checked in order:
+//   GOOGLE_SERVICE_ACCOUNT_JSON / GOOGLE_APPLICATION_CREDENTIALS — service account (durable)
+//   GOOGLE_OAUTH_TOKEN — a user access token with the drive scope (short-lived, ~1 hour)
+//   DRIVE_AUTH_VIA_PROXY=1 — no token in the process; the cloud environment's API-credential
+//     proxy attaches the Authorization header to www.googleapis.com requests
 function auth() {
   const scopes = ["https://www.googleapis.com/auth/drive"];
   if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
@@ -34,7 +39,18 @@ function auth() {
     return new google.auth.GoogleAuth({ credentials: creds, scopes });
   }
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS) return new google.auth.GoogleAuth({ scopes });
-  console.error("Set GOOGLE_SERVICE_ACCOUNT_JSON or GOOGLE_APPLICATION_CREDENTIALS (service account with Drive access).");
+  if (process.env.GOOGLE_OAUTH_TOKEN) {
+    const o = new google.auth.OAuth2();
+    o.setCredentials({ access_token: process.env.GOOGLE_OAUTH_TOKEN });
+    return o;
+  }
+  if (process.env.DRIVE_AUTH_VIA_PROXY) {
+    // googleapis insists on some auth object; the proxy overwrites the header downstream.
+    const o = new google.auth.OAuth2();
+    o.setCredentials({ access_token: "proxy-injected" });
+    return o;
+  }
+  console.error("Set GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_OAUTH_TOKEN, or DRIVE_AUTH_VIA_PROXY=1.");
   process.exit(2);
 }
 
