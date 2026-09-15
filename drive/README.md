@@ -18,6 +18,10 @@ there is nothing to renew and no Google Cloud project to manage.
    DRIVE_UPLOAD_KEY=<the SHARED_KEY you set in step 1>
    ```
    Save. New sessions pick this up automatically.
+4. If the environment uses a **Custom** network allow-list, it must include
+   `script.google.com` and `script.googleusercontent.com` (Google answers the upload
+   through a redirect to the second host). Without the second one the upload still
+   completes, but the script can't read back the file link.
 
 From then on `npm run deck -- prospects/<slug>.yml` builds the deck and uploads it, and
 `npm run publish -- prospects/<slug>.yml` uploads an already-built deck. Re-uploading
