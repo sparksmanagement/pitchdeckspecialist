@@ -46,6 +46,11 @@ logo:
   icon_white: brand/assets/sparks-icon-white.png         # three sparkles only
   icon_orange: brand/assets/sparks-icon-orange.png
 
+# Google Drive: every client's decks live in a folder named after the client under this
+# "Pitch Decks" folder. src/publish_to_drive.js creates the folder and uploads the deck.
+drive:
+  pitch_decks_folder: "1bcAP65vMoyceh0UHXUFprdSmiOtIfTXf"   # https://drive.google.com/drive/folders/1bcAP65vMoyceh0UHXUFprdSmiOtIfTXf
+
 # Proof points shown on the Results slide (numbers from sparkscann.com only)
 proof:
   - stat: "88%"

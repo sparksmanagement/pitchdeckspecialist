@@ -52,6 +52,17 @@ your job is to turn that into a finished `.pptx`.
    hand-editing the pptx.
 5. **Deliver:** commit the prospect file and the deck, push, and tell the user
    what you assumed (pricing, audit findings you could not verify).
+6. **File it in Google Drive.** Every client gets a folder named after
+   `prospect.name` inside the "Pitch Decks" folder
+   (`brand/config.yml` → `drive.pitch_decks_folder`,
+   https://drive.google.com/drive/folders/1bcAP65vMoyceh0UHXUFprdSmiOtIfTXf), and every
+   deck for that client goes in it. Run `npm run publish -- prospects/<slug>.yml`
+   (needs `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_APPLICATION_CREDENTIALS` for a
+   service account that has Editor access to the Pitch Decks folder). If no
+   credential is available, create the client folder with the Google Drive
+   connector (`create_file` with the folder mime type under that parent) and tell
+   the user to drop the attached .pptx in — the connector cannot carry a
+   multi-megabyte file as base64.
 
 ## Where things live
 

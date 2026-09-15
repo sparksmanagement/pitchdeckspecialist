@@ -5,7 +5,8 @@
   "scripts": {
     "build": "node src/build_deck.js",
     "build:all": "for f in prospects/*.yml; do case $f in *_template.yml) ;; *) node src/build_deck.js $f;; esac; done",
-    "preview": "node src/preview.js"
+    "preview": "node src/preview.js",
+    "publish": "node src/publish_to_drive.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/sparksmanagement/pitchdeckspecialist#readme",
   "dependencies": {
+    "googleapis": "^181.0.0",
     "js-yaml": "^5.4.2",
     "pptxgenjs": "^4.0.1",
     "react": "^19.3.0",

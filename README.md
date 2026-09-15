@@ -12,6 +12,7 @@ npm install
 cp prospects/_template.yml prospects/my-dispensary.yml   # fill it in
 npm run build -- prospects/my-dispensary.yml             # → decks/Sparks-x-my-dispensary.pptx
 npm run build:all                                        # rebuild every prospect
+npm run publish -- prospects/my-dispensary.yml           # upload to Drive: Pitch Decks/<Client>/ (service account)
 ```
 
 An example is included: `prospects/example-green-valley.yml` →
