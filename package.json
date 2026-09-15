@@ -6,7 +6,8 @@
     "build": "node src/build_deck.js",
     "build:all": "for f in prospects/*.yml; do case $f in *_template.yml) ;; *) node src/build_deck.js $f;; esac; done",
     "preview": "node src/preview.js",
-    "publish": "node src/publish_to_drive.js"
+    "publish": "node src/publish_to_drive.js",
+    "deck": "node src/deck.js"
   },
   "repository": {
     "type": "git",

@@ -4,10 +4,12 @@
  *
  *   node src/publish_to_drive.js prospects/<slug>.yml [more prospect files...]
  *
- * Auth: a Google service account. Set GOOGLE_SERVICE_ACCOUNT_JSON (the key file's JSON
- * as a string) or GOOGLE_APPLICATION_CREDENTIALS (path to the key file), and share the
- * "Pitch Decks" Drive folder (brand/config.yml → drive.pitch_decks_folder) with the
- * service account's email as Editor.
+ * Auth, in order of preference:
+ *   DRIVE_UPLOAD_URL + DRIVE_UPLOAD_KEY — the Apps Script web app in drive/AppsScript.gs
+ *     (durable; runs as the user; see drive/README.md)
+ *   GOOGLE_SERVICE_ACCOUNT_JSON / GOOGLE_APPLICATION_CREDENTIALS — service account with
+ *     Editor access to the "Pitch Decks" folder (brand/config.yml → drive.pitch_decks_folder)
+ *   GOOGLE_OAUTH_TOKEN — short-lived user token
  *
  * For each prospect: find-or-create a folder named after prospect.name under the Pitch
  * Decks folder, then upload decks/Sparks-x-<slug>.pptx (replacing a file of the same
@@ -50,7 +52,7 @@ function auth() {
     o.setCredentials({ access_token: "proxy-injected" });
     return o;
   }
-  console.error("Set GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_OAUTH_TOKEN, or DRIVE_AUTH_VIA_PROXY=1.");
+  console.error("No Drive credential. Easiest: DRIVE_UPLOAD_URL + DRIVE_UPLOAD_KEY (see drive/README.md). Also accepted: GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_OAUTH_TOKEN, DRIVE_AUTH_VIA_PROXY=1.");
   process.exit(2);
 }
 
@@ -83,7 +85,33 @@ async function upload(drive, folderId, filePath) {
   return { id: res.data.id, updated: false };
 }
 
+// ── Mode A: Apps Script web app (drive/AppsScript.gs) — durable, runs as the user ──
+async function publishViaAppsScript() {
+  const { request } = require("gaxios"); // honors HTTPS_PROXY and the CA bundle
+  const url = process.env.DRIVE_UPLOAD_URL, key = process.env.DRIVE_UPLOAD_KEY || "";
+  for (const f of files) {
+    const P = yaml.load(fs.readFileSync(path.resolve(f), "utf8"));
+    const client = (P.prospect && P.prospect.name) || path.basename(f, ".yml");
+    const slug = path.basename(f, ".yml").replace(/^_/, "");
+    const deck = path.join(ROOT, "decks", `Sparks-x-${slug}.pptx`);
+    if (!fs.existsSync(deck)) { console.error(`No deck at ${deck} — run npm run build -- ${f} first`); process.exitCode = 1; continue; }
+    const res = await request({
+      url, method: "POST", maxRedirects: 5, responseType: "text",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({
+        key, client, name: path.basename(deck),
+        mimeType: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        base64: fs.readFileSync(deck).toString("base64"),
+      }),
+    });
+    let body; try { body = JSON.parse(res.data); } catch { body = { ok: false, error: String(res.data).slice(0, 200) }; }
+    if (!body.ok) { console.error(`Upload failed for ${client}: ${body.error}`); process.exitCode = 1; continue; }
+    console.log(`Uploaded ${path.basename(deck)} → ${body.folder}/  ${body.url}`);
+  }
+}
+
 (async () => {
+  if (process.env.DRIVE_UPLOAD_URL) return publishViaAppsScript();
   const drive = google.drive({ version: "v3", auth: auth() });
   for (const f of files) {
     const P = yaml.load(fs.readFileSync(path.resolve(f), "utf8"));

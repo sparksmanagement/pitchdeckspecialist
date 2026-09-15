@@ -41,7 +41,8 @@ your job is to turn that into a finished `.pptx`.
    to cannabis right now); directories are "20+", not 50. Say "official partner"
    only for Yelp, Google and Apple Maps; for Weedmaps/Leafly say "10+ years
    working inside and alongside" (founder was a Weedmaps executive).
-3. **Build:** `npm run build -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`.
+3. **Build:** `npm run deck -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`,
+   and uploads it to Google Drive when a credential is configured (step 6).
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
    python3 <pptx-skill>/scripts/office/validate.py decks/Sparks-x-<slug>.pptx
@@ -56,13 +57,14 @@ your job is to turn that into a finished `.pptx`.
    `prospect.name` inside the "Pitch Decks" folder
    (`brand/config.yml` → `drive.pitch_decks_folder`,
    https://drive.google.com/drive/folders/1bcAP65vMoyceh0UHXUFprdSmiOtIfTXf), and every
-   deck for that client goes in it. Run `npm run publish -- prospects/<slug>.yml`
-   (needs `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_APPLICATION_CREDENTIALS` for a
-   service account that has Editor access to the Pitch Decks folder). If no
-   credential is available, create the client folder with the Google Drive
-   connector (`create_file` with the folder mime type under that parent) and tell
-   the user to drop the attached .pptx in — the connector cannot carry a
-   multi-megabyte file as base64.
+   deck for that client goes in it. `npm run deck` does this automatically when
+   `DRIVE_UPLOAD_URL` + `DRIVE_UPLOAD_KEY` are set (the Apps Script uploader in
+   `drive/AppsScript.gs`; setup in `drive/README.md`); `npm run publish --
+   prospects/<slug>.yml` uploads an already-built deck. Put the Drive link in the
+   summary to the user. If no credential is configured, say so, create the client
+   folder with the Google Drive connector (`create_file` with the folder mime type
+   under that parent), and attach the .pptx for the user to drop in — the connector
+   cannot carry a multi-megabyte file as base64.
 
 ## Where things live
 
