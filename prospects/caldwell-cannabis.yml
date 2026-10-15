@@ -32,8 +32,8 @@ audit:
     finding: "4.4★ / ~40 reviews, 14 photos (per Yelp/aggregator); one recent complaint about cart weights."
     impact: "The one platform where the rating dips — and the one that shows up for name searches"
   - platform: "Google · Business Profile"
-    finding: "4.9★ from 41 reviews (per listing data); conflicting hours and address formats across directories."
-    impact: "Strong proof to carry into Apple Maps and 20+ directories once the data is consistent"
+    finding: "5.0★ from 204 reviews (live Google, Oct 15) — but the profile shows \"Own this business?\", so it appears unclaimed; hours and address formats conflict across directories."
+    impact: "Your biggest review base sits on a profile nobody controls; claiming it unlocks posts, photos, replies and the Maps 3-pack"
 
 # Live Weedmaps listing on an iPhone with numbered callouts (slide 5). Screenshot captured from
 # weedmaps.com/dispensaries/caldwell-cannabis-co-1 on Oct 15 2026.
@@ -70,7 +70,7 @@ audit_mock:
 
 market:
   competitors_in_zone:
-  notes: "A 2026 CAURD license in Far Rockaway with delivery reach into Long Beach, Atlantic Beach and Nassau County. A 5.0★ listing is the asset; delivery listings, zone bids and consistent hours are what turn it into orders."
+  notes: "A 2026 CAURD license in Far Rockaway with delivery reach into Long Beach, Atlantic Beach and Nassau County. 5.0★ on Weedmaps and 5.0★ from 204 Google reviews are the asset; delivery listings, zone bids and consistent hours are what turn them into orders."
 
 services:
   weedmaps:

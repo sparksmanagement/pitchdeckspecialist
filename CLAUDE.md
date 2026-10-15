@@ -20,7 +20,11 @@ your job is to turn that into a finished `.pptx`.
    their Weedmaps, Leafly, Yelp and Google presence (rating, review count, deals,
    whether GBP is claimed, competitor density). Do not invent facts; if you
    cannot verify a listing detail, write it as a question for the user in the
-   audit notes rather than a finding.
+   audit notes rather than a finding. Google and Yelp ratings pulled from
+   third-party directories via web search are often stale — label them "per
+   <source>" and ask the user for a screenshot of the live Google Business
+   Profile; a visible "Own this business?" link on it means the profile is
+   unclaimed, which is a finding in itself.
 2. **Create the prospect file.** Copy `prospects/_template.yml` to
    `prospects/<slug>.yml` and fill every section. Set `focus` (default
    `weedmaps`) — that platform gets the full pitch; the others become one-slide
