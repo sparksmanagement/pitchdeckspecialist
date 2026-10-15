@@ -233,7 +233,7 @@ async function build() {
     const s = base();
     const y0 = title(s, "Cannabis can't market like everyone else", { sub: "Ads are restricted, so the customer journey lives on pay-to-play platforms — and most listings are left on autopilot." });
     const pains = [
-      ["FaBan", "Restricted advertising", "Google Ads, Meta and most networks block cannabis. Discovery happens on Weedmaps, Leafly, Google Maps, Apple Maps and Yelp."],
+      ["FaBan", "Restricted advertising", "Most mainstream ad networks and social platforms restrict cannabis. Discovery happens on Weedmaps, Leafly, Google Maps, Apple Maps and Yelp."],
       ["FaClock", "Listings decay", "Menus drift from POS, deals expire, photos go stale, reviews sit unanswered. Every gap costs orders."],
       ["FaChartLine", "Spend isn't managed", "Budgets are set once and never optimized. Platform reps grow platform revenue, not your ROAS."],
       ["FaUserSlash", "Nobody owns it", "GMs and budtenders juggle dashboards on the side with no attribution and no accountability."],
@@ -289,13 +289,13 @@ async function build() {
   // 4. WHY SPARKS
   {
     const s = base();
-    const y0 = title(s, `Why ${brand.company}`, { eyebrow: "Why Sparks", sub: "The team behind 100+ dispensary listings — recognized, partnered, and built by a Weedmaps executive." });
+    const y0 = title(s, `Why ${brand.company}`, { eyebrow: "Why Sparks", sub: "Over 10 years in cannabis, 100+ dispensary listings managed — recognized, partnered, and led by a former Weedmaps executive." });
     const gap = 0.3;
     // row 1: three stat cards
     const stats = [
       ["100+", "dispensaries, deliveries and brands managed — the largest Weedmaps and directory management platform in cannabis"],
       ["#1", "Top Cannabis Listing Management Agency 2026 — Cannabis Business Insights"],
-      ["10+ yrs", "working inside and alongside Weedmaps and Leafly. Our founder ran accounts at Weedmaps as an executive before starting Sparks."],
+      ["10+ yrs", "in cannabis: 3 years running listings for Purple Lotus, 4 years as a Weedmaps executive, and 4+ years running Sparks."],
     ];
     const cw = (W - 2 * M - 2 * gap) / 3, r1h = 1.75;
     stats.forEach(([big, label], i) => {
@@ -331,7 +331,7 @@ async function build() {
       text(s, adv[i][1], { x: rx + 1.05, y: y + 0.15, w: rw - 1.3, h: 0.3, fontSize: 13.5, bold: true, color: C.primary });
       text(s, adv[i][2], { x: rx + 1.05, y: y + 0.45, w: rw - 1.3, h: ah - 0.55, fontSize: 11, color: C.ink });
     }
-    s.addNotes("Credibility before the audit. Say 'official partner' only for Yelp, Google and Apple Maps. For Weedmaps and Leafly, say we've worked with them for 10+ years and the founder was a Weedmaps executive — not 'partner'.");
+    s.addNotes("Credibility before the audit. Say 'official partner' only for Yelp, Google and Apple Maps. For Weedmaps and Leafly, say we've worked inside and alongside them for 10+ years — not 'partner'. Founder timeline, in order: 3 years at Purple Lotus, then 4 years at Weedmaps as an executive, then 4+ years running Sparks.");
   }
 
   // 5. WHAT WE FOUND — iPhone mockup of the worst listing + callouts (audit_mock), else table

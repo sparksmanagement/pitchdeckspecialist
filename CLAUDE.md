@@ -20,11 +20,15 @@ your job is to turn that into a finished `.pptx`.
    their Weedmaps, Leafly, Yelp and Google presence (rating, review count, deals,
    whether GBP is claimed, competitor density). Do not invent facts; if you
    cannot verify a listing detail, write it as a question for the user in the
-   audit notes rather than a finding. Google and Yelp ratings pulled from
-   third-party directories via web search are often stale — label them "per
-   <source>" and ask the user for a screenshot of the live Google Business
-   Profile; a visible "Own this business?" link on it means the profile is
-   unclaimed, which is a finding in itself.
+   audit notes rather than a finding. For the Google rating, load
+   `https://www.google.com/maps/search/<business name city>?hl=en` in headless
+   Chromium — Maps works from the cloud environment and shows the live star
+   rating (Google Search returns a bot challenge and Yelp rejects datacenter
+   traffic, so those two can't be read directly). Yelp ratings and the Google
+   review count therefore come from third-party directories via web search and
+   are often stale — label them "per <source>" and ask the user for a screenshot
+   of the live Google Business Profile; a visible "Own this business?" link on
+   it means the profile is unclaimed, which is a finding in itself.
 2. **Create the prospect file.** Copy `prospects/_template.yml` to
    `prospects/<slug>.yml` and fill every section. Set `focus` (default
    `weedmaps`) — that platform gets the full pitch; the others become one-slide
@@ -44,7 +48,12 @@ your job is to turn that into a finished `.pptx`.
    dropped in via `audit_mock.screenshot`. Never pitch Yelp Ads (not available
    to cannabis right now); directories are "20+", not 50. Say "official partner"
    only for Yelp, Google and Apple Maps; for Weedmaps/Leafly say "10+ years
-   working inside and alongside" (founder was a Weedmaps executive).
+   working inside and alongside". Founder timeline, always in this order: 3 years
+   at Purple Lotus, then 4 years at Weedmaps as an executive, then 4+ years running
+   Sparks ("over 10 years in cannabis"). Never name
+   Google Ads or Meta as platforms that block cannabis — say "most mainstream ad
+   networks and social platforms restrict cannabis"; Sparks plans to sell those
+   channels later.
 3. **Build:** `npm run deck -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`,
    and uploads it to Google Drive when a credential is configured (step 6).
 4. **QA:** validate and render every slide, and look at the images.

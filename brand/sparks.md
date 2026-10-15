@@ -13,17 +13,20 @@ or offer changes; every deck pulls its copy from here.
 - **Who we serve:** Licensed dispensaries, delivery services, and cannabis brands
   nationwide. 100+ businesses managed across Google, Weedmaps, Leafly, Yelp and
   20+ directories.
-- **Founded:** 2022, by ex-Weedmaps operators. Founder & CEO Kevin Sparks spent four
+- **Founded:** by ex-Weedmaps operators; Sparks has been running for over 4 years.
+  Founder & CEO Kevin Sparks has over 10 years in cannabis, in this order: three years
+  running listing management for Purple Lotus (San Jose) — a dispensary on Weedmaps
+  for over a decade that had spent hundreds of thousands on advertising — then four
   years at Weedmaps working with some of the largest dispensaries in the world, then
-  three years running listing management for Purple Lotus (San Jose) — a dispensary
-  on Weedmaps for over a decade that had spent hundreds of thousands on advertising.
+  4+ years running Sparks. Always keep the timeline in that order.
 - **Tagline options:** "Weedmaps, Leafly, and Yelp Made Easy" · "More orders from the
   platforms your customers already use" · "Listing management, done for you"
 
 ## The problem we solve (for the Problem slide)
 
-1. **Cannabis can't advertise like everyone else.** Google Ads, Meta, and most ad
-   networks restrict cannabis. The customer journey lives on Weedmaps, Leafly, Yelp,
+1. **Cannabis can't advertise like everyone else.** Most mainstream ad networks and
+   social platforms restrict cannabis. (Don't name Google Ads or Meta negatively in
+   decks — Sparks plans to offer those channels later; keep it generic.) The customer journey lives on Weedmaps, Leafly, Yelp,
    and Google Business Profile — pay-to-play marketplaces with auction-based bidding.
 2. **Listings decay.** Menus drift out of sync with POS, deals expire, photos go stale,
    hours are wrong, reviews go unanswered, products sit unverified. Every gap costs
@@ -107,7 +110,8 @@ on a slide.
 - **Official partners:** Yelp, Google, and Apple Maps (Apple Business Connect). Say
   "official partner" only for these three.
 - **Weedmaps and Leafly:** no official partnership — say "10+ years working inside and
-  alongside Weedmaps and Leafly"; the founder was a Weedmaps executive.
+  alongside Weedmaps and Leafly"; the founder was a Weedmaps executive (4 years, after
+  3 years at Purple Lotus and before 4+ years running Sparks).
 - 100+ dispensaries managed; the largest Weedmaps and directory management platform in
   the cannabis industry; Sparks clients have the best results of all Weedmaps advertisers.
 - Channel framing: **marketplaces** (Weedmaps, Leafly) · **maps** (Google Maps, Apple
