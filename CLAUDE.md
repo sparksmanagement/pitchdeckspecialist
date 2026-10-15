@@ -56,6 +56,10 @@ your job is to turn that into a finished `.pptx`.
    channels later.
 3. **Build:** `npm run deck -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`,
    and uploads it to Google Drive when a credential is configured (step 6).
+   Add `--short` for the 4-slide version (cover → scope → focus-platform investment
+   → next steps) at `decks/Sparks-x-<slug>-short.pptx`; most prospects don't read
+   the full deck, so build both unless the user says otherwise. `npm run publish --
+   prospects/<slug>.yml --short` uploads the short one.
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
    python3 <pptx-skill>/scripts/office/validate.py decks/Sparks-x-<slug>.pptx

@@ -23,9 +23,10 @@ const { google } = require("googleapis");
 const ROOT = path.resolve(__dirname, "..");
 const brand = yaml.load(fs.readFileSync(path.join(ROOT, "brand/config.yml"), "utf8"));
 const ROOT_FOLDER = brand.drive && brand.drive.pitch_decks_folder;
-const files = process.argv.slice(2);
+const SHORT = process.argv.includes("--short"); // upload decks/Sparks-x-<slug>-short.pptx instead
+const files = process.argv.slice(2).filter((a) => a !== "--short");
 if (!files.length || !ROOT_FOLDER) {
-  console.error("usage: node src/publish_to_drive.js prospects/<slug>.yml  (needs drive.pitch_decks_folder in brand/config.yml)");
+  console.error("usage: node src/publish_to_drive.js prospects/<slug>.yml [--short]  (needs drive.pitch_decks_folder in brand/config.yml)");
   process.exit(1);
 }
 
@@ -93,7 +94,7 @@ async function publishViaAppsScript() {
     const P = yaml.load(fs.readFileSync(path.resolve(f), "utf8"));
     const client = (P.prospect && P.prospect.name) || path.basename(f, ".yml");
     const slug = path.basename(f, ".yml").replace(/^_/, "");
-    const deck = path.join(ROOT, "decks", `Sparks-x-${slug}.pptx`);
+    const deck = path.join(ROOT, "decks", `Sparks-x-${slug}${SHORT ? "-short" : ""}.pptx`);
     if (!fs.existsSync(deck)) { console.error(`No deck at ${deck} — run npm run build -- ${f} first`); process.exitCode = 1; continue; }
     // Apps Script runs the upload on the POST to script.google.com, then answers with a
     // 302 to script.googleusercontent.com carrying the JSON result. If that second host is
@@ -130,7 +131,7 @@ async function publishViaAppsScript() {
     const P = yaml.load(fs.readFileSync(path.resolve(f), "utf8"));
     const client = (P.prospect && P.prospect.name) || path.basename(f, ".yml");
     const slug = path.basename(f, ".yml").replace(/^_/, "");
-    const deck = path.join(ROOT, "decks", `Sparks-x-${slug}.pptx`);
+    const deck = path.join(ROOT, "decks", `Sparks-x-${slug}${SHORT ? "-short" : ""}.pptx`);
     if (!fs.existsSync(deck)) { console.error(`No deck at ${deck} — run npm run build -- ${f} first`); process.exitCode = 1; continue; }
     const folder = await findOrCreateFolder(drive, client, ROOT_FOLDER);
     const { id, updated } = await upload(drive, folder.id, deck);

@@ -17,9 +17,13 @@ const pptxgen = require("pptxgenjs");
 const { icon } = require("./icons");
 
 const ROOT = path.resolve(__dirname, "..");
-const args = process.argv.slice(2);
+const rawArgs = process.argv.slice(2);
+// --short: 4-slide version (cover, scope, investment, next steps) for prospects who
+// won't sit through the full 14-slide pitch. Written to decks/Sparks-x-<slug>-short.pptx.
+const SHORT = rawArgs.includes("--short");
+const args = rawArgs.filter((a) => a !== "--short");
 if (!args[0]) {
-  console.error("usage: node src/build_deck.js prospects/<slug>.yml [-o out.pptx]");
+  console.error("usage: node src/build_deck.js prospects/<slug>.yml [-o out.pptx] [--short]");
   process.exit(1);
 }
 const prospectPath = path.resolve(args[0]);
@@ -32,7 +36,7 @@ const P = yaml.load(fs.readFileSync(prospectPath, "utf8"));
 
 const slug = path.basename(prospectPath, ".yml").replace(/^_/, "");
 const outPath =
-  outIdx > -1 ? path.resolve(args[outIdx + 1]) : path.join(ROOT, "decks", `Sparks-x-${slug}.pptx`);
+  outIdx > -1 ? path.resolve(args[outIdx + 1]) : path.join(ROOT, "decks", `Sparks-x-${slug}${SHORT ? "-short" : ""}.pptx`);
 
 // ───────────────────────────── config ─────────────────────────────
 const C = brand.palette;
@@ -225,11 +229,11 @@ async function build() {
     text(s, [place, today, pros.contact_name ? `Prepared for ${pros.contact_name}${pros.contact_title ? ", " + pros.contact_title : ""}` : ""].filter(Boolean).join("   ·   "), {
       x: M, y: Math.min(afterTitle + 1.55, H - 1.1), w: 9, h: 0.4, fontSize: 12, color: C.accent,
     });
-    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. This deck is ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are ${bundle ? `an add-on bundle at ${bundle.price} total` : `add-ons at ${addonPrice} each`}.`);
+    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. ${SHORT ? "Short version: cover, scope, investment, next steps. " : ""}This deck is ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are ${bundle ? `an add-on bundle at ${bundle.price} total` : `add-ons at ${addonPrice} each`}.`);
   }
 
   // 2. PROBLEM
-  {
+  if (!SHORT) {
     const s = base();
     const y0 = title(s, "Cannabis can't market like everyone else", { sub: "Ads are restricted, so the customer journey lives on pay-to-play platforms — and most listings are left on autopilot." });
     const pains = [
@@ -250,7 +254,7 @@ async function build() {
   }
 
   // 3. SOLUTION
-  {
+  if (!SHORT) {
     const s = base(true);
     const y0 = title(s, `We run your ${focus.name} listings and ads — and we're accountable for the orders.`, { dark: true, eyebrow: "The solution" });
     text(s, "Full-service listing management across the marketplaces, maps and directories your customers use: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest when you're ready.", {
@@ -287,7 +291,7 @@ async function build() {
   const secEyebrow = (label) => `${focus.service}  ·  ${label}`;
 
   // 4. WHY SPARKS
-  {
+  if (!SHORT) {
     const s = base();
     const y0 = title(s, `Why ${brand.company}`, { eyebrow: "Why Sparks", sub: "Over 10 years in cannabis, 100+ dispensary listings managed — recognized, partnered, and led by a former Weedmaps executive." });
     const gap = 0.3;
@@ -335,7 +339,7 @@ async function build() {
   }
 
   // 5. WHAT WE FOUND — iPhone mockup of the worst listing + callouts (audit_mock), else table
-  {
+  if (!SHORT) {
     const s = base();
     const mock = P.audit_mock && typeof P.audit_mock === "object" ? P.audit_mock : null;
     let rows = auditFor(focusKey);
@@ -489,7 +493,7 @@ async function build() {
   }
 
   // 7. RESULTS
-  {
+  if (!SHORT) {
     const s = base(true);
     title(s, "The results Sparks clients see", { dark: true, eyebrow: secEyebrow("Results"), sub: "Averages across Sparks-managed accounts." });
     const proof = [...(brand.proof || [])];
@@ -508,7 +512,7 @@ async function build() {
   }
 
   // 8. CASE STUDIES
-  {
+  if (!SHORT) {
     const s = base();
     const y0 = title(s, `${focus.name} case studies`, { eyebrow: secEyebrow("Proof"), sub: "What full ownership of a listing looks like in practice." });
     const keys = Array.isArray(P.case_studies) && P.case_studies.length ? P.case_studies : focus.case_studies || Object.keys(caseStudies);
@@ -576,16 +580,16 @@ async function build() {
     if (addons.length && !showsTotal) {
       const teaser = bundle
         ? (total ? `Total package with ${listWords(addons)}: ${total.price}${total.detail ? ` — ${total.detail}` : ""}` : `Add ${listWords(addons)} management together for ${bundle.price}.`)
-        : `Add ${listWords(addons)} management for ${addonPrice} each — previews on the next ${addons.length === 1 ? "slide" : "slides"}.`;
+        : `Add ${listWords(addons)} management for ${addonPrice} each${SHORT ? "" : ` — previews on the next ${addons.length === 1 ? "slide" : "slides"}`}.`;
       text(s, teaser, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 12.5, bold: true, color: "FFFFFF", align: "right" });
     } else if (addons.length) {
-      text(s, `${listWords(addons)} previews follow. Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
+      text(s, `${SHORT ? "" : `${listWords(addons)} previews follow. `}Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
     }
     s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──
-  for (const k of others) {
+  if (!SHORT) for (const k of others) {
     const pl = PLAT[k];
     const inc = isIncluded(k);
     const cfg = SV[k] || {};
@@ -638,7 +642,7 @@ async function build() {
   }
 
   // TEAM
-  {
+  if (!SHORT) {
     const s = base();
     const y0 = title(s, "Your account team", { sub: "The people who will run your listings." });
     const team = (brand.team || []).filter((t) => t && t.name);
