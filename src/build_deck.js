@@ -44,6 +44,7 @@ const M = 0.6; // margin
 
 const pros = P.prospect || {};
 const prospectName = pros.name || "Your Dispensary";
+const nameNoDot = prospectName.replace(/\.$/, "");
 const place = [pros.city, pros.state].filter(Boolean).join(", ");
 const today =
   pros.date ||
@@ -411,14 +412,20 @@ async function build() {
       });
       // ── fleet-wide findings ──
       const fx = cx + cwid + 0.3, fw = W - M - fx;
-      const fleet = rows.filter((r) => !c_in(r, callouts)).slice(0, 5);
+      let fleet = rows.filter((r) => !c_in(r, callouts));
+      let fleetTitle = mock.fleet_title || "Across all listings";
+      if (!fleet.length) {
+        fleet = auditRows.filter((r) => !auditFor(focusKey).includes(r));
+        fleetTitle = mock.fleet_title_other || `Beyond ${focus.name}`;
+      }
+      fleet = fleet.slice(0, 5);
       card(s, fx, y0, fw, ph, { fill: C.primary });
-      text(s, (mock.fleet_title || "Across all listings").toUpperCase(), { x: fx + 0.3, y: y0 + 0.22, w: fw - 0.6, h: 0.3, fontSize: 10, bold: true, charSpacing: 3, color: C.accent });
+      text(s, fleetTitle.toUpperCase(), { x: fx + 0.3, y: y0 + 0.22, w: fw - 0.6, h: 0.3, fontSize: 10, bold: true, charSpacing: 3, color: C.accent });
       const fh = (ph - 0.75) / Math.max(fleet.length, 1);
       fleet.forEach((r, i) => {
         const y = y0 + 0.6 + i * fh;
         const label = String(r.platform || "").replace(new RegExp(`^${focus.name}\\s*[·:-]?\\s*`, "i"), "") || focus.name;
-        text(s, label, { x: fx + 0.3, y, w: fw - 0.6, h: 0.22, fontSize: 10, bold: true, color: "FFFFFF" });
+        text(s, label.replace(/\s*·\s*/g, " · "), { x: fx + 0.3, y, w: fw - 0.6, h: 0.22, fontSize: 10, bold: true, color: "FFFFFF" });
         text(s, r.finding || "", { x: fx + 0.3, y: y + 0.22, w: fw - 0.6, h: fh - 0.26, fontSize: 9, color: C.soft });
       });
       s.addNotes(`Walk the phone left to right: this is ${mock.listing || "their listing"} exactly as a shopper sees it. Each numbered flag is a fix in the first 30 days. Right column: the same pattern across the other listings. Items marked 'to confirm' need account access to verify.`);
@@ -667,7 +674,7 @@ async function build() {
   // NEXT STEPS
   {
     const s = base(true);
-    title(s, "Next steps", { dark: true, sub: `A 90-day ${focus.name} launch plan for ${prospectName}.` });
+    title(s, "Next steps", { dark: true, sub: `A 90-day ${focus.name} launch plan for ${nameNoDot}.` });
     const plan = Array.isArray(P.plan) && P.plan.length ? P.plan : [
       { period: "Days 1–30", items: "Full audit, strategy, listing + menu clean-up, campaigns live" },
       { period: "Days 31–60", items: "Bid & deal optimization, review program, dashboard attribution" },

@@ -1,0 +1,132 @@
+# Caldwell Cannabis Co. — licensed CAURD dispensary + delivery, Far Rockaway, Queens (2-29A Beach 20th St).
+# caldwellsny.com. Pitch scope: Weedmaps management. Build: npm run deck -- prospects/caldwell-cannabis.yml
+
+prospect:
+  name: "Caldwell Cannabis Co."
+  type: dispensary
+  type_label: "dispensary and delivery operation"
+  focus: weedmaps
+  city: "Far Rockaway"
+  state: "NY"
+  locations: 1
+  website: "caldwellsny.com"
+  contact_name: ""
+  contact_title: ""
+  date: ""
+
+# Verified on the live Weedmaps listing (headless browser, Oct 15 2026) unless marked "per".
+audit:
+  - platform: "Weedmaps · Listing"
+    finding: "5.0★ from 36 reviews (97% five-star) and two live deals — the strongest listing we've audited. One owner reply."
+    impact: "The rating is an asset; the gaps below are what keep it from converting more of Queens and Nassau"
+  - platform: "Weedmaps · Delivery"
+    finding: "Listing is \"Storefront | Pickup\" only, yet the header reads \"WE DELIVER — Long Beach, Atlantic Beach, Far Rockaway, Queens, Nassau County\"."
+    impact: "No Weedmaps delivery listing means zero delivery orders from the platform in the zones you already serve"
+  - platform: "Weedmaps · Location"
+    finding: "Listed under \"New York City\" with no Far Rockaway or Queens in the name; address \"2-29A\" vs \"229A\" across directories."
+    impact: "Shoppers searching Far Rockaway or Long Beach don't see the neighborhood; map pins drift"
+  - platform: "Leafly · Listing"
+    finding: "5.0★ (18–27 reviews per Leafly) but hours show Thu/Fri 10am–5pm vs 10am–8pm on your site; free delivery over $75 listed."
+    impact: "Wrong hours on a second marketplace cost evening orders two days a week"
+  - platform: "Yelp · Profile"
+    finding: "4.4★ / ~40 reviews, 14 photos (per Yelp/aggregator); one recent complaint about cart weights."
+    impact: "The one platform where the rating dips — and the one that shows up for name searches"
+  - platform: "Google · Business Profile"
+    finding: "4.9★ from 41 reviews (per listing data); conflicting hours and address formats across directories."
+    impact: "Strong proof to carry into Apple Maps and 20+ directories once the data is consistent"
+
+# Live Weedmaps listing on an iPhone with numbered callouts (slide 5). Screenshot captured from
+# weedmaps.com/dispensaries/caldwell-cannabis-co-1 on Oct 15 2026.
+audit_mock:
+  listing: "Caldwell Cannabis Co on Weedmaps"
+  subtitle: "Dispensary · New York City · Recreational"
+  rating: "5.0"
+  reviews: "36 reviews"
+  badges: ["Order online", "Recreational"]
+  deals: "30% off first time · Spend $250 get 35%"
+  menu: "227 products · Live menu"
+  reviews_line: "1 owner reply"
+  screenshot: "prospects/assets/caldwell-cannabis-weedmaps.png"
+  fleet_title_other: "Beyond Weedmaps"
+  callouts:
+    - at: [0.9, 0.235]
+      covers: "Delivery"
+      title: "\"WE DELIVER\" — but not on Weedmaps"
+      text: "The header promises delivery to Long Beach, Atlantic Beach and Nassau; the listing is pickup-only. A Weedmaps delivery listing is a second storefront in every zone you drive to."
+    - at: [0.9, 0.385]
+      covers: "Location"
+      title: "No neighborhood in the name"
+      text: "Listed as \"Caldwell Cannabis Co\" under New York City. \"Far Rockaway\" and \"Queens\" belong in the title for zone search."
+    - at: [0.9, 0.46]
+      covers: "Listing"
+      title: "5.0★ — now make it visible"
+      text: "36 reviews at 97% five-star is rare. Paid placement puts that rating at the top of the Far Rockaway and Long Beach results instead of below bigger spenders."
+    - at: [0.9, 0.69]
+      title: "Two deals, no featured products"
+      text: "Good first-order and $250 tiers; nothing surfaced above the fold and no daily cadence between them."
+    - at: [0.58, 0.9]
+      title: "Verification to confirm"
+      text: "227 products; verification status isn't visible from outside the account."
+
+market:
+  competitors_in_zone:
+  notes: "A 2026 CAURD license in Far Rockaway with delivery reach into Long Beach, Atlantic Beach and Nassau County. A 5.0★ listing is the asset; delivery listings, zone bids and consistent hours are what turn it into orders."
+
+services:
+  weedmaps:
+    include: true
+    notes: "Ad spend & bid management for Far Rockaway, Long Beach and Nassau zones, a Weedmaps delivery listing, listing optimization (name, neighborhood, hours), deal & promotion cadence, in-house graphics, menu management & product verification, review responses, weekly reporting."
+  leafly:
+    include: false
+    notes: ""
+  yelp:
+    include: false
+    notes: ""
+  google:
+    include: false
+    gbp: false
+    ads: false
+    notes: ""
+  local_seo:
+    include: false
+    notes: ""
+  other: []
+
+investment:
+  monthly_fee: ""
+  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."
+  ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
+  term: "Month-to-month after the 90-day launch"
+  options:
+    - name: "Weedmaps Management"
+      price: "$995/mo"
+      alt: "or 10% of Weedmaps ad spend once spend exceeds $9,995/mo"
+      includes: "Full Weedmaps management for the storefront plus a new delivery listing: bids, listings, menus, deals, graphics, reviews, weekly reporting"
+    - name: "Listing Bundle"
+      price: "$495/mo"
+      alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
+      includes: "Leafly + Yelp + Google + Apple Maps and 20 directories, added to Weedmaps — same seven pillars everywhere"
+      optional: true
+    - name: "Total Package"
+      price: "$1,490/mo"
+      alt: "or 10% of ad spend where the spend thresholds are exceeded"
+      includes: "Every marketplace, map and directory your customers use — one team, one report."
+      recommended: true
+  addon:
+    label: "Leafly + Yelp + Google + Apple Maps"
+    price: "$495/mo"
+    detail: "One fee for Leafly, Yelp, Google, Apple Maps and 20 directories; scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+  total:
+    label: "Total package"
+    price: "$1,490/mo"
+    detail: "Weedmaps + Leafly + Yelp + Google + Apple Maps + 20 directories, unless the 10%-of-ad-spend rule applies"
+
+plan:
+  - period: "Days 1–30"
+    items: "Launch the Weedmaps delivery listing, add Far Rockaway to the listing name, verify the menu, feature products, start bids in Far Rockaway and Long Beach"
+  - period: "Days 31–60"
+    items: "Deal cadence between the first-order and $250 tiers, review program, creative refresh, Nassau zone bids, POS-integrated dashboard live"
+  - period: "Days 61–90"
+    items: "Scale winning zones, fix hours and address across Leafly, Yelp and Google, quarterly plan"
+
+case_studies: [nuna_harvest, purple_lotus]
