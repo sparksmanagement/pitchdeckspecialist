@@ -75,7 +75,7 @@ market:
 services:
   weedmaps:
     include: true
-    notes: "Ad spend & bid management across all 4 listings (2 storefronts + 2 delivery zones), listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
+    notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
   leafly:
     include: false
     notes: ""

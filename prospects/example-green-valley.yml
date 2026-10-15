@@ -39,7 +39,7 @@ market:
 services:
   weedmaps:
     include: true
-    notes: "Bid strategy for top-3 placement in zone, full menu verification, weekly deal rotation, review responses, weekly reporting."
+    notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."  # speaker notes only; the scope slide says the services cover every listing on the platform
   leafly:
     include: true
     notes: "Menu sync with POS, Leafly ads, deal activations, review management."

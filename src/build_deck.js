@@ -469,7 +469,8 @@ async function build() {
   {
     const s = base();
     const cfg = SV[focusKey] || {};
-    const y0 = title(s, `What Sparks will manage on ${focus.name} for ${prospectName}`, { eyebrow: secEyebrow("Scope"), sub: cfg.notes ? `Scoped for this proposal: ${cfg.notes}` : undefined });
+    // Generic on purpose: never enumerate listings or zones here, so nothing gets missed.
+    const y0 = title(s, `What Sparks will manage on ${focus.name} for ${prospectName}`, { eyebrow: secEyebrow("Scope"), sub: `Everything below applies to every ${prospectName} listing on ${focus.name}, and to each platform you add to the engagement.` });
     const items = focus.what_we_manage || [];
     const cols = 2, gap = 0.3;
     const cw = (W - 2 * M - gap) / cols;
@@ -489,7 +490,7 @@ async function build() {
         text(s, itemTitle(items[i]), { x: x + 0.85, y: y + 0.1, w: cw - 1.1, h: rh - 0.2, fontSize: 13, color: C.ink, valign: "middle" });
       }
     }
-    s.addNotes("The seven Sparks pillars (spend, listing, menu, reviews, deals, creative, data) applied to this platform. Tie each line back to an audit finding.");
+    s.addNotes(`The seven Sparks pillars (spend, listing, menu, reviews, deals, creative, data) applied to every ${focus.name} listing. Tie each line back to an audit finding.${cfg.notes ? ` Scope notes: ${cfg.notes}` : ""}`);
   }
 
   // 7. RESULTS

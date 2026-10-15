@@ -75,7 +75,7 @@ market:
 services:
   weedmaps:
     include: true
-    notes: "Ad spend & bid management for Far Rockaway, Long Beach and Nassau zones, a Weedmaps delivery listing, listing optimization (name, neighborhood, hours), deal & promotion cadence, in-house graphics, menu management & product verification, review responses, weekly reporting."
+    notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
   leafly:
     include: false
     notes: ""
