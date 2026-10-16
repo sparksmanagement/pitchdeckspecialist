@@ -63,3 +63,14 @@ proof:
     label: "dispensaries, deliveries & brands managed"
 
 guarantee: "Results in 30 days or your money back."
+
+# À-la-carte services shown under the pricing cards on the investment slide.
+# Never rolled into the Total Package price. A prospect file can override with
+# investment.extras (same shape) or hide them with investment.extras: [].
+extras:
+  - name: Review Generation
+    price: "$100/mo per location"
+    detail: "+ messaging fees. We text your customers asking for reviews and gate negative feedback before it goes public."
+  - name: Product Image Management
+    price: "$10/hr"
+    detail: "Our team finds, edits and uploads product images to your online menus."

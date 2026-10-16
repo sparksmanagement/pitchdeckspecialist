@@ -550,8 +550,9 @@ async function build() {
       if (bundle && addonsPending.length) opts.push({ name: "Listing bundle", price: bundle.price, includes: `${bundleLabel()}. ${bundle.detail || ""}`.trim() });
       if (total) opts.push({ name: total.label || "Total package", price: total.price, includes: total.detail || "", recommended: true });
     }
+    const extras = Array.isArray(inv.extras) ? inv.extras.filter((e) => e && e.name) : (brand.extras || []);
     const gap = 0.3, n = Math.min(opts.length, 3), cw = (W - 2 * M - gap * (n - 1)) / n;
-    const cy = 2.5, ch = 3.15;
+    const cy = extras.length ? 2.3 : 2.5, ch = extras.length ? 2.6 : 3.15;
     opts.slice(0, 3).forEach((o, i) => {
       const x = M + i * (cw + gap);
       const rec = !!o.recommended;
@@ -560,15 +561,34 @@ async function build() {
         s.addShape(pres.ShapeType.roundRect, { x, y: cy, w: cw, h: ch, rectRadius: 0.12, fill: { type: "none" }, line: { color: "FFFFFF", width: 2 } });
         pill(s, "RECOMMENDED", x + cw - 1.65, cy + 0.28, 1.35);
       }
-      text(s, o.name, { x: x + 0.35, y: cy + 0.25, w: cw - (rec ? 2.1 : 0.7), h: 0.4, fontSize: 16, bold: true, color: C.primary, valign: "middle" });
+      const tight = extras.length > 0;
+      text(s, o.name, { x: x + 0.35, y: cy + (tight ? 0.2 : 0.25), w: cw - (rec ? 2.1 : 0.7), h: 0.4, fontSize: 16, bold: true, color: C.primary, valign: "middle" });
       const price = o.price || "Custom";
-      const pf = price.length <= 9 ? 36 : price.length <= 14 ? 28 : 22;
-      s.addText(price, { x: x + 0.35, y: cy + 0.7, w: cw - 0.7, h: 0.8, fontFace: FONT_H, fontSize: pf, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
-      if (o.alt) text(s, o.alt, { x: x + 0.35, y: cy + 1.5, w: cw - 0.7, h: 0.55, fontSize: 11.5, italic: true, color: C.primary });
-      text(s, o.includes || "", { x: x + 0.35, y: cy + (o.alt ? 2.1 : 1.6), w: cw - 0.7, h: ch - (o.alt ? 2.25 : 1.75), fontSize: 12, color: C.ink });
+      const pf = price.length <= 9 ? (tight ? 32 : 36) : price.length <= 14 ? 28 : 22;
+      s.addText(price, { x: x + 0.35, y: cy + (tight ? 0.58 : 0.7), w: cw - 0.7, h: tight ? 0.62 : 0.8, fontFace: FONT_H, fontSize: pf, bold: true, color: C.ink, isTextBox: true, margin: 0, valign: "middle" });
+      const altY = tight ? 1.22 : 1.5, incY = tight ? 1.72 : 2.1;
+      if (o.alt) text(s, o.alt, { x: x + 0.35, y: cy + altY, w: cw - 0.7, h: 0.5, fontSize: tight ? 10.5 : 11.5, italic: true, color: C.primary });
+      text(s, o.includes || "", { x: x + 0.35, y: cy + (o.alt ? incY : altY), w: cw - 0.7, h: ch - (o.alt ? incY : altY) - 0.12, fontSize: tight ? 11 : 12, color: C.ink });
     });
-    const by = cy + ch + 0.12;
-    if (trial) {
+    let by = cy + ch + 0.12;
+    if (extras.length) {
+      // Optional à-la-carte services — priced separately, never part of the package total.
+      const ey = cy + ch + 0.14, eh = 0.8;
+      text(s, "OPTIONAL ADD-ONS", { x: M, y: ey - 0.02, w: 2.2, h: eh, fontSize: 9.5, bold: true, color: C.accent, charSpacing: 3, valign: "middle" });
+      const ex0 = M + 2.0, egap = 0.25, en = Math.min(extras.length, 3), ew = (W - M - ex0 - egap * (en - 1)) / en;
+      extras.slice(0, 3).forEach((e, i) => {
+        const x = ex0 + i * (ew + egap);
+        card(s, x, ey, ew, eh, { fill: C.deep, line: C.dim });
+        text(s, `${e.name}  ·  ${e.price || "Custom"}`, { x: x + 0.25, y: ey + 0.08, w: ew - 0.5, h: 0.28, fontSize: 12, bold: true, color: "FFFFFF" });
+        text(s, e.detail || "", { x: x + 0.25, y: ey + 0.36, w: ew - 0.5, h: eh - 0.4, fontSize: 9.5, color: C.soft });
+      });
+      by = ey + eh + 0.1;
+    }
+    if (trial && extras.length) {
+      text(s, trial, { x: M, y: by, w: 7.5, h: 0.3, fontSize: 12.5, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: by + 0.3, w: 7.5, h: 0.28, fontSize: 12, bold: true, color: "FFFFFF" });
+      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.58, w: 7.5, h: 0.28, fontSize: 10, color: C.soft, italic: true });
+    } else if (trial) {
       text(s, trial, { x: M, y: by, w: 7.5, h: 0.35, fontSize: 13, bold: true, color: C.accent });
       text(s, brand.guarantee, { x: M, y: by + 0.36, w: 7.5, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
       text(s, inv.ad_spend_note || "", { x: M, y: by + 0.66, w: 7.5, h: 0.35, fontSize: 10.5, color: C.soft, italic: true });
@@ -586,7 +606,7 @@ async function build() {
     } else if (addons.length) {
       text(s, `${SHORT ? "" : `${listWords(addons)} previews follow. `}Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
     }
-    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}`);
+    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}${extras.length ? ` Optional add-ons, priced separately and not in the package total: ${extras.map((e) => `${e.name} (${e.price}${e.detail ? ` — ${e.detail}` : ""})`).join("; ")}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──

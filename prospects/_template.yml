@@ -86,6 +86,7 @@ services:
 #   addon_price  — per platform ("$495/mo each")            [used when `addon` is absent]
 #   addon        — one bundle for all non-focus platforms    [preferred; add `total` for the package]
 investment:
+  # extras: []   # à-la-carte add-ons shown under the pricing cards; defaults come from brand/config.yml → extras
   monthly_fee: ""             # single price, used when options is empty
   trial: ""                   # e.g. "Free 30-day trial — no invoice until day 31. Zero risk to start." (keep under ~65 chars)
   addon_price: "$495/mo"

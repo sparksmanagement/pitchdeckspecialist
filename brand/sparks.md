@@ -140,6 +140,10 @@ on a slide.
 - Add-on bundle (Leafly + Yelp + Google management): $495/mo total; becomes 10% of ad spend if any platform exceeds $4,950/mo.
 - Full package: $1,490/mo unless a 10%-of-ad-spend rule applies. Ad spend is billed by the platforms.
 - Results in 30 days or money back; month-to-month after the 90-day launch.
+- À-la-carte add-ons (never included in the package total): Review Generation at
+  $100/mo per location plus messaging fees (texts to customers requesting reviews,
+  gating negative ones); Product Image Management at $10/hr (our team finds, edits
+  and uploads images to the online menus).
 
 ## Contact
 
