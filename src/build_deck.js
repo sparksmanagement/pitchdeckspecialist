@@ -65,7 +65,7 @@ const inv = P.investment || {};
 const addonPrice = inv.addon_price || "$495/mo";
 // Sparks' standard launch process (Next Steps slide). Prospect files may override `plan`.
 const STANDARD_PLAN = [
-  { period: "Kickoff", items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard" },
+  { period: "Kickoff", items: "Sign the agency agreement and share your logins, then meet with your team to align on goals, deals, menu and assets; we connect every platform and set up your dashboard" },
   { period: "Days 1–30  ·  Launch", items: "Full audit and strategy, listing and menu clean-up, products verified and strain tagged, deals, graphics and campaigns live" },
   { period: "Days 31+  ·  Measure, optimize, repeat", items: "Every month we measure what the changes did to orders and return, then re-tune positions, deals, products and graphics — rinse and repeat to keep growing and maximizing your return" },
 ];
@@ -758,7 +758,7 @@ async function build() {
     const contactLine = [ct.name && `${ct.name}${ct.title ? ", " + ct.title : ""}`, ct.email, ct.phone, ct.booking_link].filter(Boolean).join("  ·  ");
     text(s, "Ready when you are.", { x: px + 0.35, y: 5.55, w: pw - 0.7, h: 0.4, fontSize: 16, bold: true, color: "FFFFFF" });
     text(s, contactLine, { x: px + 0.35, y: 5.95, w: pw - 0.7, h: 0.5, fontSize: 11, color: C.accent });
-    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then from day 31 every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the ${trial ? "free trial" : "guarantee"}, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
+    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (sign the agency agreement, collect logins, then meet the team to align on goals, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then from day 31 every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the ${trial ? "free trial" : "guarantee"}, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });

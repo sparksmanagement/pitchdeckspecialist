@@ -123,7 +123,7 @@ investment:
 # override it — no listing-specific tasks — so it stays rinse-and-repeat.
 # plan:
 #   - period: "Kickoff"
-#     items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard"
+#     items: "Sign the agency agreement and share your logins, then meet with your team to align on goals, deals, menu and assets; we connect every platform and set up your dashboard"
 #   - period: "Days 1–30  ·  Launch"
 #     items: "Full audit and strategy, listing and menu clean-up, products verified and strain tagged, deals, graphics and campaigns live"
 #   - period: "Days 31+  ·  Measure, optimize, repeat"

@@ -151,8 +151,9 @@ on a slide.
 
 ## Launch process (Next Steps slide)
 
-1. Kickoff — meet with the client team, align on goals, account info, deals, menu and
-   brand assets; connect every platform; set up the analytics dashboard.
+1. Kickoff — sign the agency agreement, collect platform logins, then meet with the
+   client team to align on goals, deals, menu and brand assets; connect every
+   platform; set up the analytics dashboard.
 2. Days 1–30 Launch — full audit and strategy, listing + menu clean-up, products verified
    and strain tagged, deals, graphics and campaigns live.
 3. Days 31+ Measure, optimize, repeat — every month, measure how the changes affected
