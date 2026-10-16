@@ -153,12 +153,13 @@ on a slide.
 
 1. Kickoff — meet with the client team, align on goals, account info, deals, menu and
    brand assets; connect every platform; set up the analytics dashboard.
-2. Days 1–30 Launch — full audit, strategy, listing + menu clean-up, products verified
-   and strain tagged, deals and campaigns live.
-3. Days 31–60 Measure & optimize — measure how the launch changed orders and return,
-   then re-tune positions, deals, products and graphics to improve it.
-4. Days 61–90 and beyond — rinse and repeat monthly to continually grow and maximize
-   return; add-on platforms switched on when the client is ready.
+2. Days 1–30 Launch — full audit and strategy, listing + menu clean-up, products verified
+   and strain tagged, deals, graphics and campaigns live.
+3. Days 31+ Measure, optimize, repeat — every month, measure how the changes affected
+   orders and return, then re-tune positions, deals, products and graphics; rinse and
+   repeat to continually grow and maximize return.
+Keep the plan generic (no listing-specific tasks) so it is the same rinse-and-repeat
+process on every deck.
 
 ## Contact
 

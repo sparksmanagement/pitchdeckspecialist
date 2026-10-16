@@ -66,9 +66,8 @@ const addonPrice = inv.addon_price || "$495/mo";
 // Sparks' standard launch process (Next Steps slide). Prospect files may override `plan`.
 const STANDARD_PLAN = [
   { period: "Kickoff", items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard" },
-  { period: "Days 1–30  ·  Launch", items: "Full audit, strategy, listing and menu clean-up, products verified and strain tagged, deals and campaigns live" },
-  { period: "Days 31–60  ·  Measure & optimize", items: "Measure what the launch did to orders and return, then re-tune positions, deals, products and graphics to improve it" },
-  { period: "Days 61–90 and beyond  ·  Repeat & grow", items: "Rinse and repeat every month: measure, adjust, improve — continually growing and maximizing your return; add-on platforms switched on when you're ready" },
+  { period: "Days 1–30  ·  Launch", items: "Full audit and strategy, listing and menu clean-up, products verified and strain tagged, deals, graphics and campaigns live" },
+  { period: "Days 31+  ·  Measure, optimize, repeat", items: "Every month we measure what the changes did to orders and return, then re-tune positions, deals, products and graphics — rinse and repeat to keep growing and maximizing your return" },
 ];
 // Bundle mode: investment.addon = { price, detail } prices all non-focus platforms together.
 const bundle = inv.addon && inv.addon.price ? inv.addon : null;
@@ -710,7 +709,7 @@ async function build() {
   // NEXT STEPS
   {
     const s = base(true);
-    title(s, "Next steps", { dark: true, sub: `Kickoff, a 30-day ${focus.name} launch, then a monthly cycle of measure and optimize for ${nameNoDot}.` });
+    title(s, "Next steps", { dark: true, sub: `Kickoff, a 30-day ${focus.name} launch, then a monthly cycle of measure and optimize to keep growing ${nameNoDot}'s return.` });
     // Sparks' standard process. A prospect file can override `plan` (up to 4 steps);
     // keep the shape: kickoff → launch → measure & optimize → repeat & grow.
     const plan = Array.isArray(P.plan) && P.plan.length ? P.plan : STANDARD_PLAN;
@@ -761,7 +760,7 @@ async function build() {
     const contactLine = [ct.name && `${ct.name}${ct.title ? ", " + ct.title : ""}`, ct.email, ct.phone, ct.booking_link].filter(Boolean).join("  ·  ");
     text(s, "Ready when you are.", { x: px + 0.35, y: 5.55, w: pw - 0.7, h: 0.4, fontSize: 16, bold: true, color: "FFFFFF" });
     text(s, contactLine, { x: px + 0.35, y: 5.95, w: pw - 0.7, h: 0.5, fontSize: 11, color: C.accent });
-    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the guarantee, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
+    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then from day 31 every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the guarantee, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
