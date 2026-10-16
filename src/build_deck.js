@@ -81,6 +81,10 @@ const bundleLabel = () => (bundle && bundle.label) || `${otherNames().join(" + "
 const tileAddonLabel = bundle ? "ADD-ON BUNDLE" : "ADD-ON";
 const scopeList = listWords(includedNames.length ? includedNames : [focus.name]);
 const oneLiner = `We manage your ${scopeList} listings and ads so your ${typeWord} gets found, clicked, and ordered from.`;
+// Proposal shape: "single" (one platform, the focus) or "multi" (two or more platforms
+// included). Auto-detected from services.*.include; prospect.package overrides.
+const isMulti = pros.package ? String(pros.package).toLowerCase().startsWith("multi") : includedNames.length > 1;
+const proposalLabel = isMulti ? "Multi-Platform Management proposal" : "Single Platform Management proposal";
 
 // audit rows grouped by platform key (row.platform starts with the platform name)
 const auditRows = Array.isArray(P.audit) ? P.audit.filter((r) => r && (r.finding || r.impact)) : [];
@@ -231,12 +235,12 @@ async function build() {
       isTextBox: true, margin: 0, valign: "top",
     });
     const afterTitle = coverY + coverH + 0.2;
-    text(s, `${focus.service} proposal${trial ? "  ·  Free 30-day trial" : ""}`, { x: M, y: afterTitle, w: 8.2, h: 0.4, fontSize: 18, bold: true, color: "FFFFFF" });
+    text(s, `${proposalLabel}${trial ? "  ·  Free 30-day trial" : ""}`, { x: M, y: afterTitle, w: 8.2, h: 0.4, fontSize: 18, bold: true, color: "FFFFFF" });
     text(s, oneLiner, { x: M, y: afterTitle + 0.45, w: 7.6, h: 1.0, fontSize: 16, color: C.soft });
     text(s, [place, today, pros.contact_name ? `Prepared for ${pros.contact_name}${pros.contact_title ? ", " + pros.contact_title : ""}` : ""].filter(Boolean).join("   ·   "), {
       x: M, y: Math.min(afterTitle + 1.55, H - 1.1), w: 9, h: 0.4, fontSize: 12, color: C.accent,
     });
-    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. ${SHORT ? "Short version: cover, scope, investment, next steps. " : ""}This deck is ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are ${bundle ? `an add-on bundle at ${bundle.price} total` : `add-ons at ${addonPrice} each`}.`);
+    s.addNotes(`Open with the one-liner. ${prospectName} is a ${typeWord} in ${place || "their market"}. ${SHORT ? "Short version: cover, scope, investment, next steps. " : ""}This is a ${isMulti ? "multi-platform" : "single platform"} proposal (${scopeList}), ${focus.name}-first: the full pitch is ${focus.name} management; the other platforms are ${bundle ? `an add-on bundle at ${bundle.price} total` : `add-ons at ${addonPrice} each`}.`);
   }
 
   // 2. PROBLEM
