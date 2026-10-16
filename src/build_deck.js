@@ -483,7 +483,7 @@ async function build() {
     const s = base();
     const cfg = SV[focusKey] || {};
     // Generic on purpose: never enumerate listings or zones here, so nothing gets missed.
-    const y0 = title(s, `What Sparks will manage for ${prospectName}`, { eyebrow: secEyebrow("Scope"), sub: isMulti ? `Everything below applies to every ${prospectName} listing on ${scopeList}.` : `Everything below applies to every ${prospectName} listing on ${focus.name}, the platform in this proposal, and to each platform you add.` });
+    const y0 = title(s, `What Sparks will manage for ${prospectName}`, { eyebrow: secEyebrow("Scope"), sub: isMulti ? `Everything below applies to every ${prospectName} listing on every platform in this proposal.` : `Everything below applies to every ${prospectName} listing on your single platform, and to each platform you add.` });
     const items = focus.what_we_manage || [];
     const cols = 2, gap = 0.3;
     const cw = (W - 2 * M - gap) / cols;
