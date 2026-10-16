@@ -32,10 +32,12 @@ your job is to turn that into a finished `.pptx`.
 2. **Create the prospect file.** Copy `prospects/_template.yml` to
    `prospects/<slug>.yml` and fill every section. Set `focus` (default
    `weedmaps`) — that platform gets the full pitch; the others become one-slide
-   add-on previews priced as a bundle via `investment.addon` (Sparks standard:
-   Leafly + Yelp + Google for $495/mo total, scaling to 10% of ad spend above
-   $4,950/mo on any platform; `investment.total` shows the package price,
-   $1,490/mo with Weedmaps at $995/mo). `addon_price` is the per-platform fallback. The à-la-carte add-ons under the pricing cards (Review Generation $100/mo per location + messaging fees; Product Image Management $10/hr) come from `brand/config.yml` → `extras` and are never added to the package total; override per prospect with `investment.extras`. `investment.trial` (free
+   add-on previews priced as a bundle via `investment.addon`. Sparks standard
+   pricing: Single Platform Management $495/mo for any one platform (the focus
+   platform, not necessarily Weedmaps), scaling to 10% of that platform's ad spend
+   above $4,950/mo; the Listing Bundle adds every other platform for +$495/mo;
+   `investment.total` is the $990/mo Total Package. Keep the card named "Single
+   Platform Management" and say which platform it is in `includes`. `addon_price` is the per-platform fallback. The à-la-carte add-ons under the pricing cards (Review Generation $100/mo per location + messaging fees; Product Image Management $10/hr) come from `brand/config.yml` → `extras` and are never added to the package total; override per prospect with `investment.extras`. `investment.trial` (free
    30-day trial, no invoice until day 31) shows on the cover, investment and
    next-steps slides when set. The
    `services` block must always address all six: `weedmaps`, `leafly`, `yelp`,

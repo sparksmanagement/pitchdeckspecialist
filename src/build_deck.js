@@ -541,7 +541,7 @@ async function build() {
   // 9. INVESTMENT (focus platform)
   {
     const s = base(true);
-    title(s, `${focus.service} investment`, { dark: true, eyebrow: secEyebrow("Investment"), sub: inv.term || "" });
+    title(s, "Investment", { dark: true, eyebrow: secEyebrow("Investment"), sub: `Single platform management, with every other platform as one optional bundle.${inv.term ? ` ${inv.term}.` : ""}` });
     if (trial) trialBurst(s, W - M - 1.75, 0.5, 1.75);
     let opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const addonsPending = others.filter((k) => !isIncluded(k));
@@ -606,7 +606,7 @@ async function build() {
     } else if (addons.length) {
       text(s, `${SHORT ? "" : `${listWords(addons)} previews follow. `}Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
     }
-    s.addNotes(`${trial ? trial + " " : ""}Pricing for ${focus.service}. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}${extras.length ? ` Optional add-ons, priced separately and not in the package total: ${extras.map((e) => `${e.name} (${e.price}${e.detail ? ` — ${e.detail}` : ""})`).join("; ")}.` : ""}`);
+    s.addNotes(`${trial ? trial + " " : ""}Single platform management is $495/mo for any one platform (${focus.name} here); the listing bundle adds every other platform for another $495/mo. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}${extras.length ? ` Optional add-ons, priced separately and not in the package total: ${extras.map((e) => `${e.name} (${e.price}${e.detail ? ` — ${e.detail}` : ""})`).join("; ")}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──
@@ -727,7 +727,7 @@ async function build() {
     const lines = [];
     const opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const pendingKeys = others.filter((k) => !isIncluded(k));
-    if (opts.length) opts.forEach((o) => lines.push([o.name + (o.optional ? "  (optional)" : ""), o.price || "Custom", !!o.recommended]));
+    if (opts.length) opts.forEach((o) => lines.push([(o.summary || o.name) + (o.optional ? "  (optional)" : ""), o.price || "Custom", !!o.recommended]));
     else lines.push([focus.service, inv.monthly_fee || "Custom"]);
     for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
     if (pendingKeys.length && !(bundle && opts.some((o) => o.price === bundle.price))) {
