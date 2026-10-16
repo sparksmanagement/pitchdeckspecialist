@@ -38,8 +38,8 @@ your job is to turn that into a finished `.pptx`.
    above $4,950/mo; the Listing Bundle adds every other platform for +$495/mo;
    `investment.total` is the $990/mo Total Package. Keep the card named "Single
    Platform Management" and say which platform it is in `includes`. `addon_price` is the per-platform fallback. The à-la-carte add-ons under the pricing cards (Review Generation $100/mo per location + messaging fees; Product Image Management $10/hr) come from `brand/config.yml` → `extras` and are never added to the package total; override per prospect with `investment.extras`. `investment.trial` (free
-   30-day trial, no invoice until day 31) shows on the cover, investment and
-   next-steps slides when set. The
+   30-day trial, no invoice until day 31) shows on the cover, proposal and
+   next-steps slides when set, and replaces the money-back guarantee (never show both). The
    `services` block must always address all six: `weedmaps`, `leafly`, `yelp`,
    `google` (with `gbp` and `ads` flags), `local_seo`, and `other` (a list; `[]`
    if none). `include: true` on a non-focus platform marks its preview slide

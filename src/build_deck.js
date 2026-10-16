@@ -597,14 +597,10 @@ async function build() {
       });
       by = ey + eh + 0.1;
     }
-    if (trial && extras.length) {
-      text(s, trial, { x: M, y: by, w: 7.5, h: 0.3, fontSize: 12.5, bold: true, color: C.accent });
-      text(s, brand.guarantee, { x: M, y: by + 0.3, w: 7.5, h: 0.28, fontSize: 12, bold: true, color: "FFFFFF" });
-      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.58, w: 7.5, h: 0.28, fontSize: 10, color: C.soft, italic: true });
-    } else if (trial) {
+    // The guarantee is shown only when there is no free trial — the trial replaces it.
+    if (trial) {
       text(s, trial, { x: M, y: by, w: 7.5, h: 0.35, fontSize: 13, bold: true, color: C.accent });
-      text(s, brand.guarantee, { x: M, y: by + 0.36, w: 7.5, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
-      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.66, w: 7.5, h: 0.35, fontSize: 10.5, color: C.soft, italic: true });
+      text(s, inv.ad_spend_note || "", { x: M, y: by + 0.38, w: 7.5, h: 0.35, fontSize: 10.5, color: C.soft, italic: true });
     } else {
       text(s, brand.guarantee, { x: M, y: by, w: 7.5, h: 0.4, fontSize: 14, bold: true, color: C.accent });
       text(s, inv.ad_spend_note || "", { x: M, y: by + 0.42, w: 7.5, h: 0.4, fontSize: 10.5, color: C.soft, italic: true });
@@ -619,7 +615,7 @@ async function build() {
     } else if (addons.length) {
       text(s, `${SHORT ? "" : `${listWords(addons)} previews follow. `}Any platform can be switched on at any point in the engagement.`, { x: M + 7.8, y: by, w: W - 2 * M - 7.8, h: 0.9, fontSize: 11.5, color: C.soft, align: "right" });
     }
-    s.addNotes(`${trial ? trial + " " : ""}Single platform management is $495/mo for any one platform (${focus.name} here); the listing bundle adds every other platform for another $495/mo. ${brand.guarantee} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}${extras.length ? ` Optional add-ons, priced separately and not in the package total: ${extras.map((e) => `${e.name} (${e.price}${e.detail ? ` — ${e.detail}` : ""})`).join("; ")}.` : ""}`);
+    s.addNotes(`${trial ? trial + " " : ""}Single platform management is $495/mo for any one platform (${focus.name} here); the listing bundle adds every other platform for another $495/mo. ${trial ? "" : brand.guarantee + " "} Ad spend is billed by the platform; the fee covers management. ${bundle ? `The listing bundle (${bundleLabel()}) is ${bundle.price} total${bundle.detail ? `: ${bundle.detail}` : ""}.` : `Each add-on is ${addonPrice}.`}${total ? ` Recommended: the whole package at ${total.price}${total.detail ? ` ${total.detail}` : ""}.` : ""}${extras.length ? ` Optional add-ons, priced separately and not in the package total: ${extras.map((e) => `${e.name} (${e.price}${e.detail ? ` — ${e.detail}` : ""})`).join("; ")}.` : ""}`);
   }
 
   // ── ADD-ON / SECONDARY PLATFORM PREVIEWS ──
@@ -730,8 +726,7 @@ async function build() {
     });
     const gy = four ? 5.55 : 5.45;
     if (trial) {
-      text(s, trial, { x: M, y: gy, w: leftW, h: 0.32, fontSize: 12.5, bold: true, color: C.accent });
-      text(s, brand.guarantee, { x: M, y: gy + 0.32, w: leftW, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
+      text(s, trial, { x: M, y: gy + 0.15, w: leftW, h: 0.4, fontSize: 13, bold: true, color: C.accent });
     } else {
       text(s, brand.guarantee, { x: M, y: gy + 0.15, w: leftW, h: 0.4, fontSize: 14, bold: true, color: C.accent });
     }
@@ -763,7 +758,7 @@ async function build() {
     const contactLine = [ct.name && `${ct.name}${ct.title ? ", " + ct.title : ""}`, ct.email, ct.phone, ct.booking_link].filter(Boolean).join("  ·  ");
     text(s, "Ready when you are.", { x: px + 0.35, y: 5.55, w: pw - 0.7, h: 0.4, fontSize: 16, bold: true, color: "FFFFFF" });
     text(s, contactLine, { x: px + 0.35, y: 5.95, w: pw - 0.7, h: 0.5, fontSize: 11, color: C.accent });
-    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then from day 31 every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the guarantee, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
+    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then from day 31 every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the ${trial ? "free trial" : "guarantee"}, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
