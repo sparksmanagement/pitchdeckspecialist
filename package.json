@@ -4,7 +4,7 @@
   "description": "Generates Sparks agency pitch decks (.pptx) for prospective dispensaries, deliveries and brands",
   "scripts": {
     "build": "node src/build_deck.js",
-    "build:all": "for f in prospects/*.yml; do case $f in *_template.yml) ;; *) node src/build_deck.js $f;; esac; done",
+    "build:all": "for f in prospects/*.yml; do case $f in *_template.yml) ;; *) node src/build_deck.js $f && node src/build_deck.js $f --short;; esac; done",
     "preview": "node src/preview.js",
     "publish": "node src/publish_to_drive.js",
     "deck": "node src/deck.js"

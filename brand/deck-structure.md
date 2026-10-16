@@ -10,24 +10,34 @@ Rules that carry over from the Airbnb deck:
 - The viewer knows exactly what we do by slide 3, in plain words.
 - One idea per slide. Big headline, one supporting visual, minimal body copy.
 - Numbers are the argument. Every claim gets a stat or a case study.
-- 14 slides, presentable in under 15 minutes.
+- 14 slides, presentable in under 15 minutes — plus a 4-slide **short deck** (below),
+  because most prospects never read the long one. Both are built for every prospect.
 
 | # | Slide | Airbnb equivalent | Content source |
 |---|---|---|---|
-| 1 | Cover — Sparks × Prospect, "<Focus> Management proposal" | Cover | prospect + brand |
+| 1 | Cover — Sparks × Prospect, "Single Platform Management proposal" (or Multi-Platform), trial on the cover line | Cover | prospect + brand |
 | 2 | The Problem | Problem | brand |
 | 3 | The Solution — tiles grouped as marketplaces (Weedmaps, Leafly), maps (Google, Apple Maps), directories (Yelp, +20 directories) | Solution | services + investment.addon_price |
 | 4 | **Why Sparks** — 100+ managed, #1 agency 2026, 10+ yrs in cannabis (Purple Lotus → Weedmaps → Sparks), official partners (Yelp, Google, Apple Maps), best Weedmaps results, POS attribution | Team / Press / Competitive advantages | brand |
 | 5 | **Focus · Audit** — worst listing on an iPhone with numbered callouts + fleet-wide findings (table when no `audit_mock`) | Market size | prospect.audit_mock + prospect.audit |
-| 6 | **Focus · Scope** — what Sparks will manage (8 numbered lines) | Product | platforms.yml + services.<focus>.notes |
+| 6 | **Scope** — what Sparks will manage (8 numbered lines); subtitle says it covers every listing on the platform, never a list of listings | Product | platforms.yml |
 | 7 | **Focus · Results** — proof stats | Traction | brand.proof + platform proof |
 | 8 | **Focus · Case studies** | Testimonials | case_studies.yml |
-| 9 | **Focus · Proposal** — pricing tiers, guarantee, add-on teaser | Business model | prospect.investment |
+| 9 | **Proposal** — Single Platform Management $495 / Listing Bundle +$495 / Total Package $990 (recommended), optional add-ons row (Review Generation, Product Image Management — never in the total), free-trial burst | Business model | prospect.investment + brand.extras |
 | 10 | Add-on preview · Leafly | — | platforms.yml (+ audit rows for Leafly) |
 | 11 | Add-on preview · Yelp | — | platforms.yml |
 | 12 | Add-on preview · Google (GBP, Ads, Local SEO) | — | platforms.yml |
 | 13 | Your account team | Team | brand/config.yml |
-| 14 | Next steps — kickoff → days 1–30 launch → days 31+ measure, optimize, repeat, investment summary with free-trial burst, contact | Financials / ask | prospect.plan + investment |
+| 14 | Next steps — kickoff → days 1–30 launch → days 31+ measure, optimize, repeat (standard, generic), investment summary with free-trial burst, contact | Financials / ask | STANDARD_PLAN + investment |
+
+Section eyebrows read "Single Platform Management · <section>" (or Multi-Platform); no
+slide title names the platform except the audit slide, which states which listings we
+looked at. With a free trial set, the money-back guarantee is not shown anywhere.
+
+## Short deck (`--short`, `decks/Sparks-x-<slug>-short.pptx`)
+
+Four slides, same generator, same copy: **1 Cover → 2 Scope → 3 Proposal → 4 Next
+steps**. Built and uploaded alongside the full deck by `npm run deck`.
 
 If a non-focus platform is `include: true` in the prospect file, its preview slide is
 labeled INCLUDED instead of ADD-ON and the summary shows "Included". Speaker notes are

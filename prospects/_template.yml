@@ -59,29 +59,28 @@ market:
   competitors_in_zone: 8
   notes: "High-density market; Weedmaps and Google Maps drive most discovery."
 
-# ── SERVICES ── every deck must address all six. Set include true/false and
-# add notes describing exactly what we'll do for THIS prospect.
+# ── SERVICES ── every deck must address all six. Standard pitch = Single Platform
+# Management: only the focus platform is include: true; the rest are previewed as the
+# Listing Bundle add-on. Flip others to true only for a multi-platform proposal.
 services:
   weedmaps:
-    include: true
+    include: true             # the focus platform
     notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."  # speaker notes only; the scope slide says the services cover every listing on the platform
   leafly:
-    include: true
+    include: false
     notes: "Menu sync with POS, Leafly ads, deal activations, review management."
   yelp:
-    include: true
+    include: false
     notes: "Profile optimization, review responses and removal requests, lead tracking. (No Yelp Ads — not available to cannabis right now.)"
   google:
-    include: true
+    include: false
     gbp: true
     ads: false                # true only if compliant Google Ads are in scope
     notes: "Claim & optimize GBP, weekly Google Posts, photo refresh, Q&A, review response. Target: Maps 3-pack in 90 days."
   local_seo:
-    include: true
+    include: false           # part of the Listing Bundle (Apple Maps + 20+ directories)
     notes: "NAP cleanup and citations across 20+ directories, voice-assistant visibility."
-  other:                      # free-form extras; leave list empty [] if none
-    - name: "Programmatic Advertising"
-      notes: "Geo-fenced display + CTV within 5 miles via compliant DSPs; retargeting listing visitors."
+  other: []                   # free-form extras, e.g. - name: "Programmatic Advertising"  notes: "..."
 
 # Investment / engagement. Two ways to price the non-focus platforms:
 #   addon_price  — per platform ("$495/mo each")            [used when `addon` is absent]
@@ -89,7 +88,7 @@ services:
 investment:
   # extras: []   # à-la-carte add-ons shown under the pricing cards; defaults come from brand/config.yml → extras
   monthly_fee: ""             # single price, used when options is empty
-  trial: ""                   # e.g. "Free 30-day trial — no invoice until day 31. Zero risk to start." (keep under ~65 chars)
+  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."   # standard; it replaces the money-back guarantee on the slides. Set "" to drop it.
   addon_price: "$495/mo"
   addon:
     label: "Every other platform"

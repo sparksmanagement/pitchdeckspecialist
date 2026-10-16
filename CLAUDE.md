@@ -37,9 +37,9 @@ your job is to turn that into a finished `.pptx`.
    platform, not necessarily Weedmaps), scaling to 10% of that platform's ad spend
    above $4,950/mo; the Listing Bundle adds every other platform for +$495/mo;
    `investment.total` is the $990/mo Total Package. Keep the card named "Single
-   Platform Management" and say which platform it is in `includes`. `addon_price` is the per-platform fallback. The à-la-carte add-ons under the pricing cards (Review Generation $100/mo per location + messaging fees; Product Image Management $10/hr) come from `brand/config.yml` → `extras` and are never added to the package total; override per prospect with `investment.extras`. `investment.trial` (free
-   30-day trial, no invoice until day 31) shows on the cover, proposal and
-   next-steps slides when set, and replaces the money-back guarantee (never show both). The
+   Platform Management" and say which platform it is in `includes`. `addon_price` is the per-platform fallback. The à-la-carte add-ons under the pricing cards (Review Generation $100/mo per location + messaging fees; Product Image Management $10/hr) come from `brand/config.yml` → `extras` and are never added to the package total; override per prospect with `investment.extras`. `investment.trial` is on
+   by default in the template (free 30-day trial, no invoice until day 31); it shows
+   on the cover, proposal and next-steps slides and replaces the money-back guarantee. The
    `services` block must always address all six: `weedmaps`, `leafly`, `yelp`,
    `google` (with `gbp` and `ads` flags), `local_seo`, and `other` (a list; `[]`
    if none). `include: true` on a non-focus platform marks its preview slide
@@ -56,12 +56,12 @@ your job is to turn that into a finished `.pptx`.
    Google Ads or Meta as platforms that block cannabis — say "most mainstream ad
    networks and social platforms restrict cannabis"; Sparks plans to sell those
    channels later.
-3. **Build:** `npm run deck -- prospects/<slug>.yml` → `decks/Sparks-x-<slug>.pptx`,
-   and uploads it to Google Drive when a credential is configured (step 6).
-   Add `--short` for the 4-slide version (cover → scope → focus-platform investment
-   → next steps) at `decks/Sparks-x-<slug>-short.pptx`; most prospects don't read
-   the full deck, so build both unless the user says otherwise. `npm run publish --
-   prospects/<slug>.yml --short` uploads the short one.
+3. **Build:** `npm run deck -- prospects/<slug>.yml` builds BOTH the full 14-slide
+   deck (`decks/Sparks-x-<slug>.pptx`) and the 4-slide short deck
+   (`decks/Sparks-x-<slug>-short.pptx`: cover → scope → proposal → next steps), and
+   uploads both to Google Drive when a credential is configured (step 6). Always
+   deliver both; `--full` / `--short` build one only. `npm run publish --
+   prospects/<slug>.yml [--short]` re-uploads an already-built deck.
 4. **QA:** validate and render every slide, and look at the images.
    ```bash
    python3 <pptx-skill>/scripts/office/validate.py decks/Sparks-x-<slug>.pptx
@@ -84,6 +84,36 @@ your job is to turn that into a finished `.pptx`.
    folder with the Google Drive connector (`create_file` with the folder mime type
    under that parent), and attach the .pptx for the user to drop in — the connector
    cannot carry a multi-megabyte file as base64.
+
+## House standard (every deck, since Oct 2026)
+
+These are decisions the user has already made. Apply them to every new prospect
+without asking; change them only when the user says so, and update this list.
+
+- **Two decks per prospect**, full and short, both filed in Drive, both links in the
+  summary. Drive gives a replaced file a new ID, so always paste the fresh links.
+- **Pricing**: Single Platform Management $495/mo (any one platform, scales to 10%
+  of that platform's ad spend above $4,950/mo) · Listing Bundle +$495/mo (every
+  other platform, Apple Maps, 20+ directories) · Total Package $990/mo, recommended.
+  Optional add-ons under the cards: Review Generation $100/mo per location +
+  messaging fees; Product Image Management $10/hr. Never fold add-ons into the total.
+- **Free 30-day trial** (no invoice until day 31) on the cover line, proposal and
+  next-steps slides with the FREE 30 DAYS burst. It replaces the money-back
+  guarantee — never show both.
+- **Cover** says "Single Platform Management proposal" (or "Multi-Platform" when 2+
+  platforms are included); the one-liner never names a platform.
+- **Eyebrows** read "Single Platform Management · <Section>"; slide titles don't name
+  the platform (the audit slide is the exception — it says which listings we looked at).
+- **Scope** uses the shared `src/platforms.yml` copy; the subtitle says it covers every
+  listing on the platform. Never list specific listings, zones or locations there.
+- **Next steps** is the fixed three-step process (kickoff → days 1–30 launch →
+  days 31+ measure, optimize, repeat). Keep it generic; don't add a per-prospect plan.
+- **Copy rules**: no Yelp Ads; "20+" directories; official partner = Yelp, Google,
+  Apple Maps only; Weedmaps/Leafly = "10+ years working inside and alongside";
+  founder timeline Purple Lotus (3 yrs) → Weedmaps (4 yrs) → Sparks (4+ yrs); never
+  name Google Ads or Meta as blocking cannabis.
+- **Prospect specifics** live in the audit slide (iPhone mockup + callouts, verified
+  facts only) and the prospect's `includes` text on the proposal card.
 
 ## Where things live
 
