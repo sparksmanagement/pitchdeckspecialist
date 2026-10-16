@@ -22,7 +22,7 @@ Rules that carry over from the Airbnb deck:
 | 6 | **Focus · Scope** — what Sparks will manage (8 numbered lines) | Product | platforms.yml + services.<focus>.notes |
 | 7 | **Focus · Results** — proof stats | Traction | brand.proof + platform proof |
 | 8 | **Focus · Case studies** | Testimonials | case_studies.yml |
-| 9 | **Focus · Investment** — pricing tiers, guarantee, add-on teaser | Business model | prospect.investment |
+| 9 | **Focus · Proposal** — pricing tiers, guarantee, add-on teaser | Business model | prospect.investment |
 | 10 | Add-on preview · Leafly | — | platforms.yml (+ audit rows for Leafly) |
 | 11 | Add-on preview · Yelp | — | platforms.yml |
 | 12 | Add-on preview · Google (GBP, Ads, Local SEO) | — | platforms.yml |

@@ -554,7 +554,7 @@ async function build() {
   // 9. INVESTMENT (focus platform)
   {
     const s = base(true);
-    title(s, "Investment", { dark: true, eyebrow: secEyebrow("Investment"), sub: `Single platform management, with every other platform as one optional bundle.${inv.term ? ` ${inv.term}.` : ""}` });
+    title(s, "Proposal", { dark: true, eyebrow: secEyebrow("Proposal"), sub: `Single platform management, with every other platform as one optional bundle.${inv.term ? ` ${inv.term}.` : ""}` });
     if (trial) trialBurst(s, W - M - 1.75, 0.5, 1.75);
     let opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const addonsPending = others.filter((k) => !isIncluded(k));
