@@ -82,13 +82,15 @@ investment:
       recommended: true
 
 # 30/60/90 plan shown on the Next Steps slide. Defaults are fine for most decks.
-plan:
-  - period: "Days 1–30"
-    items: "Full audit, strategy, listing + menu clean-up, campaigns live"
-  - period: "Days 31–60"
-    items: "Bid & deal optimization, review program, dashboard attribution"
-  - period: "Days 61–90"
-    items: "Scale winners, Maps 3-pack push, quarterly plan"
+plan:   # Sparks standard process; keep the four steps, tailor the launch line if useful
+  - period: "Kickoff"
+    items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard"
+  - period: "Days 1–30  ·  Launch"
+    items: "Full audit, strategy, listing and menu clean-up, products verified and strain tagged, deals and campaigns live"
+  - period: "Days 31–60  ·  Measure & optimize"
+    items: "Measure what the launch did to orders and return, then re-tune positions, deals, products and graphics to improve it"
+  - period: "Days 61–90 and beyond  ·  Repeat & grow"
+    items: "Rinse and repeat every month: measure, adjust, improve — continually growing and maximizing your return; add-on platforms switched on when you're ready"
 
 # Optional: pick which case studies to feature (keys from src/case_studies.yml)
 case_studies: [purple_lotus, nuna_harvest]

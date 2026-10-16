@@ -63,6 +63,13 @@ const others = ORDER.filter((k) => k !== focusKey);
 const isIncluded = (k) => !!(SV[k] && SV[k].include);
 const inv = P.investment || {};
 const addonPrice = inv.addon_price || "$495/mo";
+// Sparks' standard launch process (Next Steps slide). Prospect files may override `plan`.
+const STANDARD_PLAN = [
+  { period: "Kickoff", items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard" },
+  { period: "Days 1–30  ·  Launch", items: "Full audit, strategy, listing and menu clean-up, products verified and strain tagged, deals and campaigns live" },
+  { period: "Days 31–60  ·  Measure & optimize", items: "Measure what the launch did to orders and return, then re-tune positions, deals, products and graphics to improve it" },
+  { period: "Days 61–90 and beyond  ·  Repeat & grow", items: "Rinse and repeat every month: measure, adjust, improve — continually growing and maximizing your return; add-on platforms switched on when you're ready" },
+];
 // Bundle mode: investment.addon = { price, detail } prices all non-focus platforms together.
 const bundle = inv.addon && inv.addon.price ? inv.addon : null;
 const total = inv.total && inv.total.price ? inv.total : null;
@@ -699,27 +706,30 @@ async function build() {
   // NEXT STEPS
   {
     const s = base(true);
-    title(s, "Next steps", { dark: true, sub: `A 90-day ${focus.name} launch plan for ${nameNoDot}.` });
-    const plan = Array.isArray(P.plan) && P.plan.length ? P.plan : [
-      { period: "Days 1–30", items: "Full audit, strategy, listing + menu clean-up, campaigns live" },
-      { period: "Days 31–60", items: "Bid & deal optimization, review program, dashboard attribution" },
-      { period: "Days 61–90", items: "Scale winners, quarterly plan, add-on platforms switched on" },
-    ];
+    title(s, "Next steps", { dark: true, sub: `Kickoff, a 30-day ${focus.name} launch, then a monthly cycle of measure and optimize for ${nameNoDot}.` });
+    // Sparks' standard process. A prospect file can override `plan` (up to 4 steps);
+    // keep the shape: kickoff → launch → measure & optimize → repeat & grow.
+    const plan = Array.isArray(P.plan) && P.plan.length ? P.plan : STANDARD_PLAN;
     const leftW = 7.3;
-    plan.slice(0, 3).forEach((p, i) => {
-      const y = 2.35 + i * 1.05;
-      s.addShape(pres.ShapeType.ellipse, { x: M, y: y + 0.1, w: 0.55, h: 0.55, fill: { color: C.accent }, line: { color: C.accent, width: 0 } });
-      s.addText(String(i + 1), { x: M, y: y + 0.1, w: 0.55, h: 0.55, fontFace: FONT_H, fontSize: 16, bold: true, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0 });
-      text(s, p.period + (trial && i === 0 ? "  ·  Free trial" : ""), { x: M + 0.8, y, w: leftW - 0.8, h: 0.4, fontSize: 15, bold: true, color: "FFFFFF" });
-      text(s, p.items, { x: M + 0.8, y: y + 0.4, w: leftW - 0.8, h: 0.6, fontSize: 12, color: C.soft });
+    const steps = plan.slice(0, 4);
+    const four = steps.length > 3;
+    const pitch = four ? 0.82 : 1.05, y0 = four ? 2.15 : 2.35;
+    const trialIdx = trial ? Math.max(0, steps.findIndex((p) => /^Days?\s*1\b/i.test(p.period || ""))) : -1;
+    steps.forEach((p, i) => {
+      const y = y0 + i * pitch;
+      s.addShape(pres.ShapeType.ellipse, { x: M, y: y + 0.08, w: 0.5, h: 0.5, fill: { color: C.accent }, line: { color: C.accent, width: 0 } });
+      s.addText(String(i + 1), { x: M, y: y + 0.08, w: 0.5, h: 0.5, fontFace: FONT_H, fontSize: 15, bold: true, color: C.primary, align: "center", valign: "middle", isTextBox: true, margin: 0 });
+      text(s, p.period + (i === trialIdx ? "  ·  Free trial" : ""), { x: M + 0.75, y, w: leftW - 0.75, h: 0.34, fontSize: four ? 14 : 15, bold: true, color: "FFFFFF" });
+      text(s, p.items, { x: M + 0.75, y: y + 0.33, w: leftW - 0.75, h: four ? 0.48 : 0.6, fontSize: four ? 11 : 12, color: C.soft });
     });
+    const gy = four ? 5.55 : 5.45;
     if (trial) {
-      text(s, trial, { x: M, y: 5.45, w: leftW, h: 0.35, fontSize: 13, bold: true, color: C.accent });
-      text(s, brand.guarantee, { x: M, y: 5.8, w: leftW, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
+      text(s, trial, { x: M, y: gy, w: leftW, h: 0.32, fontSize: 12.5, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: gy + 0.32, w: leftW, h: 0.3, fontSize: 12, bold: true, color: "FFFFFF" });
     } else {
-      text(s, brand.guarantee, { x: M, y: 5.6, w: leftW, h: 0.4, fontSize: 14, bold: true, color: C.accent });
+      text(s, brand.guarantee, { x: M, y: gy + 0.15, w: leftW, h: 0.4, fontSize: 14, bold: true, color: C.accent });
     }
-    if (LOGO.wordmark_white) s.addImage({ ...logoW("wordmark_white", 1.0), x: M, y: 6.15 });
+    if (LOGO.wordmark_white) s.addImage({ ...logoW("wordmark_white", 1.0), x: M, y: 6.22 });
     const px = M + leftW + 0.4, pw = W - M - px;
     card(s, px, 2.35, pw, 4.2, { fill: C.deep });
     text(s, "INVESTMENT SUMMARY", { x: px + 0.35, y: 2.6, w: pw - 1.5, h: 0.3, fontSize: 10.5, color: C.accent, charSpacing: 3, bold: true });
@@ -747,7 +757,7 @@ async function build() {
     const contactLine = [ct.name && `${ct.name}${ct.title ? ", " + ct.title : ""}`, ct.email, ct.phone, ct.booking_link].filter(Boolean).join("  ·  ");
     text(s, "Ready when you are.", { x: px + 0.35, y: 5.55, w: pw - 0.7, h: 0.4, fontSize: 16, bold: true, color: "FFFFFF" });
     text(s, contactLine, { x: px + 0.35, y: 5.95, w: pw - 0.7, h: 0.5, fontSize: 11, color: C.accent });
-    s.addNotes(`${trial ? trial + " " : ""}Close: restate the guarantee, propose a start date, and ask for ${focus.name} admin access to begin the audit. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
+    s.addNotes(`${trial ? trial + " " : ""}Walk the process: kickoff (align on goals, info, deals, menu; connect every platform; set up the analytics dashboard), a 30-day launch, then every month we measure what the changes did to the return and re-tune positions, deals, products and graphics — rinse and repeat to keep growing it. Close: restate the guarantee, propose a kickoff date, and ask for ${focus.name} admin access. ${bundle ? `The add-on bundle (${bundleLabel()}) is ${bundle.price} total${total ? `, so the whole package is ${total.price}` : ""}${bundle.detail ? ` — ${bundle.detail}` : ""}.` : `Add-ons are ${addonPrice} each.`} Can be switched on at any time.`);
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });

@@ -27,7 +27,7 @@ Rules that carry over from the Airbnb deck:
 | 11 | Add-on preview · Yelp | — | platforms.yml |
 | 12 | Add-on preview · Google (GBP, Ads, Local SEO) | — | platforms.yml |
 | 13 | Your account team | Team | brand/config.yml |
-| 14 | Next steps — 90-day plan, investment summary with free-trial burst, contact | Financials / ask | prospect.plan + investment |
+| 14 | Next steps — kickoff → 30-day launch → measure & optimize → repeat & grow, investment summary with free-trial burst, contact | Financials / ask | prospect.plan + investment |
 
 If a non-focus platform is `include: true` in the prospect file, its preview slide is
 labeled INCLUDED instead of ADD-ON and the summary shows "Included". Speaker notes are

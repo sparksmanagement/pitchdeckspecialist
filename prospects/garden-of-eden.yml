@@ -122,12 +122,14 @@ investment:
     price: "$990/mo"
     detail: "One platform + the listing bundle (every other platform, Apple Maps and 20 directories), unless the 10%-of-ad-spend rule applies"
 
-plan:
-  - period: "Days 1–30"
-    items: "Deal tiles and featured products on all 4 listings, ordering extended to close, review program live, menus verified, bids launched in Hayward and Tracy"
-  - period: "Days 31–60"
-    items: "Deal cadence, creative refresh, delivery-zone bids for Manteca, Lathrop and Mountain House, POS-integrated dashboard live"
-  - period: "Days 61–90"
-    items: "Scale winning zones, review velocity to match Google, quarterly plan"
+plan:   # Sparks standard process; keep the four steps, tailor the launch line if useful
+  - period: "Kickoff"
+    items: "Meet with your team to align on goals, account info, deals, menu and brand assets; connect every platform; set up your analytics dashboard"
+  - period: "Days 1–30  ·  Launch"
+    items: "Full audit and strategy, deal tiles and featured products on every listing, ordering extended to close, menus verified and strain tagged, bids live in every zone"
+  - period: "Days 31–60  ·  Measure & optimize"
+    items: "Measure what the launch did to orders and return, then re-tune positions, deals, products and graphics to improve it"
+  - period: "Days 61–90 and beyond  ·  Repeat & grow"
+    items: "Rinse and repeat every month: measure, adjust, improve — continually growing and maximizing your return; add-on platforms switched on when you're ready"
 
 case_studies: [purple_lotus, nuna_harvest]
