@@ -1,0 +1,127 @@
+# UpLift Dispensaries — Ohio-owned med + rec chain, Greater Cincinnati: Milford (401 Rivers Edge Dr),
+# Mt. Orab (101 Mercy Blvd) and Miamitown / Cleves (6175 Hamilton Cleves Rd, opened Oct 2026).
+# upliftohio.com. Pitch scope: Single Platform Management (Weedmaps). Build: npm run deck -- prospects/uplift-ohio.yml
+
+prospect:
+  name: "UpLift Dispensaries"
+  type: dispensary
+  type_label: "three-store dispensary group"
+  focus: weedmaps
+  package: ""
+  city: "Cincinnati"
+  state: "OH"
+  locations: 3
+  website: "upliftohio.com"
+  contact_name: ""
+  contact_title: ""
+  date: ""
+
+# Verified on the live listings (headless browser, Nov 17 2026) unless marked "per".
+audit:
+  - platform: "Weedmaps · Milford"
+    finding: "Listing tagged \"In-store purchases only\" — no online ordering through Weedmaps; 4 photos; no deals (\"No Deals Available\"); the only review we can see is from June 2023; the hero banner still announces non-medical sales as new (they started Aug 2024)."
+    impact: "859 products on a live menu that can't be ordered; a two-year-old banner and one review tell shoppers the listing isn't managed"
+  - platform: "Weedmaps · Mt. Orab"
+    finding: "\"In-store purchases only\", 5 photos, no deals on Weedmaps (Leafly carries a 15% Tue/Thu deal the Weedmaps listing doesn't), no visible store rating, same 2024 \"available now\" banner."
+    impact: "Shoppers comparing Mt. Orab stores on Weedmaps see no deal and no rating next to a 975-product menu"
+  - platform: "Weedmaps · Miamitown"
+    finding: "New listing (Oct 2026): 7 photos, \"Now open\" banner, 934 products, no deals, no reviews yet, \"In-store purchases only\"."
+    impact: "The newest store has no Weedmaps orders, reviews or deals to build momentum in the west-side zone"
+  - platform: "Leafly · Listings"
+    finding: "Mt. Orab 4.9★ (12 reviews/ratings, 109 followers, 1 deal); Milford 4.6★ (11 reviews, 65 followers, no deals, 4 products showing \"Image Not Found\"); Miamitown 5.0★ (2 reviews). Menus can't be ordered through Leafly (local rules) — they link out to your site."
+    impact: "Three healthy ratings with thin review counts and missing product images; deals and menu hygiene differ store to store"
+  - platform: "Yelp · Profiles"
+    finding: "Per Yelp (search snippet, Jun 2026): Milford 3.0★ from 9 reviews; Mt. Orab 4.3★ from 4 reviews. Yelp blocks automated access, so these are to confirm on the call."
+    impact: "A 3.0★ Yelp page for Milford is the first thing a name search shows — unanswered reviews are pulling the average down"
+  - platform: "Google · Business Profiles"
+    finding: "Live Google Maps (Nov 17): Milford 4.8★, Mt. Orab 4.8★, Miamitown 4.9★. Review counts aren't visible to us; a directory lists ~1,600 (Milford) and ~1,870 (Mt. Orab) per Local Dispensary Guide — please confirm, and whether all three profiles are claimed."
+    impact: "Your biggest review base by far is on Google; posts, photos and replies there feed the Maps 3-pack for every store"
+
+# Live Weedmaps listing on an iPhone with numbered callouts (slide 5). Screenshot captured from
+# weedmaps.com/dispensaries/uplift-milford on Nov 17 2026.
+audit_mock:
+  listing: "UpLift - Milford on Weedmaps"
+  subtitle: "Dispensary · Milford, Ohio · Medical & Non-medical"
+  rating: "—"
+  reviews: "1 review visible (Jun 2023)"
+  badges: ["In-store purchases only", "Medical & Non-medical"]
+  deals: "No Deals Available"
+  menu: "859 products · Live menu"
+  reviews_line: "No store rating shown"
+  screenshot: "prospects/assets/uplift-ohio-weedmaps.png"
+  fleet_title: "Across the other 2 listings"
+  callouts:
+    - at: [0.32, 0.16]
+      covers: "Milford"
+      title: "A 2024 banner is still the hero"
+      text: "\"Non-medical cannabis available NOW!\" has been the headline since rec sales began in Aug 2024. A header that never changes tells shoppers nobody is home."
+    - at: [0.38, 0.45]
+      title: "\"In-store purchases only\""
+      text: "All three listings are pickup/in-store only on Weedmaps — no online ordering, so 859 products sit behind a menu nobody can check out from. Online ordering is the first fix."
+    - at: [0.82, 0.245]
+      title: "4 photos, no rating, one review"
+      text: "One review from June 2023 and no visible store rating next to 4.8★ on Google. A review program moves Google-level social proof onto the platform shoppers order from."
+    - at: [0.22, 0.84]
+      title: "Sale items, but no deals"
+      text: "-20% tags on products, yet the Deals tab says \"No Deals Available\". Deal listings are what surface a store in Weedmaps' deals feed and zone results."
+    - at: [0.6, 0.93]
+      title: "Verification to confirm"
+      text: "859 products on a live menu; verification and strain tagging status aren't visible from outside the account."
+
+market:
+  competitors_in_zone:
+  notes: "Ohio-owned three-store group in Greater Cincinnati, named a Top Non-Medical Marijuana Dispensary of 2025 by Cannabis Business Insights (per the Miamitown Weedmaps listing). 4.8–4.9★ on Google and 4.6–4.9★ on Leafly are the asset; on Weedmaps all three listings are in-store only with no deals, no visible ratings and a stale banner — against 20+ Cincinnati-area competitors accepting orders online."
+
+services:
+  weedmaps:
+    include: true
+    notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
+  leafly:
+    include: false
+    notes: ""
+  yelp:
+    include: false
+    notes: ""
+  google:
+    include: false
+    gbp: false
+    ads: false
+    notes: ""
+  local_seo:
+    include: false
+    notes: ""
+  other: []
+
+investment:
+  monthly_fee: ""
+  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."
+  ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
+  term: "Month-to-month after the 90-day launch"
+  options:
+    - name: "Single Platform Management"
+      summary: "Single Platform (Weedmaps)"
+      price: "$495/mo"
+      alt: "or 10% of that platform's ad spend once it exceeds $4,950/mo"
+      includes: "Any one platform — Weedmaps in this proposal, all three stores: bids, listings, menus, deals, graphics, reviews, weekly reporting"
+    - name: "Listing Bundle"
+      price: "+$495/mo"
+      alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
+      includes: "Every other platform: Leafly + Yelp + Google + Apple Maps and 20 directories — same seven pillars everywhere"
+      optional: true
+    - name: "Total Package"
+      price: "$990/mo"
+      alt: "or 10% of ad spend where the spend thresholds are exceeded"
+      includes: "Every marketplace, map and directory your customers use — one team, one report."
+      recommended: true
+  addon:
+    label: "Every other platform"
+    price: "$495/mo"
+    detail: "One fee for every other platform (Leafly, Yelp, Google, Apple Maps and 20 directories); scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
+  total:
+    label: "Total package"
+    price: "$990/mo"
+    detail: "One platform + the listing bundle (every other platform, Apple Maps and 20 directories), unless the 10%-of-ad-spend rule applies"
+
+# plan: omitted — the Next Steps slide uses the standard Sparks process (kickoff → days 1–30 → days 31+)
+
+case_studies: [purple_lotus, nuna_harvest]

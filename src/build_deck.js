@@ -49,6 +49,8 @@ const M = 0.6; // margin
 const pros = P.prospect || {};
 const prospectName = pros.name || "Your Dispensary";
 const nameNoDot = prospectName.replace(/\.$/, "");
+// Possessive that handles names ending in s ("UpLift Dispensaries' listings").
+const poss = (n) => (/s$/i.test(n) ? `${n}'` : `${n}'s`);
 const place = [pros.city, pros.state].filter(Boolean).join(", ");
 const today =
   pros.date ||
@@ -358,7 +360,7 @@ async function build() {
     let rows = auditFor(focusKey);
     if (!rows.length) rows = auditRows;
     const hasAudit = rows.length > 0;
-    const y0 = title(s, `What we found on ${prospectName}'s ${focus.name} listings`, { eyebrow: secEyebrow("Audit"), sub: mock ? `${mock.listing || "Their listing"} as a shopper sees it — and what it's costing.` : "Every row is revenue currently left on the table." });
+    const y0 = title(s, `What we found on ${poss(prospectName)} ${focus.name} listings`, { eyebrow: secEyebrow("Audit"), sub: mock ? `${mock.listing || "Their listing"} as a shopper sees it — and what it's costing.` : "Every row is revenue currently left on the table." });
     const FLAG = "C8322B"; // callout red
     if (mock) {
       // ── phone ──
@@ -641,7 +643,7 @@ async function build() {
     if (seen.length) {
       const y = y0 + rowsAvail + 0.1;
       card(s, M, y, leftW, 0.95, { fill: C.highlight });
-      text(s, `What we saw on ${prospectName}'s ${pl.name}`, { x: M + 0.3, y: y + 0.1, w: leftW - 0.6, h: 0.3, fontSize: 12, bold: true, color: C.primary });
+      text(s, `What we saw on ${poss(prospectName)} ${pl.name}`, { x: M + 0.3, y: y + 0.1, w: leftW - 0.6, h: 0.3, fontSize: 12, bold: true, color: C.primary });
       text(s, seen.map((r) => r.finding).join("  ·  "), { x: M + 0.3, y: y + 0.4, w: leftW - 0.6, h: 0.5, fontSize: 10.5, color: C.ink });
     }
     const rx = M + leftW + 0.3, rw = W - M - rx, rhgt = H - 0.8 - y0;
@@ -708,7 +710,7 @@ async function build() {
   // NEXT STEPS
   {
     const s = base(true);
-    title(s, "Next steps", { dark: true, sub: `Kickoff, a 30-day launch, then a monthly cycle of measure and optimize to keep growing ${nameNoDot}'s return.` });
+    title(s, "Next steps", { dark: true, sub: `Kickoff, a 30-day launch, then a monthly cycle of measure and optimize to keep growing ${poss(nameNoDot)} return.` });
     // Sparks' standard process. A prospect file can override `plan` (up to 4 steps);
     // keep the shape: kickoff → launch → measure & optimize → repeat & grow.
     const plan = Array.isArray(P.plan) && P.plan.length ? P.plan : STANDARD_PLAN;
