@@ -84,8 +84,9 @@ const scopeList = listWords(includedNames.length ? includedNames : [focus.name])
 // Proposal shape: "single" (one platform, the focus) or "multi" (two or more platforms
 // included). Auto-detected from services.*.include; prospect.package overrides.
 const isMulti = pros.package ? String(pros.package).toLowerCase().startsWith("multi") : includedNames.length > 1;
-const proposalLabel = isMulti ? "Multi-Platform Management proposal" : "Single Platform Management proposal";
-const packageName = isMulti ? "Multi-Platform Management" : "Single Platform Management";
+// prospect.package_name renames the package everywhere (cover line, eyebrows, fallback cards).
+const packageName = pros.package_name || (isMulti ? "Multi-Platform Management" : "Single Platform Management");
+const proposalLabel = `${packageName} proposal`;
 const oneLiner = isMulti
   ? `We manage your listings and ads across every platform your customers use, so your ${typeWord} gets found, clicked, and ordered from.`
   : `We manage your listings and ads on the platform that matters most to you, so your ${typeWord} gets found, clicked, and ordered from.`;
@@ -272,11 +273,11 @@ async function build() {
   if (!SHORT) {
     const s = base(true);
     const y0 = title(s, `We run your listings and ads — and we're accountable for the orders.`, { dark: true, eyebrow: "The solution" });
-    text(s, "Full-service listing management across the marketplaces, maps and directories your customers use: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. Start with the platform that matters most, add the rest when you're ready.", {
+    text(s, `Full-service listing management across the marketplaces, maps and directories your customers use: spend, listings, menus, reviews, deals, creative and data — handled by ex-Weedmaps operators. ${isMulti ? "Every one of them, in this proposal." : "Start with the platform that matters most, add the rest when you're ready."}`, {
       x: M, y: y0 + 0.1, w: 7.8, h: 1.3, fontSize: 15, color: C.soft,
     });
     const dirOn = isIncluded("local_seo") || isIncluded("google");
-    const tileFor = (k) => { const pl = PLAT[k], isFocus = k === focusKey, inc = isIncluded(k); return { icon: pl.icon, name: pl.name, on: isFocus || inc, label: isFocus ? "THIS PROPOSAL" : inc ? "INCLUDED" : tileAddonLabel }; };
+    const tileFor = (k) => { const pl = PLAT[k], isFocus = k === focusKey, inc = isIncluded(k); return { icon: pl.icon, name: pl.name, on: isFocus || inc, label: isFocus ? (isMulti ? "INCLUDED" : "THIS PROPOSAL") : inc ? "INCLUDED" : tileAddonLabel }; };
     const groups = [
       ["Marketplaces", [tileFor("weedmaps"), tileFor("leafly")]],
       ["Maps", [tileFor("google"), { icon: "FaApple", name: "Apple Maps", on: dirOn, label: dirOn ? "INCLUDED" : tileAddonLabel }]],
@@ -486,7 +487,8 @@ async function build() {
     const cfg = SV[focusKey] || {};
     // Generic on purpose: never enumerate listings or zones here, so nothing gets missed.
     const y0 = title(s, `What Sparks will manage for ${prospectName}`, { eyebrow: secEyebrow("Scope"), sub: isMulti ? `Everything below applies to every ${prospectName} listing on every platform in this proposal.` : `Everything below applies to every ${prospectName} listing on your single platform, and to each platform you add.` });
-    const items = focus.what_we_manage || [];
+    // P.scope (list of {title, body}) overrides the focus platform's items, e.g. for an all-platform package.
+    const items = Array.isArray(P.scope) && P.scope.length ? P.scope : (focus.what_we_manage || []);
     const cols = 2, gap = 0.3;
     const cw = (W - 2 * M - gap) / cols;
     const rowsN = Math.ceil(items.length / cols);
@@ -556,7 +558,7 @@ async function build() {
   // 9. INVESTMENT (focus platform)
   {
     const s = base(true);
-    title(s, "Proposal", { dark: true, eyebrow: secEyebrow("Proposal"), sub: `Single platform management, with every other platform as one optional bundle.${inv.term ? ` ${inv.term}.` : ""}` });
+    title(s, "Proposal", { dark: true, eyebrow: secEyebrow("Proposal"), sub: inv.subtitle || `Single platform management, with every other platform as one optional bundle.${inv.term ? ` ${inv.term}.` : ""}` });
     if (trial) trialBurst(s, W - M - 1.75, 0.5, 1.75);
     let opts = Array.isArray(inv.options) ? inv.options.filter((o) => o && o.name) : [];
     const addonsPending = others.filter((k) => !isIncluded(k));
@@ -742,7 +744,8 @@ async function build() {
     const pendingKeys = others.filter((k) => !isIncluded(k));
     if (opts.length) opts.forEach((o) => lines.push([(o.summary || o.name) + (o.optional ? "  (optional)" : ""), o.price || "Custom", !!o.recommended]));
     else lines.push([`${packageName} (${focus.name})`, inv.monthly_fee || "Custom"]);
-    for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
+    if (isMulti && others.every(isIncluded)) lines.push(["Every platform + 20 directories", "Included"]);
+    else for (const k of others.filter(isIncluded)) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), "Included"]);
     if (pendingKeys.length && !(bundle && opts.some((o) => o.price === bundle.price))) {
       if (bundle) lines.push([pendingKeys.map((k) => PLAT[k].name).join(" + "), `+${bundle.price}`]);
       else for (const k of pendingKeys) lines.push([PLAT[k].service.replace(/ \(.*\)$/, ""), `+${addonPrice}`]);

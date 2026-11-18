@@ -1,13 +1,15 @@
 # UpLift Dispensaries — Ohio-owned med + rec chain, Greater Cincinnati: Milford (401 Rivers Edge Dr),
 # Mt. Orab (101 Mercy Blvd) and Miamitown / Cleves (6175 Hamilton Cleves Rd, opened Oct 2026).
-# upliftohio.com. Pitch scope: Single Platform Management (Weedmaps). Build: npm run deck -- prospects/uplift-ohio.yml
+# upliftohio.com. Pitch scope: Marketplace Management — every platform, priced per location
+# ($990 one-time setup + $495/mo per location; no package total). Build: npm run deck -- prospects/uplift-ohio.yml
 
 prospect:
   name: "UpLift Dispensaries"
   type: dispensary
   type_label: "three-store dispensary group"
   focus: weedmaps
-  package: ""
+  package: "multi"
+  package_name: "Marketplace Management"   # as pitched: every platform, per location
   city: "Cincinnati"
   state: "OH"
   locations: 3
@@ -77,50 +79,58 @@ services:
     include: true
     notes: "All listings on the platform: ad spend & bid management, listing optimization, deal & promotion activations, in-house graphics, menu management & product verification, review responses, weekly reporting."
   leafly:
-    include: false
-    notes: ""
+    include: true
+    notes: "Menu sync and strain tagging, Leafly ads, deal activations, review responses — all three stores."
   yelp:
-    include: false
-    notes: ""
+    include: true
+    notes: "Profile optimization, review responses and removal requests, lead tracking. (No Yelp Ads — not available to cannabis right now.)"
   google:
-    include: false
-    gbp: false
+    include: true
+    gbp: true
     ads: false
-    notes: ""
+    notes: "Claim and optimize all three Business Profiles, weekly posts, photo refresh, Q&A, review responses; Apple Business Connect."
   local_seo:
-    include: false
-    notes: ""
+    include: true
+    notes: "NAP consistency across Apple Maps and 20+ directories for all three stores."
   other: []
+
+# All-platform scope for the Scope slide (overrides the Weedmaps-only list).
+scope:
+  - title: "Bid & budget strategy"
+    body: "Daily budget pacing and bid management on Weedmaps and Leafly for the most efficient placement in every service zone"
+  - title: "Listing optimization"
+    body: "Hours, photos, attributes, descriptions and Q&A kept accurate and conversion-ready on every platform"
+  - title: "Menu & product verification"
+    body: "Menus synced with your POS; every product verified and strain tagged, featured products kept current"
+  - title: "Deals & promotions"
+    body: "Daily and monthly deal activations, BOGOs, promo codes, sales pricing and daily product mapping"
+  - title: "In-house graphics"
+    body: "Headers, deal tiles and product imagery designed for every platform and ad format"
+  - title: "Review management"
+    body: "Same-day responses and removal requests on Weedmaps, Leafly, Yelp and Google"
+  - title: "Google, Apple Maps & 20+ directories"
+    body: "Business Profile posts and photos, Apple Business Connect, and consistent name, address and hours everywhere"
+  - title: "Weekly reporting"
+    body: "One report per store with POS-attributed revenue and ROAS across every platform"
 
 investment:
   monthly_fee: ""
-  trial: "Free 30-day trial — no invoice until day 31. Zero risk to start."
+  trial: ""
+  subtitle: "Every platform, priced per location — multiply by the stores you want us to manage. Month-to-month after the 90-day launch."
   ad_spend_note: "Ad spend is billed directly by each platform; Sparks manages allocation and bidding."
   term: "Month-to-month after the 90-day launch"
   options:
-    - name: "Single Platform Management"
-      summary: "Single Platform (Weedmaps)"
+    - name: "Setup"
+      summary: "Setup (per location, one-time)"
+      price: "$990"
+      alt: "per location · one-time"
+      includes: "Onboarding every listing for the store: audit, platform connections, menu and product clean-up, verification and strain tagging, fresh graphics, analytics dashboard"
+    - name: "Marketplace Management"
+      summary: "Management (per location)"
       price: "$495/mo"
-      alt: "or 10% of that platform's ad spend once it exceeds $4,950/mo"
-      includes: "Any one platform — Weedmaps in this proposal, all three stores: bids, listings, menus, deals, graphics, reviews, weekly reporting"
-    - name: "Listing Bundle"
-      price: "+$495/mo"
-      alt: "or 10% of ad spend if any platform's spend exceeds $4,950/mo"
-      includes: "Every other platform: Leafly + Yelp + Google + Apple Maps and 20 directories — same seven pillars everywhere"
-      optional: true
-    - name: "Total Package"
-      price: "$990/mo"
-      alt: "or 10% of ad spend where the spend thresholds are exceeded"
-      includes: "Every marketplace, map and directory your customers use — one team, one report."
+      alt: "per location · month-to-month"
+      includes: "Weedmaps, Leafly, Yelp, Google, Apple Maps and 20+ directories: bids, listings, menus, deals, graphics, reviews, weekly reporting — the same seven pillars on every platform"
       recommended: true
-  addon:
-    label: "Every other platform"
-    price: "$495/mo"
-    detail: "One fee for every other platform (Leafly, Yelp, Google, Apple Maps and 20 directories); scales to 10% of ad spend if any platform's spend exceeds $4,950/mo"
-  total:
-    label: "Total package"
-    price: "$990/mo"
-    detail: "One platform + the listing bundle (every other platform, Apple Maps and 20 directories), unless the 10%-of-ad-spend rule applies"
 
 # plan: omitted — the Next Steps slide uses the standard Sparks process (kickoff → days 1–30 → days 31+)
 
